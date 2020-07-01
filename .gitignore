@@ -36,3 +36,6 @@ $RECYCLE.BIN/
 # Dependency directories
 node_modules/
 jspm_packages/
+
+
+.png
