@@ -1,0 +1,37 @@
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+### macOS ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows shortcuts
+*.lnk
+
+# code editro
+.vscode/
+
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# Dependency directories
+node_modules/
+jspm_packages/
