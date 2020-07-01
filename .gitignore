@@ -15,6 +15,7 @@
 *.DS_Store
 .AppleDouble
 .LSOverride
+.DS_Store
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
