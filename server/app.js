@@ -1,12 +1,15 @@
 const express = require('express');
 const session = require('express-session');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const userRouter = require('./routes/user');
 const cors = require('cors');
 
 const app = express();
-const port = 4000;
+const port = 8080;
 
 let corsOpt = {
-  origin: '*',
+  origin: 'http://127.0.0.1:3000',
   methods: ['POST', 'GET', 'DELETE', 'PUT'],
   credentials: true,
 };
@@ -19,12 +22,17 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-const root = '';
+const root = '/';
 
 app.get(root, (req, res) => {
   res.status(200).send('Success');
 });
+
+app.use('/user', userRouter);
 
 app.set('port', port);
 app.listen(app.get('port'), () => {
