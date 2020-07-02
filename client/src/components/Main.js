@@ -12,14 +12,14 @@ class Main extends React.Component {
   };
 
   getWordData() {
-    // get 요청: 서버로부터 유저와 일치하는 모든 단어 / 예문을 불러온다.
+    // get 요청: 서버로부터 유저와 일치하는 모든 단어/예문을 불러온다.
     axios.get('url').then((res) => {
       this.setState({ wordData: res.data });
     });
   }
 
   postInputData() {
-    // post 요청: 유저가 입력한 새로운 예문 / 단어를 서버에 전송한다.
+    // post 요청: 유저가 입력한 새로운 단어/예문을 서버에 전송한다.
     axios
       .post('url', {
         currentWord: this.state.currentWord,
@@ -31,7 +31,7 @@ class Main extends React.Component {
   }
 
   updateWordData() {
-    // put 요청: 유저가 단어를 수정한 경우, 또는 예문을 수정 / 추가 / 삭제한 경우 그 값을 서버에 전송한다.
+    // put 요청: 유저가 단어를 수정한 경우, 또는 예문을 수정/추가/삭제한 경우 그 값을 서버에 전송한다.
     axios
       .put('url', {
         currentWord: this.state.currentWord,
@@ -43,11 +43,12 @@ class Main extends React.Component {
   }
 
   deleteWordData() {
-    // delete 요청: 유저가 단어 / 예문을 삭제한 경우 서버에 삭제를 요청한다.
+    // delete 요청: 유저가 단어/예문을 삭제한 경우 서버에 삭제를 요청한다.
     axios.delete('url/:userId/:wordId...', {
       withCredentials: true,
     });
   }
+
   render() {
     return (
       <div>
@@ -67,7 +68,3 @@ class Main extends React.Component {
   }
 }
 export default Main;
-
-// #15 클라이언트 라우팅 설계
-// react-router-dom 설치했습니다.
-// index.js, App.js, Main.js, Header.js에 라우팅 구현했습니다.
