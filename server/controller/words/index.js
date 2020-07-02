@@ -1,22 +1,22 @@
 /* eslint-disable */
 
-const { words } = require('../../models');
+// const { words } = require('../../models');
 
 module.exports = {
   get: (req, res) => {
-    urls
-      .findAll()
-      .then((result) => {
-        if (result) {
-          res.status(200).json(result);
-        } else {
-          res.sendStatus(204);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        res.status(500).send(error);
-      });
+    // urls
+    //   .findAll()
+    //   .then((result) => {
+    //     if (result) {
+    //       res.status(200).json(result);
+    //     } else {
+    //       res.sendStatus(204);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     res.status(500).send(error);
+    //   });
   },
 
   post: (req, res) => {
