@@ -30,6 +30,7 @@ class App extends React.Component {
       <div>
         <Switch>
           <Route
+            exact
             path="/"
             render={() => (
               <Login
@@ -41,6 +42,7 @@ class App extends React.Component {
           <Route exact path="/signup" render={() => <SignUp />} />
           <Route exact path="/main" render={() => <Main />} />
           <Route
+            exact
             path="/"
             render={() => {
               if (this.state.isLogin) {
