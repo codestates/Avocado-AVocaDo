@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-// need npm i axios --save
 import axios from 'axios';
 // 'history' is missing in props validation 해결위해 설치함
 import PropTypes from 'prop-types';
