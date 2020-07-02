@@ -1,4 +1,4 @@
-const { words } = require('../../models/');
+const { words } = require('../../models/users');
 
 module.exports = {
   post: (req, res) => {
