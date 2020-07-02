@@ -50,6 +50,7 @@ class SignUp extends React.Component {
       <div className="signup_wraper">
         <div className="signup_container">
           <form
+            className="signup_form"
             onSubmit={(e) => {
               e.preventDefault();
 

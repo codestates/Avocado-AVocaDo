@@ -25,12 +25,12 @@ h6 {
   margin: 0;
 }
 
-form {
+.login_form {
   position: relative;
   width: 100%;
 }
 
-fieldset {
+.login_fieldset {
   border: 0;
   margin: 0;
   padding: 0;

@@ -25,13 +25,13 @@ h6 {
   margin: 0;
 }
 
-fieldset {
+.signup_fieldset {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-form {
+.signup_form {
   position: relative;
   width: 100%;
 }
@@ -50,7 +50,7 @@ a {
   margin: 0 auto;
 }
 
-form h1 {
+.signup_form h1 {
   padding-top: 62px;
   height: 168px;
   color: #03c75a;
@@ -58,7 +58,7 @@ form h1 {
   font-size: 45px;
 }
 
-form h3 {
+.signup_form h3 {
   padding-left: 5px;
 }
 
@@ -67,9 +67,7 @@ form h3 {
 }
 
 .id_area,
-.password_area,
-.name_area,
-.phone_area {
+.password_area {
   position: relative;
 }
 
