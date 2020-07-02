@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 function Header() {
   return (
-    <nav>
+    <nav className="nav">
       <Link to="/wordbook">
         <h3>My wordbook</h3>
       </Link>
