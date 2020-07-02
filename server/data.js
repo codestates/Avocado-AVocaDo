@@ -6,7 +6,6 @@ let words = [
     id: 1,
     word: 'please',
     user_id: 1,
-    sentence: [a, b, c],
   },
   {
     id: 2,
