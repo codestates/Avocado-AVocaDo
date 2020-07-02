@@ -1,8 +1,10 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom'; // userHistory
+// import { Switch, Route, Redirect } from 'react-router-dom'; // userHistory
 import axios from 'axios';
 
-import WordList from './WordList';
+import Header from './Header';
+import WordInput from './WordInput';
+import WordCardStack from './WordCardStack';
 
 class Main extends React.Component {
   state = {
@@ -47,27 +49,25 @@ class Main extends React.Component {
     axios.delete('url/:userId/:wordId...', {
       withCredentials: true,
     });
+    // delete 요청 body로 보내는 코드 추가
   }
+
   render() {
     return (
       <div>
-        <Switch>
-          <Route path="/wordbook" render={() => <WordList />} />
-          <Route // 이 컴포넌트에서도 로그아웃 라우팅이 필요한가?
-            path="/"
-            render={() => {
-              if (!this.state.isLogin) {
-                return <Redirect to="/" />;
-              }
-            }}
-          />
-        </Switch>
+        <div className="header">
+          <Header />
+        </div>
+        <div className="wordinput_form">
+          <WordInput />
+        </div>
+        <div className="wordcard_stack">
+          <WordCardStack />
+        </div>
       </div>
     );
   }
 }
 export default Main;
 
-// #15 클라이언트 라우팅 설계
-// react-router-dom 설치했습니다.
-// index.js, App.js, Main.js, Header.js에 라우팅 구현했습니다.
+// Main.js에서 라우팅 제거
