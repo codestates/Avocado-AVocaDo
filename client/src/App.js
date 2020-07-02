@@ -25,21 +25,21 @@ class App extends React.Component {
   // getUserData()
 
   render() {
+    const { isLogin } = this.state;
     return (
       <div>
         <Switch>
-          <Route path="/" render={() => <Login />} />
-          <Route exact path="/signup" render={() => <SignUp />} />
           <Route
-            exact
-            path="/main"
+            path="/"
             render={() => (
-              <Main />
-              // <WordInput />
-              // <WordCard />
-              // <WordCardStack />
+              <Login
+                isLogin={isLogin}
+                handleLogin={this.handleLogin.bind(this)}
+              />
             )}
           />
+          <Route exact path="/signup" render={() => <SignUp />} />
+          <Route exact path="/main" render={() => <Main />} />
           <Route
             path="/"
             render={() => {
@@ -55,8 +55,3 @@ class App extends React.Component {
   }
 }
 export default App;
-
-// #15 클라이언트 라우팅 설계
-// react-router-dom 설치했습니다.
-// Main.js, Header.js, WordList.js 컴포넌트 생성했습니다.
-// index.js, App.js, Main.js, Header.js에 라우팅 구현했습니다.
