@@ -2,7 +2,9 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 // need npm i axios --save
 import axios from 'axios';
-import './Login.css';
+// 'history' is missing in props validation 해결위해 설치함
+import PropTypes from 'prop-types';
+import '../CSS/Login.css';
 axios.defaults.withCredentials = true;
 
 class Login extends React.Component {
@@ -41,7 +43,7 @@ class Login extends React.Component {
           // App component 로 부터 메서드 받아서 로그인 상태 변경
           // this.props.handleLogin(); isLogin -> true
           // 로그인 성공시 초기 page 로 이동
-          // this.props.history.push('/');
+          this.props.history.push('/');
         }
       })
       .catch((error) => {
@@ -79,7 +81,7 @@ class Login extends React.Component {
                       name="id"
                       placeholder="아이디"
                       className="login_input"
-                      maxLength="41"
+                      maxLength="20"
                       onChange={this.handleLoginInput('email')}
                     />
                   </span>
@@ -96,6 +98,7 @@ class Login extends React.Component {
                       id="pw"
                       name="pw"
                       placeholder="비밀번호"
+                      maxLength="20"
                       className="login_input"
                       onChange={this.handleLoginInput('password')}
                     />
@@ -121,5 +124,9 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.object.isRequired,
+};
 
 export default withRouter(Login);
