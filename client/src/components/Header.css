@@ -1,6 +1,5 @@
 .nav {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  min-height: 10vh;
+  justify-content: center;
+  background-color: white;
 }

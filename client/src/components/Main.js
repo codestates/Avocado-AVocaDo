@@ -65,17 +65,17 @@ class Main extends React.Component {
     const { wordData } = this.state;
     return (
       <div>
-        <div className="header">
+        <div>
           <Header
             isLogin={this.state.isLogin}
             userInfo={this.props.userInfo}
             handleLogout={this.props.handleLogout}
           />
         </div>
-        <div className="wordinput_form">
+        <div>
           <WordInput postInputWord={this.postInputWord.bind(this)} />
         </div>
-        <div className="wordcard_stack">
+        <div>
           <WordCardStack
             wordData={wordData}
             postInputWord={this.postInputWord.bind(this)}

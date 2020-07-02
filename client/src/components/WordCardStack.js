@@ -17,16 +17,16 @@ class WordCardStack extends Component {
     return (
       <div>
         {wordData.map((word, index) => {
-          // return (
-          //   <WordCard
-          //     word={word.word}
-          //     sentence={word.sentence}
-          //     index={index}
-          //     postInputWord={postInputWord}
-          //     updateWordData={updateWordData}
-          //     deleteWordData={deleteWordData}
-          //   />
-          // )
+          return (
+            <WordCard
+              word={word.word}
+              sentence={word.sentence}
+              index={index}
+              postInputWord={postInputWord}
+              updateWordData={updateWordData}
+              deleteWordData={deleteWordData}
+            />
+          );
         })}
       </div>
     );
