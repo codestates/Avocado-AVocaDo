@@ -15,6 +15,7 @@
 *.DS_Store
 .AppleDouble
 .LSOverride
+.DS_Store
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
@@ -35,3 +36,6 @@ $RECYCLE.BIN/
 # Dependency directories
 node_modules/
 jspm_packages/
+
+
+.png
