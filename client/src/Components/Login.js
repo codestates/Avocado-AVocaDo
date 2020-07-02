@@ -1,8 +1,8 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 // need npm i axios --save
 import axios from 'axios';
-
+import './Login.css';
 axios.defaults.withCredentials = true;
 
 class Login extends React.Component {
@@ -14,8 +14,6 @@ class Login extends React.Component {
       password: '',
     };
   }
-  // Parsing error: Unexpected token =
-  // https://roomedia.tistory.com/entry/%EC%9D%B4%EC%8A%88-9-Parsing-error-Unexpected-token-eslint
 
   handleLoginInput = (key) => (e) => {
     this.setState({ [key]: e.target.value });
@@ -43,10 +41,7 @@ class Login extends React.Component {
           // App component 로 부터 메서드 받아서 로그인 상태 변경
           // this.props.handleLogin(); isLogin -> true
           // 로그인 성공시 초기 page 로 이동
-          // 아래 eslint 오류로 주석처리 해놓음
-          // 라우터 컴포넌트 추가하면 주석해제해야함
-          // 'history' is missing in props validation
-          /* this.props.history.push('/'); */
+          // this.props.history.push('/');
         }
       })
       .catch((error) => {
@@ -56,58 +51,73 @@ class Login extends React.Component {
 
   render() {
     return (
-      <form
-        className="login_form"
-        onSubmit={(e) => {
-          e.preventDefault();
+      <div className="login_wrap">
+        <div className="login_container">
+          <form
+            className="login_form"
+            onSubmit={(e) => {
+              e.preventDefault();
 
-          if (this.state.email.length < 1) {
-            alert('아이디를 입력해주세요!');
-          } else if (this.state.password.length < 1) {
-            alert('비밀번호를 입력해주세요!');
-          } else {
-            this.postLoginData();
-          }
-        }}
-      >
-        <fieldset className="login_fieldset">
-          <div className="id_area">
-            <span className="input_box">
-              <input
-                type="email"
-                id="id"
-                name="id"
-                placeholder="아이디"
-                className="int"
-                onChange={this.handleLoginInput('email')}
-              />
-            </span>
-            {/*input 이 공란인 상태로 로그인 버튼 눌렀을 때 표시됨 */}
-          </div>
+              if (this.state.email.length < 1) {
+                alert('아이디를 입력해주세요!');
+              } else if (this.state.password.length < 1) {
+                alert('비밀번호를 입력해주세요!');
+              } else {
+                this.postLoginData();
+              }
+            }}
+          >
+            <fieldset className="login_fieldset">
+              <h1 className="login_logo">A! VOCADO</h1>
 
-          <div className="pw_area">
-            <span className="input_box">
-              {/*input 이 공란인 상태로 로그인 버튼 눌렀을 때 표시됨 */}
+              <div className="id_area">
+                <div className="input_row">
+                  <span className="input_box">
+                    <input
+                      type="email"
+                      id="id"
+                      name="id"
+                      placeholder="아이디"
+                      className="login_input"
+                      maxLength="41"
+                      onChange={this.handleLoginInput('email')}
+                    />
+                  </span>
+                </div>
+                {/*input 이 공란인 상태로 로그인 버튼 눌렀을 때 표시됨 */}
+              </div>
+
+              <div className="pw_area">
+                <div className="input_row">
+                  <span className="input_box">
+                    {/*input 이 공란인 상태로 로그인 버튼 눌렀을 때 표시됨 */}
+                    <input
+                      type="password"
+                      id="pw"
+                      name="pw"
+                      placeholder="비밀번호"
+                      className="login_input"
+                      onChange={this.handleLoginInput('password')}
+                    />
+                  </span>
+                </div>
+              </div>
               <input
-                type="password"
-                id="pw"
-                name="pw"
-                placeholder="비밀번호"
-                className="int"
-                onChange={this.handleLoginInput('password')}
+                type="submit"
+                title="로그인"
+                alt="로그인"
+                value="로그인"
+                className="btn_login"
+                id="log.login"
               />
-            </span>
-          </div>
-          <input
-            type="submit"
-            title="로그인"
-            alt="로그인"
-            value="로그인"
-            className="btn_login"
-            id="log.login"
-          />
-        </fieldset>
-      </form>
+            </fieldset>
+
+            <div className="link_to_signup">
+              <Link to="/signup">회원가입</Link>
+            </div>
+          </form>
+        </div>
+      </div>
     );
   }
 }

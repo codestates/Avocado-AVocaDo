@@ -34,7 +34,7 @@ class SignUp extends React.Component {
     return axios
       .post('http://localhost:5000/signup', SignUpData)
       .then((response) => {
-        if (response.status === 409) {
+        if (response.status === 404) {
           alert('이미가입된 아이디입니다.');
         } else {
           // 회원가입 성공시 login page 로 이동
