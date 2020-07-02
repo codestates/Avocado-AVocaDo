@@ -1,7 +1,6 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   background-color: #f5f6f7;
 }
@@ -25,7 +24,17 @@ h6 {
   margin: 0;
 }
 
-fieldset {
+button {
+  border: 0;
+  border-radius: 0;
+}
+
+.login_form {
+  position: relative;
+  width: 100%;
+}
+
+.login_fieldset {
   border: 0;
   margin: 0;
   padding: 0;
@@ -46,18 +55,16 @@ a {
   margin: 0 auto;
 }
 
-form {
-  text-align: center;
-}
-
 .login_fieldset h1 {
   padding-top: 62px;
   height: 168px;
   color: #03c75a;
   text-align: center;
+  font-size: 45px;
 }
 
-.id_area {
+.id_area,
+.pw_area {
   position: relative;
 }
 
@@ -75,8 +82,8 @@ form {
   transform: translateY(-50%);
   display: block;
 }
+
 .login_input {
-  position: relative;
   font-size: 15px;
   line-height: 16px;
   width: 100%;
@@ -85,10 +92,6 @@ form {
   border: none;
   background: #fff;
   outline: none;
-}
-
-.pw_area {
-  position: relative;
 }
 
 .btn_login {
@@ -100,8 +103,10 @@ form {
   text-align: center;
   color: #fff;
   font-size: 20px;
+  font-weight: 700;
   border: none;
   margin-top: 35px;
+  margin-bottom: 20px;
 }
 
 .link_to_signup {
@@ -111,4 +116,45 @@ form {
   font-size: 15px;
   text-align: center;
   color: #828282;
+}
+
+.social_login-box {
+  position: relative;
+  width: 100%;
+}
+
+.social_login-box:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+
+.google_login_btn {
+  border: 0;
+  float: left;
+  position: relative;
+  width: 48%;
+  height: 50px;
+}
+.facebook_login_btn {
+  position: relative;
+  width: 48%;
+  height: 50px;
+  float: right;
+  cursor: pointer;
+  padding-left: 13px;
+  text-align: left;
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.54);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px,
+    rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.fa-facebook-official:before {
+  font-size: 25px;
+  color: #3b5998;
 }

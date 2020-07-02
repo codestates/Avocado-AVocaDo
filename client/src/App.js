@@ -25,13 +25,24 @@ class App extends React.Component {
   // getUserData()
 
   render() {
+    const { isLogin } = this.state;
     return (
       <div>
         <Switch>
-          <Route exact path="/" render={() => <Login />} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <Login
+                isLogin={isLogin}
+                handleLogin={this.handleLogin.bind(this)}
+              />
+            )}
+          />
           <Route exact path="/signup" render={() => <SignUp />} />
           <Route exact path="/main" render={() => <Main />} />
           <Route
+            exact
             path="/"
             render={() => {
               if (this.state.isLogin) {

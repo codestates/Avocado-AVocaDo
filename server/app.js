@@ -1,12 +1,15 @@
 const express = require('express');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const userRouter = require('./routes/users');
+const wordRouter = require('./routes/words');
 const cors = require('cors');
 
 const app = express();
-const port = 4000;
+const port = 8080;
 
 let corsOpt = {
-  origin: '*',
+  origin: ['http://localhost:3000'],
   methods: ['POST', 'GET', 'DELETE', 'PUT'],
   credentials: true,
 };
@@ -16,15 +19,25 @@ app.use(
   session({
     secret: 'A!VocaDo!',
     resave: false,
+    cookie: { maxAge: 3600000 },
+    // cookie: { maxAge: 10000 },
     saveUninitialized: true,
   })
 );
+app.use(cookieParser());
 
-const root = '';
+const root = '/';
 
-app.get(root, (req, res) => {
-  res.status(200).send('Success');
+app.post(root, (req, res) => {
+  if (req.session.userId) {
+    res.status(200).end();
+  } else {
+    res.status(404).end();
+  }
 });
+
+app.use('/users', userRouter);
+app.use('/words', wordRouter);
 
 app.set('port', port);
 app.listen(app.get('port'), () => {

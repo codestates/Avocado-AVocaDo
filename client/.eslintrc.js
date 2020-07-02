@@ -24,5 +24,6 @@ module.exports = {
     semi: [2, 'always'],
     'no-path-concat': 0,
   },
+
   root: true,
 };
