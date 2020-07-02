@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,6 +12,7 @@
     "eslint": "^7.3.1",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
+    "mysql2": "^2.1.0",
     "prettier": "^2.0.5"
   },
   "husky": {
@@ -22,5 +23,12 @@
   "lint-staged": {
     "*.js": "eslint --cache --fix",
     "*.{js,css,md}": "prettier --write"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "sequelize": "^6.2.4"
   }
 }
