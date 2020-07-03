@@ -13,7 +13,6 @@ class SignUp extends React.Component {
       email: '',
       password: '',
       username: '',
-      mobile: '',
     };
   }
 
@@ -26,7 +25,6 @@ class SignUp extends React.Component {
       email: this.state.email,
       password: this.state.password,
       username: this.state.username,
-      mobile: this.state.mobile,
     };
 
     // url 은 test 를 위해 임의로 지정하였음 => 변경가능
@@ -59,9 +57,7 @@ class SignUp extends React.Component {
               } else if (this.state.password.length < 1) {
                 alert('비밀번호를 입력해주세요!');
               } else if (this.state.username.length < 1) {
-                alert('닉네임을 입력해주세요!');
-              } else if (this.state.mobile.length < 1) {
-                alert('전화번호를 입력해주세요!');
+                alert('이름을 입력해주세요!');
               } else {
                 this.postSignUpData();
               }
