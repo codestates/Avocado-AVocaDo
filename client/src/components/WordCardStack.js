@@ -2,6 +2,7 @@
 import React from 'react';
 import WordCard from './WordCard';
 import PropTypes from 'prop-types';
+import '../CSS/Main.css';
 
 class WordCardStack extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class WordCardStack extends React.Component {
       updateWordData,
       deleteWordData,
     } = this.props;
-    console.log('WordCardStack', wordData);
+
     return (
       <div>
         {wordData

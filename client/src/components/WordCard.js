@@ -1,5 +1,8 @@
+
 /* eslint-disable */
 import React from 'react';
+import '../CSS/Main.css';
+
 
 class WordCard extends React.Component {
   constructor(props) {

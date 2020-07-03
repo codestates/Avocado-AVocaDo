@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Header from './Header';
 import WordInput from './WordInput';
 import WordCardStack from './WordCardStack';
+import '../CSS/Main.css';
 
 class Main extends React.Component {
   constructor(props) {
@@ -74,14 +75,14 @@ class Main extends React.Component {
     console.log('render', this.state);
     return (
       <div>
-        <div className="header">
+        <div className="header_wrap">
           <Header
             isLogin={this.state.isLogin}
             userInfo={this.props.userInfo}
             handleLogout={this.props.handleLogout}
           />
         </div>
-        <div>
+        <div className="wordinput_wrap">
           <WordInput
             postInputWord={this.postInputWord.bind(this)}
             // 단어를 추가했을 때 서버로 부터 데이터를 받아오지 않고
@@ -92,7 +93,7 @@ class Main extends React.Component {
             addWordData={this.addWordData.bind(this)}
           />
         </div>
-        <div>
+        <div className="wordcardstack_wrap">
           <WordCardStack
             wordData={this.state.wordData}
             postInputWord={this.postInputWord.bind(this)}
