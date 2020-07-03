@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -7,7 +8,8 @@ class WordInput extends Component {
   }
 
   render() {
-    const { postInputWord, handleWordInput } = this.props;
+    const { handleInput, addWordData } = this.props;
+    // const { postInputWord} = this.props;
     return (
       <div className="wordinput_wrap">
         <div className="wordinput_container">
@@ -15,7 +17,9 @@ class WordInput extends Component {
             className="wordinput_form"
             onSubmit={(e) => {
               e.preventDefault();
-              postInputWord();
+
+              addWordData();
+              // postInputWord();
             }}
           >
             <div className="wordinput_area">
@@ -24,7 +28,7 @@ class WordInput extends Component {
                   <input
                     type="text"
                     placeholder="단어를 입력하세요"
-                    onChange={handleWordInput}
+                    onChange={handleInput('currentWord')}
                   ></input>
                   <input type="submit" value="🥑" />
                 </span>
@@ -38,8 +42,8 @@ class WordInput extends Component {
 }
 
 WordInput.propTypes = {
-  postInputWord: PropTypes.func.isRequired,
-  handleWordInput: PropTypes.func.isRequired,
+  addWordData: PropTypes.func.isRequired,
+  handleInput: PropTypes.func.isRequired,
 };
 
 export default WordInput;
