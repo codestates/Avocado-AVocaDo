@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Header from './Header';
 import WordInput from './WordInput';
 import WordCardStack from './WordCardStack';
+import '../CSS/Main.css';
 
 class Main extends React.Component {
   constructor(props) {
@@ -68,20 +69,20 @@ class Main extends React.Component {
     const { wordData } = this.state;
     return (
       <div>
-        <div className="header">
+        <div className="header_wrap">
           <Header
             isLogin={this.state.isLogin}
             userInfo={this.props.userInfo}
             handleLogout={this.props.handleLogout}
           />
         </div>
-        <div>
+        <div className="wordinput_wrap">
           <WordInput
             postInputWord={this.postInputWord.bind(this)}
             handleWordInput={this.handleWordInput.bind(this)}
           />
         </div>
-        <div>
+        <div className="wordcardstack_wrap">
           <WordCardStack
             wordData={wordData}
             postInputWord={this.postInputWord.bind(this)}
