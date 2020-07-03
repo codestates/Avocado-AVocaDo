@@ -4,24 +4,26 @@ module.exports = {
     es2020: true,
     node: true,
   },
-  extends: ["eslint:recommended", "plugin:react/recommended"],
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   settings: {
     react: {
-      version: "detect",
+      version: 'detect',
     },
   },
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
     ecmaVersion: 11,
-    sourceType: "module",
+    sourceType: 'module',
   },
-  plugins: ["react"],
+  plugins: ['react'],
   rules: {
-    "no-undef-init": 0,
-    semi: [2, "always"],
-    "no-path-concat": 0,
+    'no-undef-init': 0,
+    semi: [2, 'always'],
+    'no-path-concat': 0,
   },
+
   root: true,
 };
