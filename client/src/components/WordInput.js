@@ -37,8 +37,8 @@ class WordInput extends Component {
             <div className="wordinput_btn_area">
               <input className="wordinput_btn" type="submit" value="🥑" />
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     );
   }
