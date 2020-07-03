@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import Header from './Header';
 import WordInput from './WordInput';
 import WordCardStack from './WordCardStack';
-
-import '../CSS/Header.css';
+import '../CSS/Main.css';
 
 class Main extends React.Component {
   constructor(props) {
