@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -11,11 +12,11 @@ class Main extends React.Component {
     super(props);
 
     this.state = {
-      currentWord: null,
+      currentWord: '',
       wordData: [
         {
           word: 'apple',
-          sentence: ['I like apple', 'I hate apple'],
+          sentences: ['I like apple', 'I hate apple'],
         },
       ],
     };
@@ -60,13 +61,18 @@ class Main extends React.Component {
     // delete 요청 body로 보내는 코드 추가
   }
 
-  handleWordInput = (e) => {
-    this.setState({ currentWord: e.target.value });
-    // 확인 필요
+  handleInput = (key) => (e) => {
+    this.setState({ [key]: e.target.value });
+    console.log(this.state);
+  };
+
+  addWordData = () => {
+    this.state.wordData.push({ word: this.state.currentWord, sentences: [] });
+    this.setState({ wordData: this.state.wordData });
   };
 
   render() {
-    const { wordData } = this.state;
+    console.log('render', this.state);
     return (
       <div>
         <div className="header_wrap">
@@ -79,12 +85,17 @@ class Main extends React.Component {
         <div className="wordinput_wrap">
           <WordInput
             postInputWord={this.postInputWord.bind(this)}
-            handleWordInput={this.handleWordInput.bind(this)}
+            // 단어를 추가했을 때 서버로 부터 데이터를 받아오지 않고
+            // 클라이언트에서 state 를 변경시켜 데이터를 update 한다.
+            currentWord={this.state.currentWord}
+            wordData={this.state.wordData}
+            handleInput={this.handleInput.bind(this)}
+            addWordData={this.addWordData.bind(this)}
           />
         </div>
         <div className="wordcardstack_wrap">
           <WordCardStack
-            wordData={wordData}
+            wordData={this.state.wordData}
             postInputWord={this.postInputWord.bind(this)}
             updateWordData={this.updateWordData.bind(this)}
             deleteWordData={this.deleteWordData.bind(this)}
@@ -96,8 +107,16 @@ class Main extends React.Component {
 }
 
 Main.propTypes = {
+  isLogin: PropTypes.bool.isRequired,
+  currentWord: PropTypes.string.isRequired,
+  wordData: PropTypes.object.isRequired,
   userInfo: PropTypes.object.isRequired,
+  handleInput: PropTypes.func.isRequired,
   handleLogout: PropTypes.func.isRequired,
+  postInputWord: PropTypes.func.isRequired,
+  addWordData: PropTypes.func.isRequired,
+  updateWordData: PropTypes.func.isRequired,
+  deleteWordData: PropTypes.func.isRequired,
 };
 
 export default Main;

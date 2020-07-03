@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+
+/* eslint-disable */
+import React from 'react';
 import '../CSS/Main.css';
 
-class WordCard extends Component {
+
+class WordCard extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { wordData } = this.props;
+    const { word, sentences, postInputWord } = this.props;
     // postInputWord, updateWordData, deleteWordData
-    // 'postInputWord' is assigned a value but never used 에러로 주석처리 했습니다.
-
+    console.log('WordCard', this.props);
     return (
       <div className="word_card" style={{ cursor: 'pointer' }}>
-        <div className="word">{wordData[0].word}</div>
+        <div className="word">{word}</div>
         <ul className="sentences">
-          {wordData[0].sentence.map((sentence, index) => {
+          {sentences.map((sentence, index) => {
             return <li key={index}>{sentence}</li>;
           })}
         </ul>
@@ -24,12 +25,5 @@ class WordCard extends Component {
     );
   }
 }
-
-WordCard.propTypes = {
-  wordData: PropTypes.array.isRequired,
-  'wordData[].word': PropTypes.string.isRequired,
-  'wordData[].sentence': PropTypes.string.isRequired,
-  'wordData[].sentence.map': PropTypes.string.isRequired,
-};
 
 export default WordCard;
