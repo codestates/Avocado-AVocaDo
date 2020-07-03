@@ -59,6 +59,11 @@ class Main extends React.Component {
     // delete 요청 body로 보내는 코드 추가
   }
 
+  handleWordInput = (e) => {
+    this.setState({ currentWord: e.target.value });
+    // 확인 필요
+  };
+
   render() {
     const { wordData } = this.state;
     return (
@@ -71,7 +76,10 @@ class Main extends React.Component {
           />
         </div>
         <div>
-          <WordInput postInputWord={this.postInputWord.bind(this)} />
+          <WordInput
+            postInputWord={this.postInputWord.bind(this)}
+            handleWordInput={this.handleWordInput.bind(this)}
+          />
         </div>
         <div>
           <WordCardStack
