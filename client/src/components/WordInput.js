@@ -1,5 +1,5 @@
-/* eslint-disable */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class WordInput extends Component {
   constructor(props) {
@@ -44,5 +44,9 @@ class WordInput extends Component {
     );
   }
 }
+
+WordInput.propTypes = {
+  postInputWord: PropTypes.func.isRequired,
+};
 
 export default WordInput;

@@ -1,8 +1,6 @@
-/* eslint-disable */
 import React from 'react';
-// import { Switch, Route, Redirect } from 'react-router-dom'; // userHistory
 import axios from 'axios';
-
+import PropTypes from 'prop-types';
 import Header from './Header';
 import WordInput from './WordInput';
 import WordCardStack from './WordCardStack';
@@ -87,4 +85,10 @@ class Main extends React.Component {
     );
   }
 }
+
+Main.propTypes = {
+  userInfo: PropTypes.object.isRequired,
+  handleLogout: PropTypes.func.isRequired,
+};
+
 export default Main;
