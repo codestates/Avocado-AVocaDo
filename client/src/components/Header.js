@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../CSS/Header.css';
+
 function Header() {
   return (
-    <nav className="nav">
+    <nav>
       <Link to="/wordbook">
         <h3>My wordbook</h3>
       </Link>
