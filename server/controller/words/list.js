@@ -3,8 +3,7 @@ const dummy = require('../../models/dummy');
 
 module.exports = {
   get: (req, res) => {
-    console.log(req.session);
-    if (req.session.userId) {
+    if (req.session) {
       res.status(200).json(dummy);
     } else {
       res.status(401).send('need user session');
