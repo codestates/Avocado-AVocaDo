@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../CSS/Main.css';
 
 class WordInput extends Component {
   constructor(props) {

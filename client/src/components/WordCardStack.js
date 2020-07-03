@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import WordCard from './WordCard';
+import '../CSS/Main.css';
 
 class WordCardStack extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class WordCardStack extends Component {
       deleteWordData,
     } = this.props;
     return (
-      <div>
+      <div className="wordcard_wrap">
         {wordData.map((word, index) => {
           return (
             <WordCard

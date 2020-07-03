@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../CSS/Header.css';
+import '../CSS/Main.css';
 
 function Header() {
   return (
-    <nav>
+    <nav clasName="nav">
       <Link to="/wordbook">
         <h3>My wordbook</h3>
       </Link>
