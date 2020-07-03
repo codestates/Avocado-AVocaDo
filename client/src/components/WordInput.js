@@ -1,16 +1,18 @@
-/* eslint-disable */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class WordInput extends Component {
   constructor(props) {
     super(props);
 
-    //   this.handleWordInput = this.handleWordInput.bind(this);
-    // }
-
-    // handleWordInput = (e) => {
-    //   this.setState({ currentWord: e.target.value })
+    this.handleWordInput = this.handleWordInput.bind(this);
   }
+
+  handleWordInput = (e) => {
+    this.setState({ currentWord: e.target.value });
+    // 이 컴포넌트에 state가 없는데 setState를 쓸 수 있는지?
+    // 확인 필요
+  };
 
   render() {
     const { postInputWord } = this.props;
@@ -21,14 +23,17 @@ class WordInput extends Component {
             className="wordinput_form"
             onSubmit={(e) => {
               e.preventDefault();
-              // this.handleWordInput('currentWord');
               postInputWord();
             }}
           >
             <div className="wordinput_area">
               <div className="wordinput_row">
                 <span className="input_box">
-                  <input type="text" placeholder="단어를 입력하세요"></input>
+                  <input
+                    type="text"
+                    placeholder="단어를 입력하세요"
+                    onChange={this.handleWordInput}
+                  ></input>
                   <input type="submit" value="🥑" />
                 </span>
               </div>
@@ -39,5 +44,9 @@ class WordInput extends Component {
     );
   }
 }
+
+WordInput.propTypes = {
+  postInputWord: PropTypes.func.isRequired,
+};
 
 export default WordInput;
