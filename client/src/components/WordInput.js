@@ -4,18 +4,10 @@ import PropTypes from 'prop-types';
 class WordInput extends Component {
   constructor(props) {
     super(props);
-
-    this.handleWordInput = this.handleWordInput.bind(this);
   }
 
-  handleWordInput = (e) => {
-    this.setState({ currentWord: e.target.value });
-    // 이 컴포넌트에 state가 없는데 setState를 쓸 수 있는지?
-    // 확인 필요
-  };
-
   render() {
-    const { postInputWord } = this.props;
+    const { postInputWord, handleWordInput } = this.props;
     return (
       <div className="wordinput_wrap">
         <div className="wordinput_container">
@@ -32,7 +24,7 @@ class WordInput extends Component {
                   <input
                     type="text"
                     placeholder="단어를 입력하세요"
-                    onChange={this.handleWordInput}
+                    onChange={handleWordInput}
                   ></input>
                   <input type="submit" value="🥑" />
                 </span>
@@ -47,6 +39,7 @@ class WordInput extends Component {
 
 WordInput.propTypes = {
   postInputWord: PropTypes.func.isRequired,
+  handleWordInput: PropTypes.func.isRequired,
 };
 
 export default WordInput;
