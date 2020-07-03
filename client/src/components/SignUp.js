@@ -98,6 +98,21 @@ class SignUp extends React.Component {
                   </span>
                 </div>
               </div>
+
+              <div className="username_area">
+                <h3>이름</h3>
+                <div className="input_row">
+                  <span className="input_box">
+                    <input
+                      className="signup_input"
+                      type="text"
+                      placeholder="이름을 입력 해주세요"
+                      maxLength="20"
+                      onChange={this.handleSignUpInput('username')}
+                    ></input>
+                  </span>
+                </div>
+              </div>
               <input
                 type="submit"
                 title="회원가입"
