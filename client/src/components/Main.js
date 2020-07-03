@@ -1,15 +1,26 @@
+/* eslint-disable */
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom'; // userHistory
+// import { Switch, Route, Redirect } from 'react-router-dom'; // userHistory
 import axios from 'axios';
 
-import WordList from './WordList';
+import Header from './Header';
+import WordInput from './WordInput';
+import WordCardStack from './WordCardStack';
 
 class Main extends React.Component {
-  state = {
-    isLogin: null,
-    currentWord: null,
-    wordData: null,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentWord: null,
+      wordData: [
+        {
+          word: 'apple',
+          sentence: ['I like apple', 'I hate apple'],
+        },
+      ],
+    };
+  }
 
   getWordData() {
     // get 요청: 서버로부터 유저와 일치하는 모든 단어/예문을 불러온다.
@@ -18,7 +29,7 @@ class Main extends React.Component {
     });
   }
 
-  postInputData() {
+  postInputWord() {
     // post 요청: 유저가 입력한 새로운 단어/예문을 서버에 전송한다.
     axios
       .post('url', {
@@ -47,22 +58,31 @@ class Main extends React.Component {
     axios.delete('url/:userId/:wordId...', {
       withCredentials: true,
     });
+    // delete 요청 body로 보내는 코드 추가
   }
 
   render() {
+    const { wordData } = this.state;
     return (
       <div>
-        <Switch>
-          <Route path="/wordbook" render={() => <WordList />} />
-          <Route // 이 컴포넌트에서도 로그아웃 라우팅이 필요한가?
-            path="/"
-            render={() => {
-              if (!this.state.isLogin) {
-                return <Redirect to="/" />;
-              }
-            }}
+        <div className="header">
+          <Header
+            isLogin={this.state.isLogin}
+            userInfo={this.props.userInfo}
+            handleLogout={this.props.handleLogout}
           />
-        </Switch>
+        </div>
+        <div>
+          <WordInput postInputWord={this.postInputWord.bind(this)} />
+        </div>
+        <div>
+          <WordCardStack
+            wordData={wordData}
+            postInputWord={this.postInputWord.bind(this)}
+            updateWordData={this.updateWordData.bind(this)}
+            deleteWordData={this.deleteWordData.bind(this)}
+          />
+        </div>
       </div>
     );
   }
