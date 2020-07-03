@@ -45,7 +45,7 @@ module.exports = {
         //google verification
         //if verified- give token
         request.get(
-          `https://oauth2.googleapis.com/tokeninfo?id_toen=${tokenId}`,
+          `https://oauth2.googleapis.com/tokeninfo?id_token=${tokenId}`,
           (error, response, body) => {
             if (error) {
               res.status(401).send('unvalid user');
