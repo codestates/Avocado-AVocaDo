@@ -29,7 +29,7 @@ class Main extends React.Component {
     });
   }
 
-  postInputData() {
+  postInputWord() {
     // post 요청: 유저가 입력한 새로운 단어/예문을 서버에 전송한다.
     axios
       .post('url', {
@@ -65,7 +65,7 @@ class Main extends React.Component {
     const { wordData } = this.state;
     return (
       <div>
-        <div>
+        <div className="header">
           <Header
             isLogin={this.state.isLogin}
             userInfo={this.props.userInfo}
