@@ -23,11 +23,12 @@ class WordInput extends Component {
       this.props.addWordData();
       this.props.postInputWord();
     }
-    
+
     document.querySelector('.word_input').value = '';
   }
 
   render() {
+    console.log('wordinput', this.props);
     return (
       <div className="wordinput_wrap">
         <div className="wordinput_container">

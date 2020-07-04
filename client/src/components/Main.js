@@ -1,15 +1,22 @@
 /* eslint-disable */
 import React from 'react';
 // import { Switch, Route, Redirect } from 'react-router-dom'; // userHistory
-import Header from './Header';
+import Main_Header from './Main_Header';
 import WordInput from './WordInput';
 import WordCardStack from './WordCardStack';
 class Main extends React.Component {
   constructor(props) {
     super(props);
   }
+
   render() {
-    const { isLogin, userInfo, wordData } = this.state;
+    const {
+      isLogin,
+      userInfo,
+      wordData,
+      handleInput,
+      addWordData,
+    } = this.props;
     const {
       handleLogout,
       postInputWord,
@@ -18,15 +25,19 @@ class Main extends React.Component {
     } = this.props;
     return (
       <div>
-        <div className="header">
-          <Header
+        <div className="main_header_wrap">
+          <Main_Header
             isLogin={isLogin}
             userInfo={userInfo}
             handleLogout={handleLogout}
           />
         </div>
         <div>
-          <WordInput postInputWord={postInputWord} />
+          <WordInput
+            postInputWord={postInputWord}
+            handleInput={handleInput}
+            addWordData={addWordData}
+          />
         </div>
         <div>
           <WordCardStack
