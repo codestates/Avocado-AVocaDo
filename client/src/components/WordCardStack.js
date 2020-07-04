@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import WordCard from './WordCard';
 import PropTypes from 'prop-types';
@@ -21,11 +20,12 @@ class WordCardStack extends React.Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="wordcard_stack">
         {wordData
           ? wordData.map((word, index) => {
               return (
                 <WordCard
+                  key={index}
                   word={word.word}
                   sentences={word.sentences}
                   index={index}
@@ -44,11 +44,14 @@ class WordCardStack extends React.Component {
   }
 }
 
-// WordCardStack.propTypes = {
-//   wordData: PropTypes.object.isRequired,
-//   postInputWord: PropTypes.func.isRequired,
-//   updateWordData: PropTypes.func.isRequired,
-//   deleteWordData: PropTypes.func.isRequired,
-// };
+WordCardStack.propTypes = {
+  addWordData: PropTypes.func.isRequired,
+  handleInput: PropTypes.func.isRequired,
+  handleSentenseData: PropTypes.func.isRequired,
+  wordData: PropTypes.object.isRequired,
+  postInputWord: PropTypes.func.isRequired,
+  updateWordData: PropTypes.func.isRequired,
+  deleteWordData: PropTypes.func.isRequired,
+};
 
 export default WordCardStack;
