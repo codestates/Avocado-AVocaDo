@@ -19,6 +19,7 @@ class WordInput extends Component {
             onSubmit={(e) => {
               e.preventDefault();
               addWordData();
+              document.querySelector('.word_input').value = '';
               // postInputWord();
             }}
           >
