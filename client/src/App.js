@@ -41,7 +41,11 @@ class App extends React.Component {
             )}
           />
           <Route exact path="/signup" render={() => <SignUp />} />
-          <Route exact path="/main" render={() => <Main />} />
+          <Route
+            exact
+            path="/main"
+            render={() => <Main handleLogout={this.handleLogout.bind(this)} />}
+          />
           <Route exact path="/wordbook" render={() => <Wordbook />} />
           <Route
             exact

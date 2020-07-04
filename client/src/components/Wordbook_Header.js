@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../CSS/Main.css';
 
-function Header_wordbook() {
+function Wordbook_Header() {
   return (
     <nav className="wordbook_nav">
-      <Link to="/wordbook">
+      <Link to="/main">
         <h3>이전 페이지로</h3>
       </Link>
       <Link to="/">
@@ -14,4 +14,4 @@ function Header_wordbook() {
     </nav>
   );
 }
-export default Header_wordbook;
+export default Wordbook_Header;

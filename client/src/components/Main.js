@@ -2,7 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import Header_main from './Header_main';
+import Main_Header from './Main_Header';
 import WordInput from './WordInput';
 import WordCardStack from './WordCardStack';
 // npm i --save kmp-matcher
@@ -93,7 +93,7 @@ class Main extends React.Component {
     }
   };
 
-  handleSentenseData = (sentences, word, index) => {
+  handleSentenceData = (sentences, word, index) => {
     /* 모달창에서 입력하고 저장버튼을 누르면 클릭한 부분의 데이터가 변하는 게 아니라 데이터가 중복으로 생성되어 추가가 된다.
     
     ex> 단어 apple ~~~ , 문장~~~ ⇒ 클릭해서 모달창을 띄우고 수정을 하고 저장버튼을 누르면 
@@ -152,7 +152,7 @@ class Main extends React.Component {
     return (
       <div>
         <div className="main_header_wrap">
-          <Header_main
+          <Main_Header
             isLogin={this.state.isLogin}
             userInfo={this.props.userInfo}
             handleLogout={this.props.handleLogout}
@@ -177,7 +177,7 @@ class Main extends React.Component {
             deleteWordData={this.deleteWordData.bind(this)}
             addWordData={this.addWordData.bind(this)}
             handleInput={this.handleInput.bind(this)}
-            handleSentenseData={this.handleSentenseData.bind(this)}
+            handleSentenceData={this.handleSentenceData.bind(this)}
           />
         </div>
       </div>
