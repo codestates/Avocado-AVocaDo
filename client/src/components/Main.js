@@ -24,17 +24,6 @@ class Main extends React.Component {
     };
   }
 
-  /*       wordData: [
-       
-        {
-          word: 'apple',
-          sentences: ['I like apple', 'I hate apple'],
-        },
-      ],
-      
-      
-      */
-
   getWordData() {
     // get 요청: 서버로부터 유저와 일치하는 모든 단어/예문을 불러온다.
     axios.get('url').then((res) => {
@@ -94,41 +83,6 @@ class Main extends React.Component {
   };
 
   handleSentenseData = (sentences, word, index) => {
-    /* 모달창에서 입력하고 저장버튼을 누르면 클릭한 부분의 데이터가 변하는 게 아니라 데이터가 중복으로 생성되어 추가가 된다.
-    
-    ex> 단어 apple ~~~ , 문장~~~ ⇒ 클릭해서 모달창을 띄우고 수정을 하고 저장버튼을 누르면 
-    
-    똑같은 단어가 중복되어 들어간다. 
-    문제는 단순히 데이터를 push 하기 때문에 중복으로 들어간다. 
-    해결은 클릭을 했을 때의 단어 객체에서 문장을 수정 및 반영이 되어야 한다. 
-    현재는 클릭을 했을 때의 단어 객체에서 문장이 추가되는 것이 아니라 그냥 새로운 단어객체에 문장을 추가하여 전체 배열에 push 하고 있다. */
-
-    /* 
-    
-    해결은 클릭을 했을 때의 단어 객체에 수정한 문장으로 덮어씌워야 함 
-    
-    클릭을 했을 때의 특정 단어 객체를 찾으면 덮어 씌우기는 쉬움
-    
-    
-    아이디어1> 
-    
-    전체를 json 으로 변환한 다음 kmp 로 찾아서 문자열을 교체하기 
-    
-    저장버튼을 누를때 단어를 알고 있다. 
-    
-    {word:apple, sentence:[a,b,c,d]}
-    
-    
-    아이디어 2> 
-    
-    처음에 data 저장할 때 클라이언트에서만 관리하는 index 부여 
-    
-    wordcard 에 보낼 때 같이 보냄 
-    
-    인덱스로 단어 객체 찾아서 문장을 덮어 씌운다. 
-    
-    
-    */
     const splitSentences = sentences.split('\n');
 
     this.state.wordData[index] = {
