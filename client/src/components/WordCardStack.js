@@ -24,12 +24,11 @@ class WordCardStack extends React.Component {
       <div>
         {wordData
           ? wordData.map((word, index) => {
-              /*  word=> { word: 'apple',sentence: []} */
               return (
                 <WordCard
                   word={word.word}
                   sentences={word.sentences}
-                  key={index}
+                  index={index}
                   postInputWord={postInputWord}
                   updateWordData={updateWordData}
                   deleteWordData={deleteWordData}
