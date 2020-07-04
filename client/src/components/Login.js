@@ -122,12 +122,13 @@ class Login extends React.Component {
     // 원인 : axios 의 data 는 JSON.stringify 해서 보내면 서버에서 데이터가 undefined 가 나온다.
 
     const loginData = {
-      email: this.state.email,
+      loginType: 'custom',
+      userId: this.state.email,
       password: this.state.password,
     };
     // url 은 test 를 위해 임의로 지정하였음 => 변경가능
     return axios
-      .post('http://localhost:5000/login', loginData)
+      .post('http://localhost:8080/users/signin', loginData)
       .then((response) => {
         if (response.status === 404) {
           alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
