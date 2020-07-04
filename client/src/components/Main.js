@@ -33,10 +33,11 @@ class Main extends React.Component {
 
   postInputWord() {
     // post 요청: 유저가 입력한 새로운 단어/예문을 서버에 전송한다.
+
+    const url = 'http://localhost:8080/words';
     axios
-      .post('url', {
-        currentWord: this.state.currentWord,
-        wordData: this.state.wordData,
+      .post(url, {
+        word: this.state.currentWord,
       })
       .then((res) => {
         console.log(res);
@@ -69,17 +70,8 @@ class Main extends React.Component {
   };
 
   addWordData = () => {
-    const findingWord = `"word":"${this.state.currentWord}"`;
-
-    const searchResult =
-      kmp.kmp(JSON.stringify(this.state.wordData), findingWord).length > 0;
-
-    if (searchResult) {
-      alert('이미 단어장에 있는 단어입니다!');
-    } else {
-      this.state.wordData.push({ word: this.state.currentWord, sentences: [] });
-      this.setState({ wordData: this.state.wordData });
-    }
+    this.state.wordData.push({ word: this.state.currentWord, sentences: [] });
+    this.setState({ wordData: this.state.wordData });
   };
 
   handleSentenseData = (sentences, word, index) => {
@@ -114,13 +106,13 @@ class Main extends React.Component {
         </div>
         <div className="wordinput_wrap">
           <WordInput
-            postInputWord={this.postInputWord.bind(this)}
             // 단어를 추가했을 때 서버로 부터 데이터를 받아오지 않고
             // 클라이언트에서 state 를 변경시켜 데이터를 update 한다.
             currentWord={this.state.currentWord}
             wordData={this.state.wordData}
             handleInput={this.handleInput.bind(this)}
             addWordData={this.addWordData.bind(this)}
+            postInputWord={this.postInputWord.bind(this)}
           />
         </div>
         <div className="wordcardstack_wrap">
