@@ -22,20 +22,22 @@ class WordInput extends Component {
               // postInputWord();
             }}
           >
-            <div className="wordinput_area">
-              <div className="wordinput_row">
-                <span className="wordinput_box">
-                  <input
-                    className="word_input"
-                    type="text"
-                    placeholder="단어를 입력하세요"
-                    onChange={handleInput('currentWord')}
-                  ></input>
-                </span>
+            <div className="wordinput_field">
+              <div className="wordinput_area">
+                <div className="wordinput_row">
+                  <span className="wordinput_box">
+                    <input
+                      className="word_input"
+                      type="text"
+                      placeholder="단어를 입력하세요"
+                      onChange={handleInput('currentWord')}
+                    ></input>
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className="wordinput_btn_area">
-              <input className="wordinput_btn" type="submit" value="🥑" />
+              <div className="wordinput_btn_area">
+                <input className="wordinput_btn" type="submit" value="🥑" />
+              </div>
             </div>
           </form>
         </div>

@@ -146,6 +146,7 @@ class Main extends React.Component {
   };
 
   componentDidMount() {}
+
   render() {
     console.log('render', this.state);
     return (
