@@ -22,7 +22,7 @@ class SignUp extends React.Component {
 
   postSignUpData() {
     const SignUpData = {
-      email: this.state.email,
+      userId: this.state.email,
       password: this.state.password,
       username: this.state.username,
     };
