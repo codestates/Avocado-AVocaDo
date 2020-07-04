@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes, { func } from 'prop-types';
 import Modal from 'react-modal';
+// npm install react-modal
 import '../CSS/WordCard.css';
 // word card 에서 모달 컴포넌트 호출 및 데이터 전달
 
@@ -75,7 +76,7 @@ function WordCard(props) {
   return (
     <div>
       {/* 클릭했을 때의 단어를 반영 */}
-      <div className="word_card" onClick={openModal}>
+      <div className="wordcard" onClick={openModal}>
         <div className="word">{word}</div>
         <ul className="sentences">
           {sentences.map((sentence, index) => {
