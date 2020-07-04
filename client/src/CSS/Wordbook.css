@@ -1,0 +1,18 @@
+.wordbook_header_wrap {
+  display: flex;
+  background-color: #03c75a;
+  min-height: 25vh;
+  position: sticky;
+  align-items: flex-end;
+  top: 0;
+  font-size: 14px;
+  color: white;
+}
+
+.wordbook_nav {
+  padding: 20px;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}

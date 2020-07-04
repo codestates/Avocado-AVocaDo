@@ -2,7 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import Header from './Header';
+import Header_main from './Header_main';
 import WordInput from './WordInput';
 import WordCardStack from './WordCardStack';
 // npm i --save kmp-matcher
@@ -151,8 +151,8 @@ class Main extends React.Component {
     console.log('render', this.state);
     return (
       <div>
-        <div className="header_wrap">
-          <Header
+        <div className="main_header_wrap">
+          <Header_main
             isLogin={this.state.isLogin}
             userInfo={this.props.userInfo}
             handleLogout={this.props.handleLogout}

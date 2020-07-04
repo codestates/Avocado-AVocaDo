@@ -1,9 +1,9 @@
 /* Header, WordInput, WordCard, WordCardStack 컴포넌트 스타일링 */
 
-.header_wrap {
+.main_header_wrap {
   display: flex;
   background-color: #03c75a;
-  height: 25vh;
+  min-height: 25vh;
   position: sticky;
   top: 0;
   align-items: flex-end;
@@ -12,11 +12,11 @@
   color: white;
 }
 
-.nav {
+.main_nav {
   padding: 20px;
   position: absolute;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
 }
 
