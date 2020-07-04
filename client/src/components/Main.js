@@ -31,8 +31,6 @@ class Main extends React.Component {
           sentences: ['I like apple', 'I hate apple'],
         },
       ],
-      
-      
       */
 
   getWordData() {
