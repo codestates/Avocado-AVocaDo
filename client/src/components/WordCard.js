@@ -1,7 +1,8 @@
 /* eslint-disable */
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import Modal from 'react-modal';
+import '../CSS/WordCard.css';
 // word card 에서 모달 컴포넌트 호출 및 데이터 전달
 
 const customStyles = {
@@ -22,7 +23,20 @@ Modal.setAppElement('#root');
 // react-modal hooks 를 사용하기 위해 function component 로 변경
 
 function WordCard(props) {
+  const {
+    word,
+    sentences,
+    postInputWord,
+    addWordData,
+    handleInput,
+    handleSentenseData,
+  } = props;
+
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalSentences, setModalSentences] = React.useState(
+    sentences.join('')
+  );
+  const [modalWord, setModalWord] = React.useState(word);
 
   function openModal() {
     // modalIsOpen -> true 로 변경
@@ -39,7 +53,15 @@ function WordCard(props) {
     setIsOpen(false);
   }
 
-  const { word, sentences, postInputWord } = props;
+  function saveWordData() {}
+
+  function handleModalSentences(e) {
+    setModalSentences(e.target.value);
+  }
+
+  function handleModalWord(e) {
+    setModalWord(e.target.value);
+  }
 
   return (
     <div>
@@ -69,23 +91,38 @@ function WordCard(props) {
         // 스크린 리더에 어떻게 읽히는지 설정 -> 시각 장애인을 위한 기능
         contentLabel="A! VOCADO"
       >
-        {/* ref={_subtitle => (subtitle = _subtitle)} ?? */}
-        <h2>단어 수정</h2>
-        <div>
-          <input value={word}></input>
-          <textarea id="modal-textarea" value={sentences}></textarea>
-          <button
-            className="modal-btn"
-            onClick={() => {
-              closeModal();
-            }}
-          >
-            저장
-          </button>
-          <button className="modal-btn" onClick={closeModal}>
-            취소
-          </button>
-        </div>
+        <form
+          className="modal_word_form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSentenseData(modalSentences);
+
+            // textarea 수정완료후 현재 state 전달
+            // 전달받으면 문자열을 엔터기준으로 분리
+            // 단어, 예문 데이터 상태에 저장
+            // 저장한 내용으로 post!
+          }}
+        >
+          <h3>단어 수정</h3>
+          <div>
+            <input value={modalWord} onChange={handleModalWord}></input>
+            <textarea
+              className="modal-textarea"
+              value={modalSentences}
+              onChange={handleModalSentences}
+            ></textarea>
+            <input
+              type="submit"
+              title="저장"
+              alt="저장"
+              value="저장"
+              className="btn_modal_save"
+            />
+            <button className="modal-btn" onClick={closeModal}>
+              취소
+            </button>
+          </div>
+        </form>
       </Modal>
     </div>
   );
