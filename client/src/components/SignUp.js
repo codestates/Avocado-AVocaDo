@@ -13,7 +13,6 @@ class SignUp extends React.Component {
       email: '',
       password: '',
       username: '',
-      mobile: '',
     };
   }
 
@@ -26,12 +25,11 @@ class SignUp extends React.Component {
       email: this.state.email,
       password: this.state.password,
       username: this.state.username,
-      mobile: this.state.mobile,
     };
 
     // url 은 test 를 위해 임의로 지정하였음 => 변경가능
     return axios
-      .post('http://localhost:5000/signup', SignUpData)
+      .post('http://localhost:8080/users/signup', SignUpData)
       .then((response) => {
         if (response.status === 409) {
           alert('이미가입된 아이디입니다.');
@@ -59,9 +57,7 @@ class SignUp extends React.Component {
               } else if (this.state.password.length < 1) {
                 alert('비밀번호를 입력해주세요!');
               } else if (this.state.username.length < 1) {
-                alert('닉네임을 입력해주세요!');
-              } else if (this.state.mobile.length < 1) {
-                alert('전화번호를 입력해주세요!');
+                alert('이름을 입력해주세요!');
               } else {
                 this.postSignUpData();
               }
@@ -94,6 +90,21 @@ class SignUp extends React.Component {
                       placeholder="비밀번호를 입력 해주세요"
                       maxLength="20"
                       onChange={this.handleSignUpInput('password')}
+                    ></input>
+                  </span>
+                </div>
+              </div>
+
+              <div className="username_area">
+                <h3>이름</h3>
+                <div className="input_row">
+                  <span className="input_box">
+                    <input
+                      className="signup_input"
+                      type="text"
+                      placeholder="이름을 입력 해주세요"
+                      maxLength="20"
+                      onChange={this.handleSignUpInput('username')}
                     ></input>
                   </span>
                 </div>

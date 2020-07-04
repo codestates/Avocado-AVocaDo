@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'; // userHistory
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Main from './components/Main';
+import Wordbook from './components/Wordbook';
 
 class App extends React.Component {
   state = {
@@ -41,6 +42,7 @@ class App extends React.Component {
           />
           <Route exact path="/signup" render={() => <SignUp />} />
           <Route exact path="/main" render={() => <Main />} />
+          <Route exact path="/wordbook" render={() => <Wordbook />} />
           <Route
             exact
             path="/"

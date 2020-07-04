@@ -228,11 +228,11 @@ class Login extends React.Component {
                 onFailure={this.responseGoogle}
                 cookiePolicy={'single_host_origin'}
               />
-              <span> </span>
               <FacebookLogin
                 appId="1217568225253856"
                 textButton="　페이스북 계정으로 로그인"
-                autoLoad={true}
+                // 새로고침하면 자동으로 popup 되는 문제 해결
+                autoLoad={false}
                 fields="name,email,picture"
                 cssClass="facebook_login_btn"
                 // onClick={componentClicked}

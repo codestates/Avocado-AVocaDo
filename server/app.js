@@ -20,6 +20,7 @@ app.use(
     secret: 'A!VocaDo!',
     resave: false,
     cookie: { maxAge: 3600000 },
+    rolling: true,
     // cookie: { maxAge: 10000 },
     saveUninitialized: true,
   })
