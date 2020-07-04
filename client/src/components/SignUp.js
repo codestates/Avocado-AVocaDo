@@ -29,7 +29,7 @@ class SignUp extends React.Component {
 
     // url 은 test 를 위해 임의로 지정하였음 => 변경가능
     return axios
-      .post('http://localhost:5000/signup', SignUpData)
+      .post('http://localhost:8080/users/signup', SignUpData)
       .then((response) => {
         if (response.status === 409) {
           alert('이미가입된 아이디입니다.');
