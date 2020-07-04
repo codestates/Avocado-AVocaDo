@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../CSS/Main.css';
 
-function Header_main() {
+function Main_Header() {
   return (
     <nav className="main_nav">
       <div>
@@ -18,4 +18,4 @@ function Header_main() {
     </nav>
   );
 }
-export default Header_main;
+export default Main_Header;
