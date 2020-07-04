@@ -30,7 +30,10 @@ function WordCard(props) {
     addWordData,
     handleInput,
     handleSentenseData,
+    index,
   } = props;
+
+  console.log('WordCard 키', props);
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalSentences, setModalSentences] = React.useState(
@@ -53,7 +56,13 @@ function WordCard(props) {
     setIsOpen(false);
   }
 
-  function saveWordData() {}
+  function saveWordData(e) {
+    e.preventDefault();
+    handleSentenseData(modalSentences, word, index);
+    console.log('key확인', index);
+
+    closeModal();
+  }
 
   function handleModalSentences(e) {
     setModalSentences(e.target.value);
@@ -65,6 +74,7 @@ function WordCard(props) {
 
   return (
     <div>
+      {/* 클릭했을 때의 단어를 반영 */}
       <div className="word_card" onClick={openModal}>
         <div className="word">{word}</div>
         <ul className="sentences">
@@ -91,18 +101,7 @@ function WordCard(props) {
         // 스크린 리더에 어떻게 읽히는지 설정 -> 시각 장애인을 위한 기능
         contentLabel="A! VOCADO"
       >
-        <form
-          className="modal_word_form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSentenseData(modalSentences);
-
-            // textarea 수정완료후 현재 state 전달
-            // 전달받으면 문자열을 엔터기준으로 분리
-            // 단어, 예문 데이터 상태에 저장
-            // 저장한 내용으로 post!
-          }}
-        >
+        <form className="modal_word_form" onSubmit={saveWordData}>
           <h3>단어 수정</h3>
           <div>
             <input value={modalWord} onChange={handleModalWord}></input>

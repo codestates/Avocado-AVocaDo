@@ -24,6 +24,17 @@ class Main extends React.Component {
     };
   }
 
+  /*       wordData: [
+       
+        {
+          word: 'apple',
+          sentences: ['I like apple', 'I hate apple'],
+        },
+      ],
+      
+      
+      */
+
   getWordData() {
     // get 요청: 서버로부터 유저와 일치하는 모든 단어/예문을 불러온다.
     axios.get('url').then((res) => {
@@ -69,32 +80,7 @@ class Main extends React.Component {
   };
 
   addWordData = () => {
-    // 단어만 추가할 때는 sentences 는 빈배열
-    // 모달창에서 예문추가하면 sentences 에 엔터단위로 split 에서 push 함
-    //
-
-    // 단어가 중복이면 메서드가 실행되서는 안됨
-    // 이미 단어가 있습니다!! => alert
-    // kmp.kmp(전체문자열, 찾고자 하는 특정 문자열)
-
-    // kmp.kmp() -> 길이가 1보다 크면 alert 띄우고 아니면 push 한다.
-
-    // 전체문자열 -> 전체 단어의 모음
-    // 특정문자열 -> this.state.currentWord
-    // const wordArr = [];
-    // this.state.wordData.forEach(element => {
-
-    //   wordArr.push(element.word)
-    // });
-
-    // const stringTotalWord = JSON.stringify(wordArr);
-    // "word":"원하는단어"
-    // findingWord =
     const findingWord = `"word":"${this.state.currentWord}"`;
-    console.log(
-      '확인',
-      kmp.kmp(JSON.stringify(this.state.wordData), findingWord)
-    );
 
     const searchResult =
       kmp.kmp(JSON.stringify(this.state.wordData), findingWord).length > 0;
@@ -107,28 +93,59 @@ class Main extends React.Component {
     }
   };
 
-  handleSentenseData = (sentences) => {
+  handleSentenseData = (sentences, word, index) => {
+    /* 모달창에서 입력하고 저장버튼을 누르면 클릭한 부분의 데이터가 변하는 게 아니라 데이터가 중복으로 생성되어 추가가 된다.
+    
+    ex> 단어 apple ~~~ , 문장~~~ ⇒ 클릭해서 모달창을 띄우고 수정을 하고 저장버튼을 누르면 
+    
+    똑같은 단어가 중복되어 들어간다. 
+    문제는 단순히 데이터를 push 하기 때문에 중복으로 들어간다. 
+    해결은 클릭을 했을 때의 단어 객체에서 문장을 수정 및 반영이 되어야 한다. 
+    현재는 클릭을 했을 때의 단어 객체에서 문장이 추가되는 것이 아니라 그냥 새로운 단어객체에 문장을 추가하여 전체 배열에 push 하고 있다. */
+
+    /* 
+    
+    해결은 클릭을 했을 때의 단어 객체에 수정한 문장으로 덮어씌워야 함 
+    
+    클릭을 했을 때의 특정 단어 객체를 찾으면 덮어 씌우기는 쉬움
+    
+    
+    아이디어1> 
+    
+    전체를 json 으로 변환한 다음 kmp 로 찾아서 문자열을 교체하기 
+    
+    저장버튼을 누를때 단어를 알고 있다. 
+    
+    {word:apple, sentence:[a,b,c,d]}
+    
+    
+    아이디어 2> 
+    
+    처음에 data 저장할 때 클라이언트에서만 관리하는 index 부여 
+    
+    wordcard 에 보낼 때 같이 보냄 
+    
+    인덱스로 단어 객체 찾아서 문장을 덮어 씌운다. 
+    
+    
+    */
     const splitSentences = sentences.split('\n');
-    // 단어가 중복되어 들어가게 된다.
-    // 똑같은 단어가 있으면 해당 단어data 를 삭제하고 덮어씌워야
-    // push 로 하면 안되!
-    // setState 로 변경해야 함
-    // 현재단어에 있는 문장에만 push 해야 함
 
-    // 현재단어를 특정해야 함
-
-    this.state.wordData.push({
-      word: this.state.currentWord,
+    this.state.wordData[index] = {
+      word: word,
       sentences: splitSentences,
-    });
+    };
+    // this.state.wordData.push({
+    //   word: this.state.currentWord,
+    //   sentences: splitSentences,
+    // });
+
     this.setState({ wordData: this.state.wordData });
 
-    console.log('handleSentenseData', this.state);
+    console.log('변경확인', this.state);
   };
 
-  componentDidMount() {
-    // index 를 리턴한다.
-  }
+  componentDidMount() {}
   render() {
     console.log('render', this.state);
     return (
