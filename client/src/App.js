@@ -111,8 +111,8 @@ class App extends React.Component {
             path="/wordbook"
             render={() => (
               <Wordbook
-                userInfo={this.state.userInfo}
-                wordData={this.state.wordData}
+                userInfo={userInfo}
+                wordData={wordData}
                 handleLogout={this.handleLogout.bind(this)}
                 postInputWord={this.postInputWord.bind(this)}
                 updateWordData={this.updateWordData.bind(this)}
