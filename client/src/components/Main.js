@@ -6,7 +6,6 @@ import Header from './Header';
 import WordInput from './WordInput';
 import WordCardStack from './WordCardStack';
 // npm i --save kmp-matcher
-import kmp from 'kmp-matcher';
 import '../CSS/Main.css';
 
 class Main extends React.Component {
@@ -44,15 +43,18 @@ class Main extends React.Component {
       });
   }
 
-  updateWordData() {
+  updateWordData(word, sentences) {
     // put 요청: 유저가 단어를 수정한 경우, 또는 예문을 수정/추가/삭제한 경우 그 값을 서버에 전송한다.
     axios
-      .put('url', {
-        currentWord: this.state.currentWord,
-        wordData: this.state.wordData,
+      .put('http://localhost:8080/words/sentences', {
+        word: word,
+        sentences: sentences,
       })
       .then((res) => {
         console.log(res);
+      })
+      .catch((e) => {
+        console.log('updateWordData', e);
       });
   }
 
@@ -74,12 +76,10 @@ class Main extends React.Component {
     this.setState({ wordData: this.state.wordData });
   };
 
-  handleSentenseData = (sentences, word, index) => {
-    const splitSentences = sentences.split('\n');
-
+  handleSentenseData = (word, sentences, index) => {
     this.state.wordData[index] = {
       word: word,
-      sentences: splitSentences,
+      sentences: sentences,
     };
     // this.state.wordData.push({
     //   word: this.state.currentWord,
@@ -87,8 +87,6 @@ class Main extends React.Component {
     // });
 
     this.setState({ wordData: this.state.wordData });
-
-    console.log('변경확인', this.state);
   };
 
   componentDidMount() {}

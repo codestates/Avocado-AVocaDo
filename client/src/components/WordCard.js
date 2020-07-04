@@ -28,11 +28,10 @@ function WordCard(props) {
     postInputWord,
     addWordData,
     handleInput,
+    updateWordData,
     handleSentenseData,
     index,
   } = props;
-
-  console.log('WordCard 키', props);
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalSentences, setModalSentences] = React.useState(
@@ -41,7 +40,6 @@ function WordCard(props) {
   const [modalWord, setModalWord] = React.useState(word);
 
   function openModal() {
-    // modalIsOpen -> true 로 변경
     setIsOpen(true);
   }
 
@@ -51,14 +49,19 @@ function WordCard(props) {
     // subtitle.style.color = '#000';
   }
   function closeModal() {
-    // modalIsOpen -> false 로 변경
     setIsOpen(false);
   }
 
   function saveWordData(e) {
     e.preventDefault();
-    handleSentenseData(modalSentences, word, index);
-    console.log('key확인', index);
+    // textarea 에 들어있는 문장을 enter 단위로 분해하여 배열에 저장
+    const splitSentences = modalSentences.split('\n');
+    // 저장한 배열로 전체 단어 data 상태 변화
+    handleSentenseData(word, splitSentences, index);
+    // put??
+    // 서버로 뭘 보내줘야 하나?
+    // 단어와 바뀐 문장전체
+    updateWordData(word, splitSentences);
 
     closeModal();
   }

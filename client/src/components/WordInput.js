@@ -23,6 +23,8 @@ class WordInput extends Component {
       this.props.addWordData();
       this.props.postInputWord();
     }
+
+    document.querySelector('.word_input').value = '';
   }
 
   render() {
