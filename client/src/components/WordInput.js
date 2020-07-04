@@ -23,6 +23,8 @@ class WordInput extends Component {
       this.props.addWordData();
       this.props.postInputWord();
     }
+    
+    document.querySelector('.word_input').value = '';
   }
 
   render() {
@@ -41,9 +43,6 @@ class WordInput extends Component {
                   ></input>
                 </span>
               </div>
-            </div>
-            <div className="wordinput_btn_area">
-              <input className="wordinput_btn" type="submit" value="🥑" />
             </div>
           </form>
         </div>
