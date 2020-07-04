@@ -16,7 +16,7 @@ class WordCardStack extends React.Component {
       deleteWordData,
       addWordData,
       handleInput,
-      handleSentenseData,
+      handleSentenceData,
     } = this.props;
 
     return (
@@ -34,7 +34,7 @@ class WordCardStack extends React.Component {
                   deleteWordData={deleteWordData}
                   addWordData={addWordData}
                   handleInput={handleInput}
-                  handleSentenseData={handleSentenseData}
+                  handleSentenceData={handleSentenceData}
                 />
               );
             })
@@ -47,7 +47,7 @@ class WordCardStack extends React.Component {
 WordCardStack.propTypes = {
   addWordData: PropTypes.func.isRequired,
   handleInput: PropTypes.func.isRequired,
-  handleSentenseData: PropTypes.func.isRequired,
+  handleSentenceData: PropTypes.func.isRequired,
   wordData: PropTypes.object.isRequired,
   postInputWord: PropTypes.func.isRequired,
   updateWordData: PropTypes.func.isRequired,

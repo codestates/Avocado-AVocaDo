@@ -32,7 +32,7 @@ function WordCard(props) {
     postInputWord,
     addWordData,
     handleInput,
-    handleSentenseData,
+    handleSentenceData,
     index,
   } = props;
 
@@ -61,7 +61,7 @@ function WordCard(props) {
 
   function saveWordData(e) {
     e.preventDefault();
-    handleSentenseData(modalSentences, word, index);
+    handleSentenceData(modalSentences, word, index);
     console.log('key확인', index);
 
     closeModal();

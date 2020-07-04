@@ -4,6 +4,8 @@ import axios from 'axios';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Main from './components/Main';
+import Wordbook from './components/Wordbook';
+
 class App extends React.Component {
   state = {
     isLogin: false,
@@ -16,6 +18,7 @@ class App extends React.Component {
       },
     ],
   };
+
   handleLogin() {
     this.setState({
       isLogin: true,
@@ -60,8 +63,18 @@ class App extends React.Component {
       withCredentials: true,
     });
   }
+
+  handleInput = (key) => (e) => {
+    this.setState({ [key]: e.target.value });
+  };
+
+  addWordData = () => {
+    this.state.wordData.push({ word: this.state.currentWord, sentences: [] });
+    this.setState({ wordData: this.state.wordData });
+  };
+
   render() {
-    const { isLogin } = this.state;
+    const { isLogin, userInfo, wordData } = this.state;
     return (
       <div>
         <Switch>
@@ -81,6 +94,23 @@ class App extends React.Component {
             path="/main"
             render={() => (
               <Main
+                isLogin={isLogin}
+                userInfo={userInfo}
+                wordData={wordData}
+                handleLogout={this.handleLogout.bind(this)}
+                postInputWord={this.postInputWord.bind(this)}
+                updateWordData={this.updateWordData.bind(this)}
+                deleteWordData={this.deleteWordData.bind(this)}
+                handleInput={this.handleInput.bind(this)}
+                addWordData={this.addWordData.bind(this)}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/wordbook"
+            render={() => (
+              <Wordbook
                 userInfo={this.state.userInfo}
                 wordData={this.state.wordData}
                 handleLogout={this.handleLogout.bind(this)}
