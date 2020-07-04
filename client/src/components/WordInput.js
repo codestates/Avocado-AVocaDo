@@ -10,7 +10,7 @@ class WordInput extends Component {
 
   render() {
     const { handleInput, addWordData } = this.props;
-    // const { postInputWord} = this.props;
+    const { postInputWord } = this.props;
     return (
       <div className="wordinput_wrap">
         <div className="wordinput_container">
@@ -20,7 +20,7 @@ class WordInput extends Component {
               e.preventDefault();
               addWordData();
               document.querySelector('.word_input').value = '';
-              // postInputWord();
+              postInputWord();
             }}
           >
             <div className="wordinput_field">
