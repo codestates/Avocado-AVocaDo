@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes, { func } from 'prop-types';
 import Modal from 'react-modal';
-import '../CSS/WordCard.css';
 // word card 에서 모달 컴포넌트 호출 및 데이터 전달
 
 const customStyles = {

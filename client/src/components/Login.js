@@ -44,7 +44,7 @@ class Login extends React.Component {
     this.setState({ id: googleId });
 
     axios
-      .post('http://127.0.0.1:8080/users/signin', googleLoginData)
+      .post('http://localhost:8080/users/signin', googleLoginData)
       .then((response) => {
         if (response.status === 401) {
           alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
@@ -95,7 +95,7 @@ class Login extends React.Component {
 
     /* 서버에 로그인 post 요청 */
     // ========================================================
-    // axios.post('http://127.0.0.1:8080/users/signin', facebookLoginData).
+    // axios.post('http://localhost:8080/users/signin', facebookLoginData).
     //   then((response) => {
     //     if (response.status === 401) {
     //       alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.')
