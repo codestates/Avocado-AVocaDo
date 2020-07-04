@@ -3,11 +3,15 @@ const dummyUsers = require('./dummyUsers');
 
 module.exports = {
   post: (req, res) => {
-    const { userId, password } = req.body;
+    const { userId, password, userName } = req.body;
     if (dummyUsers[userId]) {
       res.status(409).send('Already exists user');
     } else {
-      dummyUsers[userId] = password;
+      let userObj = {};
+      userObj['password'] = password;
+      userObj['userName'] = userName;
+      dummyUsers[userId] = userObj;
+
       res.status(200).end();
     }
 

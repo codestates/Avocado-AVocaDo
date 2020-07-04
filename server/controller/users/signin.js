@@ -15,8 +15,12 @@ module.exports = {
         // if userId and logintype in database everything is ok
         // else userId =0, password = 0; ->밑의 54번째줄 if문에서 걸리게 하기 위해서
         // send 404
-        if (dummyUsers[userId] === password) {
-          res.status(200).end();
+        if (dummyUsers[userId]) {
+          if (dummyUsers[userId]['password'] === password) {
+            res.status(200).end();
+          } else {
+            res.status(401).send('unvalid user');
+          }
         } else {
           loginType = null;
           res.status(401).send('unvalid user');
