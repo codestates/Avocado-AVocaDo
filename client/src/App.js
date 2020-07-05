@@ -67,11 +67,15 @@ class App extends React.Component {
         console.log('updateWordData', e);
       });
   }
-  deleteWordData() {
+
+  deleteWordData(index) {
     // delete 요청: 유저가 단어/예문을 삭제한 경우 서버에 삭제를 요청한다.
     axios.delete('url/:userId/:wordId...', {
       withCredentials: true,
     });
+
+    this.state.wordData.splice(index, 1);
+    this.setState({ wordData: this.state.wordData });
   }
 
   handleInput = (key) => (e) => {

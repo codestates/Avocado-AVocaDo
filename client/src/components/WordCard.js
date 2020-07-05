@@ -19,6 +19,9 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    border: '2px solid #cccccc',
+    borderRadius: '6px',
+    backgroundColor: '#f5f6f7',
   },
 };
 
@@ -32,6 +35,7 @@ function WordCard(props) {
     sentences,
     postInputWord,
     addWordData,
+    deleteWordData,
     handleInput,
     updateWordData,
     handleSentenceData,
@@ -79,10 +83,23 @@ function WordCard(props) {
     setModalWord(e.target.value);
   }
 
+  function deleteWordCard() {
+    deleteWordData(index);
+  }
+
   return (
     <div>
       {/* 클릭했을 때의 단어를 반영 */}
+      {/* X 버튼을 클릭했을 때 
+      배열에서 데이터를 삭제하고 삭제한 배열을 반영하여
+      state 를 변경한다. 
+      */}
+
       <div className="wordcard" onClick={openModal}>
+        <button
+          className="btn_delete_wordcard"
+          onClick={deleteWordCard}
+        ></button>
         <div className="word">{word}</div>
         <ul className="sentences">
           {sentences.map((sentence, index) => {
@@ -92,20 +109,9 @@ function WordCard(props) {
       </div>
 
       <Modal
-        /* Boolean describing if the modal should be shown or not. Defaults to false. */
-        // modal 이 보여질지 안보여질지 설정
         isOpen={modalIsOpen}
-        /* Function that will be run after the modal has opened. */
-        // modal 이 열리고 나서의 기능 설정
-        // onAfterOpen={afterOpenModal}
-        /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
-        // modal 이 닫히고 나서의 기능 설정
         onRequestClose={closeModal}
-        // modal comp css 설정
-        /* Object indicating styles to be used for the modal, divided into overlay and content styles. */
-        // modal css 설정
         style={customStyles}
-        // 스크린 리더에 어떻게 읽히는지 설정 -> 시각 장애인을 위한 기능
         contentLabel="A! VOCADO"
       >
         {/* HTML <dl> 요소는 설명 목록을 나타냅니다. 
@@ -114,7 +120,7 @@ function WordCard(props) {
 
         {/* dl -> ul  */}
         {/* dt -> title  */}
-        {/* dd -> li  */}
+        {/* dd -> content */}
 
         <div className="modal_container">
           <form className="modal_word_form" onSubmit={saveWordData}>
