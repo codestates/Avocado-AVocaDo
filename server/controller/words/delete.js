@@ -1,13 +1,32 @@
 const { words } = require('../../models/users');
+const dummy = require('../../models/dummy');
 
 module.exports = {
-  post: (req, res) => {
-    const { word } = req.body;
+  delete: (req, res) => {
+    // const { word } = req.body;
 
-    words
-      .destroy({
-        where: { word },
-      })
-      .then(res.status(200).send('삭제되었습니다'));
+    // if (req.session) {
+    //   if (word in dummy['data']) {
+    //     delete dummy['data'][word];
+    //   }
+    //   res.status(200).json(dummy);
+    // } else {
+    //   res.status(401).send('need user session');
+    // }
+    const { wordId } = req.body;
+
+    if (req.session) {
+      let obj = {};
+      dummy['data'].splice(wordId, 1);
+      res.status(200).json(dummy);
+    } else {
+      res.status(401).send('invalid user');
+    }
   },
 };
+
+// words
+//       .destroy({
+//         where: { word },
+//       })
+//       .then(res.status(200).send('삭제되었습니다'));
