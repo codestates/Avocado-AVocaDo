@@ -6,11 +6,9 @@ import '../CSS/Main.css';
 class WordCardStack extends React.Component {
   constructor(props) {
     super(props);
-    console.log('wordCard!Stack', this.props);
   }
 
   render() {
-    console.log(this.props);
     const {
       addWordData,
       wordData,
@@ -20,8 +18,6 @@ class WordCardStack extends React.Component {
       handleInput,
       handleSentenceData,
     } = this.props;
-    console.log('확인!2', this.props);
-    console.log('handleSentenseData', handleSentenceData);
     return (
       <div className="wordcardstack_wrap">
         <div className="wordcard_stack">

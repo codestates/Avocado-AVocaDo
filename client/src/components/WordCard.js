@@ -5,12 +5,13 @@ import Modal from 'react-modal';
 
 // npm install react-modal
 import '../CSS/WordCard.css';
+import '../CSS/Modal_Word.css';
 
 // word card 에서 모달 컴포넌트 호출 및 데이터 전달
 
 const customStyles = {
   content: {
-    width: '50%',
+    width: '500px',
     height: 'auto',
     top: '50%',
     left: '50%',
@@ -37,7 +38,6 @@ function WordCard(props) {
     index,
   } = props;
 
-  console.log('wordCard!', props);
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalSentences, setModalSentences] = React.useState(
     sentences.join('')
@@ -48,11 +48,11 @@ function WordCard(props) {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // Modal 안의 Title
-    // subtitle.style.color = '#000';
-  }
+  // function afterOpenModal() {
+  //   // references are now sync'd and can be accessed.
+  //   // Modal 안의 Title
+  //   // subtitle.style.color = '#000';
+  // }
   function closeModal() {
     setIsOpen(false);
   }
@@ -97,7 +97,7 @@ function WordCard(props) {
         isOpen={modalIsOpen}
         /* Function that will be run after the modal has opened. */
         // modal 이 열리고 나서의 기능 설정
-        onAfterOpen={afterOpenModal}
+        // onAfterOpen={afterOpenModal}
         /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
         // modal 이 닫히고 나서의 기능 설정
         onRequestClose={closeModal}
@@ -108,27 +108,64 @@ function WordCard(props) {
         // 스크린 리더에 어떻게 읽히는지 설정 -> 시각 장애인을 위한 기능
         contentLabel="A! VOCADO"
       >
-        <form className="modal_word_form" onSubmit={saveWordData}>
-          <h3>단어 수정</h3>
-          <div>
-            <input value={modalWord} onChange={handleModalWord}></input>
-            <textarea
-              className="modal-textarea"
-              value={modalSentences}
-              onChange={handleModalSentences}
-            ></textarea>
-            <input
-              type="submit"
-              title="저장"
-              alt="저장"
-              value="저장"
-              className="btn_modal_save"
-            />
-            <button className="modal-btn" onClick={closeModal}>
-              취소
-            </button>
-          </div>
-        </form>
+        {/* HTML <dl> 요소는 설명 목록을 나타냅니다. 
+        <dl>은 <dt>로 표기한 용어와 
+        <dd> 요소로 표기한 설명 그룹의 목록을 감싸서 설명 목록을 생성합니다. */}
+
+        {/* dl -> ul  */}
+        {/* dt -> title  */}
+        {/* dd -> li  */}
+
+        <div className="modal_container">
+          <form className="modal_word_form" onSubmit={saveWordData}>
+            <h1 className="modal_heading">Create Sentences</h1>
+
+            <dl className="modal_form_group">
+              <dt>
+                <label>{'Word'}</label>
+              </dt>
+
+              <dd>
+                <input
+                  className="modal_input"
+                  value={modalWord}
+                  onChange={handleModalWord}
+                ></input>
+              </dd>
+            </dl>
+
+            <dl className="modal_form_group">
+              <dt>
+                <label>{'Sentences'}</label>
+              </dt>
+
+              <dd>
+                <textarea
+                  className="modal_textarea"
+                  value={modalSentences}
+                  onChange={handleModalSentences}
+                ></textarea>
+              </dd>
+            </dl>
+
+            <div className="modal_btn_area">
+              <input
+                type="submit"
+                title="저장"
+                alt="저장"
+                value="저장"
+                className="btn_modal btn_modal_save"
+              />
+              <button
+                className="btn_modal btn_modal_cancel"
+                value="취소"
+                onClick={closeModal}
+              >
+                취소
+              </button>
+            </div>
+          </form>
+        </div>
       </Modal>
     </div>
   );

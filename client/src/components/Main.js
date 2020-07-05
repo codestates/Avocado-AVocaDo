@@ -10,7 +10,6 @@ class Main extends React.Component {
   }
 
   render() {
-    console.log('Main', this.props);
     const {
       isLogin,
       userInfo,
