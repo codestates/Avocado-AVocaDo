@@ -1,36 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Wordbook_Header from './Wordbook_Header';
 import WordList from './WordList';
+// import Pagination from './components/Pagination';
 import PropTypes from 'prop-types';
 import '../CSS/Wordbook.css';
 
-class Wordbook extends Component {
-  render() {
-    const {
-      userInfo,
-      handleLogout,
-      wordData,
-      postInputWord,
-      updateWordData,
-      deleteWordData,
-    } = this.props;
-
-    return (
-      <div>
-        <div className="wordbook_header_wrap">
-          <Wordbook_Header userInfo={userInfo} handleLogout={handleLogout} />
-        </div>
-        <div>
-          <WordList
-            wordData={wordData}
-            postInputWord={postInputWord}
-            updateWordData={updateWordData}
-            deleteWordData={deleteWordData}
-          />
-        </div>
+function Wordbook({
+  userInfo,
+  handleLogout,
+  wordData,
+  postInputWord,
+  updateWordData,
+  deleteWordData,
+}) {
+  return (
+    <div>
+      <div className="wordbook_header_wrap">
+        <Wordbook_Header userInfo={userInfo} handleLogout={handleLogout} />
       </div>
-    );
-  }
+      <div>
+        <WordList
+          wordData={wordData}
+          postInputWord={postInputWord}
+          updateWordData={updateWordData}
+          deleteWordData={deleteWordData}
+        />
+      </div>
+    </div>
+  );
 }
 
 Wordbook.propTypes = {
