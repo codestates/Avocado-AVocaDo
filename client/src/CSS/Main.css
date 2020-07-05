@@ -102,6 +102,7 @@
 }
 
 .wordcard {
+  position: relative;
   width: 400px;
   background-color: white;
   margin-bottom: 70px;
@@ -141,4 +142,23 @@ li {
 .wordcard:hover {
   cursor: pointer;
   transform: scale(1.05);
+}
+
+.btn_delete_wordcard {
+  position: absolute;
+  top: -7px;
+  right: -11px;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-color: #11ffee00;
+  background-position: -41px -42px;
+  background-image: url(https://static-whale.pstatic.net/main/sprite@2x.png);
+  background-repeat: no-repeat;
+  background-size: 98px 81px;
+}
+
+.btn_delete_wordcard:hover {
+  cursor: pointer;
+  transform: scale(1.7);
 }
