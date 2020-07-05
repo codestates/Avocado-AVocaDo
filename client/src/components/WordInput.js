@@ -9,11 +9,13 @@ class WordInput extends Component {
 
     // props 쓸려면 this bind 해야함
     this.submitWord = this.submitWord.bind(this);
+    console.log('WordInput!!', this.props);
   }
   submitWord(e) {
     e.preventDefault();
     const findingWord = `"word":"${this.props.currentWord}"`;
 
+    console.log(JSON.stringify(this.props.wordData));
     const searchResult =
       kmp.kmp(JSON.stringify(this.props.wordData), findingWord).length > 0;
 
@@ -28,7 +30,6 @@ class WordInput extends Component {
   }
 
   render() {
-    console.log('wordinput', this.props);
     return (
       <div className="wordinput_wrap">
         <div className="wordinput_container">
@@ -57,9 +58,9 @@ class WordInput extends Component {
   }
 }
 
-WordInput.propTypes = {
-  addWordData: PropTypes.func.isRequired,
-  handleInput: PropTypes.func.isRequired,
-};
+// WordInput.propTypes = {
+//   addWordData: PropTypes.func.isRequired,
+//   handleInput: PropTypes.func.isRequired,
+// };
 
 export default WordInput;

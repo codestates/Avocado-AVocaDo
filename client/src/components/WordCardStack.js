@@ -1,11 +1,12 @@
+/* eslint-disable */
 import React from 'react';
 import WordCard from './WordCard';
-import PropTypes from 'prop-types';
 import '../CSS/Main.css';
 
 class WordCardStack extends React.Component {
   constructor(props) {
     super(props);
+    console.log('wordCard!Stack', this.props);
   }
 
   render() {
@@ -15,11 +16,11 @@ class WordCardStack extends React.Component {
       postInputWord,
       updateWordData,
       deleteWordData,
-      addWordData,
       handleInput,
       handleSentenceData,
     } = this.props;
-
+    console.log('확인!2', this.props);
+    console.log('handleSentenseData', handleSentenceData);
     return (
       <div className="wordcardstack_wrap">
         <div className="wordcard_stack">
@@ -47,14 +48,14 @@ class WordCardStack extends React.Component {
   }
 }
 
-WordCardStack.propTypes = {
-  addWordData: PropTypes.func.isRequired,
-  handleInput: PropTypes.func.isRequired,
-  handleSentenceData: PropTypes.func.isRequired,
-  wordData: PropTypes.object.isRequired,
-  postInputWord: PropTypes.func.isRequired,
-  updateWordData: PropTypes.func.isRequired,
-  deleteWordData: PropTypes.func.isRequired,
-};
+// WordCardStack.propTypes = {
+//   addWordData: PropTypes.func.isRequired,
+//   handleInput: PropTypes.func.isRequired,
+//   handleSentenceData: PropTypes.func.isRequired,
+//   wordData: PropTypes.object.isRequired,
+//   postInputWord: PropTypes.func.isRequired,
+//   updateWordData: PropTypes.func.isRequired,
+//   deleteWordData: PropTypes.func.isRequired,
+// };
 
 export default WordCardStack;

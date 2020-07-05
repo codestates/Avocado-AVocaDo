@@ -10,18 +10,21 @@ class Main extends React.Component {
   }
 
   render() {
+    console.log('Main', this.props);
     const {
       isLogin,
       userInfo,
       wordData,
       handleInput,
       addWordData,
+      currentWord,
     } = this.props;
     const {
       handleLogout,
       postInputWord,
       updateWordData,
       deleteWordData,
+      handleSentenceData,
     } = this.props;
     return (
       <div>
@@ -37,6 +40,8 @@ class Main extends React.Component {
             postInputWord={postInputWord}
             handleInput={handleInput}
             addWordData={addWordData}
+            currentWord={currentWord}
+            wordData={wordData}
           />
         </div>
         <div>
@@ -45,6 +50,8 @@ class Main extends React.Component {
             postInputWord={postInputWord}
             updateWordData={updateWordData}
             deleteWordData={deleteWordData}
+            handleSentenceData={handleSentenceData}
+            handleInput={handleInput}
           />
         </div>
       </div>
