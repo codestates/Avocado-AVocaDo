@@ -14,7 +14,7 @@ class App extends React.Component {
     wordData: [
       {
         word: 'apple',
-        sentence: ['I like apple', 'I hate apple'],
+        sentences: ['I like apple', 'I hate apple'],
       },
     ],
   };
