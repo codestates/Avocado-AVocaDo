@@ -137,3 +137,8 @@
 li {
   list-style: none;
 }
+
+.wordcard:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
