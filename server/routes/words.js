@@ -4,12 +4,21 @@ const router = express.Router();
 const { wordController } = require('../controller');
 
 // * GET /links
-router.get('/words/', wordController.list.get);
+router.get('/', wordController.list.get);
 
 // * POST /links
-router.post('/words', wordController.add.post);
+router.post('/', wordController.add.post);
 
-router.post('/words/edit', wordController.edit.post);
+router.put('/', wordController.edit.put);
 
-router.post('/words/delete', wordController.delete.post);
+router.delete('/', wordController.delete.delete);
+
+router.get('/sentences', wordController.listSentence.get);
+
+router.post('/sentences', wordController.addSentence.post);
+
+router.put('/sentences', wordController.editSentence.put);
+
+router.delete('/sentences', wordController.deleteSentence.delete);
+
 module.exports = router;

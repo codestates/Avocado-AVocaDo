@@ -2,11 +2,14 @@
 // const crypto = require('crypto');
 
 const request = require('request');
+const dummyUsers = require('./dummyUsers');
 
 const access_token = '1217568225253856|FoxJJZdueieUJtKvnDsVbQw6rYY';
 
 module.exports = {
   post: (req, res) => {
+
+    console.log(req.body);
     // 밑에는 데이터베이스를 이용하기 전에 먼저 서버 테스트를 하기 위한 코드입니다
     const { loginType, userId, password, tokenId } = req.body;
     if (password !== undefined) {
@@ -14,7 +17,14 @@ module.exports = {
         // if userId and logintype in database everything is ok
         // else userId =0, password = 0; ->밑의 54번째줄 if문에서 걸리게 하기 위해서
         // send 404
-        if (userId !== 'a' || password !== 'b') {
+        if (dummyUsers[userId]) {
+          if (dummyUsers[userId]['password'] === password) {
+            res.status(200).end();
+          } else {
+            res.status(401).send('unvalid user');
+          }
+        } else {
+          loginType = null;
           res.status(401).send('unvalid user');
         }
       }
@@ -27,13 +37,16 @@ module.exports = {
           `https://graph.facebook.com/debug_token?input_token=${tokenId}&access_token=${access_token}`,
           (error, response, body) => {
             if (error) {
+              loginType = null;
               res.status(401).send('unvalid user');
             }
             try {
               if (!JSON.parse(body).data.is_valid) {
+                loginType = null;
                 res.status(401).send('unvalid user');
               }
             } catch (err) {
+              loginType = null;
               res.status(401).send('unvalid user');
               console.log(err);
             }
@@ -49,8 +62,10 @@ module.exports = {
           (error, response, body) => {
             if (error) {
               res.status(401).send('unvalid user');
+              loginType = null;
             } else {
               if (JSON.parse(body).error) {
+                loginType = null;
                 res.status(401).send('unvalid user');
               }
             }

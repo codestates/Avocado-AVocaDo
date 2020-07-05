@@ -67,7 +67,7 @@ a {
 }
 
 .id_area,
-.password_area {
+.password_area.username_area {
   position: relative;
 }
 
