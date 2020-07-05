@@ -47,6 +47,7 @@ class Main extends React.Component {
         <div>
           <WordCardStack
             wordData={wordData}
+            addWordData={addWordData}
             postInputWord={postInputWord}
             updateWordData={updateWordData}
             deleteWordData={deleteWordData}

@@ -12,6 +12,7 @@ class WordCardStack extends React.Component {
   render() {
     console.log(this.props);
     const {
+      addWordData,
       wordData,
       postInputWord,
       updateWordData,
