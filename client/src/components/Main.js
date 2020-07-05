@@ -28,7 +28,7 @@ class Main extends React.Component {
     } = this.props;
     return (
       <div>
-        <div className="main_header_wrap">
+        <div>
           <Main_Header
             isLogin={isLogin}
             userInfo={userInfo}
@@ -47,6 +47,7 @@ class Main extends React.Component {
         <div>
           <WordCardStack
             wordData={wordData}
+            addWordData={addWordData}
             postInputWord={postInputWord}
             updateWordData={updateWordData}
             deleteWordData={deleteWordData}

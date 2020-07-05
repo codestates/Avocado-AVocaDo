@@ -10,7 +10,9 @@ class WordCardStack extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const {
+      addWordData,
       wordData,
       postInputWord,
       updateWordData,
@@ -21,24 +23,27 @@ class WordCardStack extends React.Component {
     console.log('확인!2', this.props);
     console.log('handleSentenseData', handleSentenceData);
     return (
-      <div className="wordcard_stack">
-        {wordData
-          ? wordData.map((word, index) => {
-              return (
-                <WordCard
-                  key={index}
-                  word={word.word}
-                  sentences={word.sentences}
-                  index={index}
-                  postInputWord={postInputWord}
-                  updateWordData={updateWordData}
-                  deleteWordData={deleteWordData}
-                  handleInput={handleInput}
-                  handleSentenceData={handleSentenceData}
-                />
-              );
-            })
-          : 'noWord!'}
+      <div className="wordcardstack_wrap">
+        <div className="wordcard_stack">
+          {wordData
+            ? wordData.map((word, index) => {
+                return (
+                  <WordCard
+                    key={index}
+                    word={word.word}
+                    sentences={word.sentences}
+                    index={index}
+                    postInputWord={postInputWord}
+                    updateWordData={updateWordData}
+                    deleteWordData={deleteWordData}
+                    addWordData={addWordData}
+                    handleInput={handleInput}
+                    handleSentenceData={handleSentenceData}
+                  />
+                );
+              })
+            : 'noWord!'}
+        </div>
       </div>
     );
   }
