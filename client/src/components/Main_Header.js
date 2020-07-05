@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../CSS/Main.css';
 
-function Header() {
+function Main_Header() {
   return (
-    <nav className="nav">
+    <nav className="main_nav">
       <Link to="/main">
         {' '}
         {/* main 페이지에서는 보이지 않아야 한다. */}
@@ -23,4 +23,4 @@ function Header() {
     </nav>
   );
 }
-export default Header;
+export default Main_Header;

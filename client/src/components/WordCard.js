@@ -33,10 +33,11 @@ function WordCard(props) {
     addWordData,
     handleInput,
     updateWordData,
-    handleSentenseData,
+    handleSentenceData,
     index,
   } = props;
 
+  console.log('wordCard!', props);
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalSentences, setModalSentences] = React.useState(
     sentences.join('')
@@ -61,11 +62,11 @@ function WordCard(props) {
     // textarea 에 들어있는 문장을 enter 단위로 분해하여 배열에 저장
     const splitSentences = modalSentences.split('\n');
     // 저장한 배열로 전체 단어 data 상태 변화
-    handleSentenseData(word, splitSentences, index);
+    handleSentenceData(modalWord, splitSentences, index);
     // put??
     // 서버로 뭘 보내줘야 하나?
     // 단어와 바뀐 문장전체
-    updateWordData(word, splitSentences);
+    updateWordData(modalWord, splitSentences);
 
     closeModal();
   }
