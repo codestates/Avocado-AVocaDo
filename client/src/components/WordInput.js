@@ -32,23 +32,25 @@ class WordInput extends Component {
     return (
       <div className="wordinput_wrap">
         <div className="wordinput_container">
-          <form className="wordinput_form" onSubmit={this.submitWord}>
-            <div className="wordinput_area">
-              <div className="wordinput_row">
-                <span className="wordinput_box">
-                  <input
-                    className="word_input"
-                    type="text"
-                    placeholder="단어를 입력하세요"
-                    onChange={this.props.handleInput('currentWord')}
-                  ></input>
-                </span>
+          <div className="wordinput_field">
+            <form className="wordinput_form" onSubmit={this.submitWord}>
+              <div className="wordinput_area">
+                <div className="wordinput_row">
+                  <span className="wordinput_box">
+                    <input
+                      className="word_input"
+                      type="text"
+                      placeholder="단어를 입력하세요"
+                      onChange={this.props.handleInput('currentWord')}
+                    ></input>
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className="wordinput_btn_area">
-              <input className="wordinput_btn" type="submit" value="🥑" />
-            </div>
-          </form>
+              <div className="wordinput_btn_area">
+                <input className="wordinput_btn" type="submit" value="🥑" />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     );
