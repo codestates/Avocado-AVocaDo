@@ -18,23 +18,25 @@ class WordList extends React.Component {
     } = this.props;
 
     return (
-      <div className="wordlist">
-        {wordData
-          ? wordData.map((word, index) => {
-              return (
-                <WordCard
-                  key={index}
-                  word={word.word}
-                  sentences={word.sentences}
-                  index={index}
-                  postInputWord={postInputWord}
-                  updateWordData={updateWordData}
-                  deleteWordData={deleteWordData}
-                  handleSentenceData={handleSentenceData}
-                />
-              );
-            })
-          : 'noWord!'}
+      <div className="wordlist_wrap">
+        <div className="wordlist_stack">
+          {wordData
+            ? wordData.map((word, index) => {
+                return (
+                  <WordCard
+                    key={index}
+                    word={word.word}
+                    sentences={word.sentences}
+                    index={index}
+                    postInputWord={postInputWord}
+                    updateWordData={updateWordData}
+                    deleteWordData={deleteWordData}
+                    handleSentenceData={handleSentenceData}
+                  />
+                );
+              })
+            : 'noWord!'}
+        </div>
       </div>
     );
   }
