@@ -40,7 +40,7 @@ function WordCard(props) {
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalSentences, setModalSentences] = React.useState(
-    sentences.join('')
+    sentences.join('\n')
   );
   const [modalWord, setModalWord] = React.useState(word);
 
