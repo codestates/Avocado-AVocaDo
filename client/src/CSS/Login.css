@@ -139,8 +139,8 @@ a {
 .facebook_login_btn {
   position: relative;
   width: 48%;
-  height: 50px;
   float: right;
+  height: 50px;
   cursor: pointer;
   padding-left: 13px;
   text-align: left;

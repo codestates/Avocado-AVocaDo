@@ -76,7 +76,6 @@ class App extends React.Component {
 
   handleInput = (key) => (e) => {
     this.setState({ [key]: e.target.value });
-    console.log('handleInput', this.state);
   };
 
   // 전달인자로 받아서 반영하면 되지 않나??
