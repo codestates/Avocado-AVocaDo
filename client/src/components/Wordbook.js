@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Wordbook_Header from './Wordbook_Header';
 import WordList from './WordList';
 import PropTypes from 'prop-types';
 import '../CSS/Wordbook.css';
 
-class Wordbook extends Component {
+class Wordbook extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const {
       userInfo,

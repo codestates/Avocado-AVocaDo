@@ -20,6 +20,46 @@ class App extends React.Component {
           word: 'apple',
           sentences: ['I like apple', 'I hate apple'],
         },
+        {
+          word: '1',
+          sentences: ['123', '123'],
+        },
+        {
+          word: '2',
+          sentences: ['123', '123'],
+        },
+        {
+          word: '3',
+          sentences: ['123', '123'],
+        },
+        {
+          word: '4',
+          sentences: ['123', '123'],
+        },
+        {
+          word: '5',
+          sentences: ['123', '123'],
+        },
+        {
+          word: '6',
+          sentences: ['123', '123'],
+        },
+        {
+          word: '7',
+          sentences: ['123', '123'],
+        },
+        {
+          word: '8',
+          sentences: ['123', '123'],
+        },
+        {
+          word: '9',
+          sentences: ['123', '123'],
+        },
+        {
+          word: '10',
+          sentences: ['123', '123'],
+        },
       ],
     };
   }
@@ -29,6 +69,7 @@ class App extends React.Component {
       isLogin: true,
     });
   }
+
   handleLogout() {
     this.setState({
       isLogin: false,
