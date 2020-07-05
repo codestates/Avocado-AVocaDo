@@ -12,7 +12,7 @@ class Main extends React.Component {
   }
 
   render() {
-    const { userInfo, wordData } = this.state;
+    const { isLogin, userInfo, wordData } = this.props;
     const {
       handleLogout,
       postInputWord,
@@ -23,13 +23,13 @@ class Main extends React.Component {
       <div>
         <div className="header">
           <Header
-            isLogin={this.state.isLogin}
+            isLogin={isLogin}
             userInfo={userInfo}
-            handleLogout={this.props.handleLogout}
+            handleLogout={handleLogout}
           />
         </div>
         <div>
-          <WordInput postInputWord={this.postInputWord} />
+          <WordInput postInputWord={postInputWord} />
         </div>
         <div>
           <WordCardStack
