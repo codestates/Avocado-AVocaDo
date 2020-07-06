@@ -106,7 +106,16 @@ class Login extends React.Component {
     //     if (response.status === 401) {
     //       alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.')
     //     }
-    //   }).catch((error) => {
+    //     else {
+
+    //       this.props.handleLogin();
+    //     }
+    //   }).then(() => {
+
+    //     this.props.history.push('/');
+    //   })
+
+    //   .catch((error) => {
     //     console.error('responseGoogle', error);
     //   });
     // ========================================================
