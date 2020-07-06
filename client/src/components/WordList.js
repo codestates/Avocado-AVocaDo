@@ -5,7 +5,7 @@ import WordCard from './WordCard';
 import Pagination from './Pagination';
 import { paginate } from '../utils/paginate';
 import '../CSS/Wordbook.css';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 
 class WordList extends React.Component {
   constructor(props) {
@@ -32,7 +32,6 @@ class WordList extends React.Component {
     } = this.props;
     const { length: count } = wordData;
     const { pageSize, currentPage, wordData: allData } = this.state;
-    console.log('allData', allData);
 
     const words = paginate(allData, currentPage, pageSize);
 
@@ -42,19 +41,19 @@ class WordList extends React.Component {
           <div className="wordlist_stack">
             {words
               ? words.map((word, index) => {
-                  return (
-                    <WordCard
-                      key={index}
-                      word={word.word}
-                      sentences={word.sentences}
-                      index={index}
-                      postInputWord={postInputWord}
-                      updateWordData={updateWordData}
-                      deleteWordData={deleteWordData}
-                      handleSentenceData={handleSentenceData}
-                    />
-                  );
-                })
+                return (
+                  <WordCard
+                    key={index}
+                    word={word.word}
+                    sentences={word.sentences}
+                    index={index}
+                    postInputWord={postInputWord}
+                    updateWordData={updateWordData}
+                    deleteWordData={deleteWordData}
+                    handleSentenceData={handleSentenceData}
+                  />
+                );
+              })
               : 'noWord!'}
           </div>
         </div>
