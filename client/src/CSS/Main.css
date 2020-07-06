@@ -118,22 +118,6 @@
   margin-bottom: 10px;
 }
 
-.wordlist_wrap {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.wordlist_stack {
-  width: 1000px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  padding: 40px;
-  margin-top: 30px;
-}
-
 li {
   list-style: none;
 }
