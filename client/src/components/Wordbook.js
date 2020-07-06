@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Wordbook_Header from './Wordbook_Header';
 import WordList from './WordList';
@@ -31,11 +32,13 @@ class Wordbook extends React.Component {
             updateWordData={updateWordData}
             deleteWordData={deleteWordData}
           />
+
         </div>
       </div>
     );
   }
 }
+
 
 Wordbook.propTypes = {
   userInfo: PropTypes.object.isRequired,
@@ -46,5 +49,6 @@ Wordbook.propTypes = {
   updateWordData: PropTypes.func.isRequired,
   deleteWordData: PropTypes.func.isRequired,
 };
+
 
 export default Wordbook;

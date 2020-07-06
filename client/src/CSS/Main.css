@@ -3,7 +3,7 @@
 .main_header_wrap {
   display: flex;
   background-color: #03c75a;
-  height: 25vh;
+  min-height: 25vh;
   position: sticky;
   top: 0;
   align-items: flex-end;

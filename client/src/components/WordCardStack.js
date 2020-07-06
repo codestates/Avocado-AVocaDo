@@ -19,6 +19,7 @@ class WordCardStack extends React.Component {
       handleSentenceData,
     } = this.props;
     return (
+
       <div className="wordcardstack_wrap">
         <div className="wordcard_stack">
           {wordData
@@ -40,10 +41,12 @@ class WordCardStack extends React.Component {
               })
             : 'noWord!'}
         </div>
+
       </div>
     );
   }
 }
+
 
 // WordCardStack.propTypes = {
 //   addWordData: PropTypes.func.isRequired,
@@ -54,5 +57,6 @@ class WordCardStack extends React.Component {
 //   updateWordData: PropTypes.func.isRequired,
 //   deleteWordData: PropTypes.func.isRequired,
 // };
+
 
 export default WordCardStack;

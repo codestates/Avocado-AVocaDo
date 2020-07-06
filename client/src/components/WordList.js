@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import WordCard from './WordCard';
@@ -77,5 +78,6 @@ WordList.propTypes = {
   updateWordData: PropTypes.func.isRequired,
   deleteWordData: PropTypes.func.isRequired,
 };
+
 
 export default WordList;

@@ -161,6 +161,7 @@ class App extends React.Component {
           <Route
             exact
             path="/main"
+
             render={() => (
               <Main
                 isLogin={isLogin}
@@ -191,6 +192,7 @@ class App extends React.Component {
               />
             )}
           />
+
           <Route
             exact
             path="/"
