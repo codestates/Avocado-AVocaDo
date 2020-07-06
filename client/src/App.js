@@ -134,10 +134,6 @@ class App extends React.Component {
       word: word,
       sentences: sentences,
     };
-    // this.state.wordData.push({
-    //   word: this.state.currentWord,
-    //   sentences: splitSentences,
-    // });
 
     this.setState({ wordData: this.state.wordData });
   };
@@ -161,7 +157,6 @@ class App extends React.Component {
           <Route
             exact
             path="/main"
-
             render={() => (
               <Main
                 isLogin={isLogin}
@@ -197,7 +192,7 @@ class App extends React.Component {
             exact
             path="/"
             render={() => {
-              if (this.state.isLogin) {
+              if (isLogin) {
                 return <Redirect to="/main" />;
               }
               return <Redirect to="/" />;

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import WordCard from './WordCard';
@@ -12,12 +11,14 @@ class WordList extends React.Component {
     super(props);
 
     this.state = {
-      wordData: this.props.wordData,
+      // TODO : 왜 app 에서 내려온 걸 그대로 쓰지 않고 state 를 다시 만들었을까?
+      wordBookData: this.props.wordData,
       pageSize: 5,
       currentPage: 1,
     };
   }
 
+  // 페이지를 변경하는 method
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
   };
@@ -30,11 +31,18 @@ class WordList extends React.Component {
       deleteWordData,
       handleSentenceData,
     } = this.props;
+    console.log('wordData', wordData);
     const { length: count } = wordData;
-    const { pageSize, currentPage, wordData: allData } = this.state;
-    console.log('allData', allData);
+    // wordList 에 있는
+    // 전체 page 를 5개로 나누겠다.
+    const { pageSize, currentPage, wordBookData } = this.state;
+    console.log('allData', wordBookData);
 
-    const words = paginate(allData, currentPage, pageSize);
+    // words => 5개 단위로 분리한 배열
+    // 분리한 이유는 pagenation 을 위함
+    // 전체 data 를 넘김
+    // 전체 worddata, 현재page, 전체 page size
+    const words = paginate(wordBookData, currentPage, pageSize);
 
     return (
       <React.Fragment>
@@ -78,6 +86,5 @@ WordList.propTypes = {
   updateWordData: PropTypes.func.isRequired,
   deleteWordData: PropTypes.func.isRequired,
 };
-
 
 export default WordList;
