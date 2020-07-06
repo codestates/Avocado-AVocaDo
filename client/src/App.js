@@ -7,7 +7,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Main from './components/Main';
 import Wordbook from './components/Wordbook';
-
+/* App wordId 추가 */
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -97,12 +97,15 @@ class App extends React.Component {
       this.setState({ wordData: res.data });
     });
   }
-  postInputWord() {
+  postInputWord(wordDataLength) {
     // post 요청: 유저가 입력한 새로운 단어/예문을 서버에 전송한다.
 
+    // 새로운 단어 추가시
+    // wordId 가 1부터 시작하여 wordDataLength 에 +1 하여 post 보냄
     const url = 'http://localhost:8080/words';
     axios
       .post(url, {
+        wordId: wordDataLength + 1,
         word: this.state.currentWord,
         sentences: [],
       })
@@ -126,17 +129,15 @@ class App extends React.Component {
       });
   }
 
-  // TODO: 기존에 parameter 로 받던 index 는 배열의 0 부터 시작하는 index
-  deleteWordData(index) {
+  deleteWordData(wordId) {
     // delete 요청: 유저가 단어/예문을 삭제한 경우 서버에 삭제를 요청한다.
-    axios.delete('url/:userId/:wordId...', {
+    axios.delete('http://localhost:8080/words', {
+      data: { wordId: wordId },
       withCredentials: true,
     });
     // wordId 가 배열 index 보다 1 크기 때문에 조정함
-    this.state.wordData.splice(index - 1, 1);
+    this.state.wordData.splice(wordId - 1, 1);
     this.setState({ wordData: this.state.wordData });
-
-    console.log('deleteWordData', this.state);
   }
 
   handleInput = (key) => (e) => {
