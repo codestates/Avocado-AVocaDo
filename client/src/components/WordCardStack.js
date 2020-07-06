@@ -22,26 +22,32 @@ class WordCardStack extends React.Component {
     } = this.props;
     console.log('확인!2', this.props);
     console.log('handleSentenseData', handleSentenceData);
+
+    const recenteData = wordData.slice(-6, wordData.length);
+
     return (
-      <div className="wordcardstack_wrap">
-        <div className="wordcard_stack">
+      <div className="wordcardstack_wrap" >
+        <div className="wordcardstack_notice_area">
+          <h3>최근 등록된 단어만 표시됩니다.</h3>
+        </div>
+        <div className="wordcardstack_area">
           {wordData
-            ? wordData.map((word, index) => {
-                return (
-                  <WordCard
-                    key={index}
-                    word={word.word}
-                    sentences={word.sentences}
-                    index={index}
-                    postInputWord={postInputWord}
-                    updateWordData={updateWordData}
-                    deleteWordData={deleteWordData}
-                    addWordData={addWordData}
-                    handleInput={handleInput}
-                    handleSentenceData={handleSentenceData}
-                  />
-                );
-              })
+            ? recenteData.map((word, index) => {
+              return (
+                <WordCard
+                  key={index}
+                  word={word.word}
+                  sentences={word.sentences}
+                  index={index}
+                  postInputWord={postInputWord}
+                  updateWordData={updateWordData}
+                  deleteWordData={deleteWordData}
+                  addWordData={addWordData}
+                  handleInput={handleInput}
+                  handleSentenceData={handleSentenceData}
+                />
+              );
+            })
             : 'noWord!'}
         </div>
       </div>
