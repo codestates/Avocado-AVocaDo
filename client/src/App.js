@@ -141,17 +141,24 @@ class App extends React.Component {
   render() {
     const { isLogin, userInfo, wordData, currentWord } = this.state;
     return (
+      // route 는 순차적으로 실행된다.
       <div>
         <Switch>
           <Route
             exact
             path="/"
-            render={() => (
-              <Login
-                isLogin={isLogin}
-                handleLogin={this.handleLogin.bind(this)}
-              />
-            )}
+            render={() => {
+              if (isLogin) {
+                return <Redirect to="/main" />;
+              } else {
+                return (
+                  <Login
+                    isLogin={isLogin}
+                    handleLogin={this.handleLogin.bind(this)}
+                  />
+                );
+              }
+            }}
           />
           <Route exact path="/signup" render={() => <SignUp />} />
           <Route
@@ -188,17 +195,6 @@ class App extends React.Component {
                 updateWordData={this.updateWordData.bind(this)}
               />
             )}
-          />
-
-          <Route
-            exact
-            path="/"
-            render={() => {
-              if (isLogin) {
-                return <Redirect to="/main" />;
-              }
-              return <Redirect to="/" />;
-            }}
           />
         </Switch>
       </div>
