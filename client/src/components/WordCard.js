@@ -8,7 +8,19 @@ import '../CSS/WordCard.css';
 import '../CSS/Modal_Word.css';
 
 // word card 에서 모달 컴포넌트 호출 및 데이터 전달
+/* TODO: 
 
+문제 > 페이지네이션을 하고난 후 모달을 클릭했을 때 페이지네이션으로 변경된
+단어와 문장이 반영이 안됨 
+
+현상 : 0~4 까지의 데이터만 반복해서 출력이 된다. 
+
+문제원인 : modalWord, modalSentences 가 변경되지 않는다. 
+모달안에서의 상태가 변경이 안됨
+
+해결 => modal open 할때 상태를 변경함 
+
+*/
 const customStyles = {
   content: {
     width: '500px',
@@ -33,15 +45,17 @@ function WordCard(props) {
   const {
     word,
     sentences,
+    index,
     postInputWord,
     addWordData,
     deleteWordData,
     handleInput,
     updateWordData,
     handleSentenceData,
-    index,
+    handleWordCardLength,
   } = props;
 
+  console.log(`index=${index}, word=${word}`);
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalSentences, setModalSentences] = React.useState(
     sentences.join('\n')
@@ -49,6 +63,8 @@ function WordCard(props) {
   const [modalWord, setModalWord] = React.useState(word);
 
   function openModal() {
+    setModalWord(word);
+    setModalSentences(sentences.join('\n'));
     setIsOpen(true);
   }
 
@@ -64,6 +80,7 @@ function WordCard(props) {
   function saveWordData(e) {
     e.preventDefault();
     // textarea 에 들어있는 문장을 enter 단위로 분해하여 배열에 저장
+
     const splitSentences = modalSentences.split('\n');
     // 저장한 배열로 전체 단어 data 상태 변화
     handleSentenceData(modalWord, splitSentences, index);
@@ -85,6 +102,7 @@ function WordCard(props) {
 
   function deleteWordCard() {
     deleteWordData(index);
+    handleWordCardLength();
   }
 
   return (
@@ -95,17 +113,19 @@ function WordCard(props) {
       state 를 변경한다. 
       */}
 
-      <div className="wordcard" onClick={openModal}>
+      <div className="wordcard">
         <button
           className="btn_delete_wordcard"
           onClick={deleteWordCard}
         ></button>
-        <div className="word">{word}</div>
-        <ul className="sentences">
-          {sentences.map((sentence, index) => {
-            return <li key={index}>{sentence}</li>;
-          })}
-        </ul>
+        <div className="wordcard-content" onClick={openModal}>
+          <div className="word">{word}</div>
+          <ul className="sentences">
+            {sentences.map((sentence, index) => {
+              return <li key={index}>{sentence}</li>;
+            })}
+          </ul>
+        </div>
       </div>
 
       <Modal
