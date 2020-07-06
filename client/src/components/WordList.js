@@ -5,6 +5,7 @@ import Pagination from './Pagination';
 import { paginate } from '../utils/paginate';
 import '../CSS/Wordbook.css';
 
+
 class WordList extends React.Component {
   constructor(props) {
     super(props);
@@ -41,6 +42,7 @@ class WordList extends React.Component {
           <div className="wordlist_stack">
             {words
               ? words.map((word, index) => {
+
                   return (
                     <WordCard
                       key={index}
@@ -55,6 +57,7 @@ class WordList extends React.Component {
                     />
                   );
                 })
+
               : 'noWord!'}
           </div>
         </div>
