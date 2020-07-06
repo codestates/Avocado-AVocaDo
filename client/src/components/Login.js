@@ -310,7 +310,9 @@ class Login extends React.Component {
             </div>
 
             <div className="link_to_signup">
-              <Link to="/signup">회원가입</Link>
+              <Link to="/signup" className="signup_link_text">
+                회원가입
+              </Link>
             </div>
           </form>
         </div>

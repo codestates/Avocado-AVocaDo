@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import WordCard from './WordCard';
@@ -35,7 +34,8 @@ class WordList extends React.Component {
     console.log('allData', allData);
 
     const words = paginate(allData, currentPage, pageSize);
-
+    // pagenation 이후에도 모달창을 사용할 수 있도록 index 를 조정하였음
+    const indexCoefficient = (currentPage - 1) * pageSize;
     return (
       <React.Fragment>
         <div className="wordlist_wrap">
@@ -47,7 +47,7 @@ class WordList extends React.Component {
                       key={index}
                       word={word.word}
                       sentences={word.sentences}
-                      index={index}
+                      index={index + indexCoefficient}
                       postInputWord={postInputWord}
                       updateWordData={updateWordData}
                       deleteWordData={deleteWordData}
@@ -78,6 +78,5 @@ WordList.propTypes = {
   updateWordData: PropTypes.func.isRequired,
   deleteWordData: PropTypes.func.isRequired,
 };
-
 
 export default WordList;
