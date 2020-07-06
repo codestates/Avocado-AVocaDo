@@ -1,15 +1,15 @@
 // const { users } = require('../../models');
 // const crypto = require('crypto');
-
 const request = require('request');
 const dummyUsers = require('./dummyUsers');
-
-const access_token = '1217568225253856|FoxJJZdueieUJtKvnDsVbQw6rYY';
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../../../.env') });
+const access_token = process.env.FACEBOOK_ACCESS_TOKEN;
 
 module.exports = {
   post: (req, res) => {
     // 밑에는 데이터베이스를 이용하기 전에 먼저 서버 테스트를 하기 위한 코드입니다
-    const { loginType, userId, password, tokenId } = req.body;
+    let { loginType, userId, password, tokenId } = req.body;
     if (password !== undefined) {
       if (loginType === 'custom') {
         // if userId and logintype in database everything is ok
@@ -17,13 +17,12 @@ module.exports = {
         // send 404
         if (dummyUsers[userId]) {
           if (dummyUsers[userId]['password'] === password) {
-            res.status(200).end();
+            accept();
           } else {
-            res.status(401).send('unvalid user');
+            res.status(401).send('invalid user');
           }
         } else {
-          loginType = null;
-          res.status(401).send('unvalid user');
+          res.status(401).send('invalid user');
         }
       }
     }
@@ -35,18 +34,17 @@ module.exports = {
           `https://graph.facebook.com/debug_token?input_token=${tokenId}&access_token=${access_token}`,
           (error, response, body) => {
             if (error) {
-              loginType = null;
-              res.status(401).send('unvalid user');
+              res.status(401).send('invalid user');
             }
             try {
               if (!JSON.parse(body).data.is_valid) {
-                loginType = null;
-                res.status(401).send('unvalid user');
+                res.status(401).send('invalid user');
+              } else {
+                accept();
               }
             } catch (err) {
-              loginType = null;
-              res.status(401).send('unvalid user');
-              console.log(err);
+              res.status(401).send('invalid user');
+              // console.log(err);
             }
           }
         );
@@ -59,12 +57,12 @@ module.exports = {
           `https://oauth2.googleapis.com/tokeninfo?id_token=${tokenId}`,
           (error, response, body) => {
             if (error) {
-              res.status(401).send('unvalid user');
-              loginType = null;
+              res.status(401).send('invalid user');
             } else {
               if (JSON.parse(body).error) {
-                loginType = null;
-                res.status(401).send('unvalid user');
+                res.status(401).send('invalid user');
+              } else {
+                accept();
               }
             }
           }
@@ -74,12 +72,10 @@ module.exports = {
     // if (userId not in database)
     // add a new user to database
 
-    if (loginType && userId) {
+    function accept() {
       req.session.userId = userId;
       req.session.loginType = loginType;
       res.status(200).end();
-    } else {
-      res.status(401).send('unvalid user');
     }
 
     //--------------------------------
