@@ -15,7 +15,7 @@ module.exports = {
     // }
     const { wordId } = req.body;
 
-    if (req.session) {
+    if (req.session.userId) {
       let obj = {};
       dummy['data'].splice(wordId, 1);
       res.status(200).json(dummy);

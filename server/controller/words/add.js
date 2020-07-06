@@ -17,7 +17,7 @@ module.exports = {
     // }
     const { word, sentences } = req.body;
 
-    if (req.session) {
+    if (req.session.userId) {
       let obj = {};
       obj['word'] = word;
       obj['sentences'] = sentences;

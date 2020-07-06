@@ -23,7 +23,7 @@ module.exports = {
     // }
     const { word, sentences, wordId } = req.body;
 
-    if (req.session) {
+    if (req.session.userId) {
       let obj = {};
       obj['word'] = word;
       obj['sentences'] = sentences;
