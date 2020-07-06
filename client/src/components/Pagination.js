@@ -13,7 +13,7 @@ function Pagination(props) {
 
   return (
     <div className="pagination_wrap">
-      <nav>
+      <nav className="pagination_nav">
         <ul className="pagination">
           {pages.map((page) => (
             <li
@@ -21,7 +21,10 @@ function Pagination(props) {
               className={page === currentPage ? 'page-item active' : 'page-item'}
               style={{ cursor: 'pointer' }}
             >
-              <a className="page-link" onClick={() => onPageChange(page)}>
+              <a
+                href="#"
+                className="page-link"
+                onClick={() => onPageChange(page)}>
                 {page}
               </a>
             </li>

@@ -33,3 +33,20 @@
   padding: 40px;
   margin-top: 30px;
 }
+
+.pagination_wrap {
+  display: flex;
+  justify-content: center;
+  height: 10vh;
+}
+
+.pagination {
+  display: flex;
+}
+
+.pagination a {
+  float: left;
+  font-size: 1em;
+  padding: 5px 12px;
+  line-height: 1.5;
+}
