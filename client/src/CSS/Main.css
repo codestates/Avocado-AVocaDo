@@ -151,6 +151,9 @@ li {
   width: 20px;
   height: 20px;
   display: inline-block;
+  border: none;
+  outline: none;
+  border-radius: 0;
   background-color: #11ffee00;
   background-position: -41px -42px;
   background-image: url(https://static-whale.pstatic.net/main/sprite@2x.png);

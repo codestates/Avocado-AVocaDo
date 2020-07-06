@@ -18,6 +18,8 @@ import '../CSS/Modal_Word.css';
 문제원인 : modalWord, modalSentences 가 변경되지 않는다. 
 모달안에서의 상태가 변경이 안됨
 
+해결 => modal open 할때 상태를 변경함 
+
 */
 const customStyles = {
   content: {
@@ -43,23 +45,23 @@ function WordCard(props) {
   const {
     word,
     sentences,
+    index,
     postInputWord,
     addWordData,
     deleteWordData,
     handleInput,
     updateWordData,
     handleSentenceData,
-    index,
+    handleWordCardLength,
   } = props;
 
-  console.log('들어오는 단어확인', word, sentences);
+  console.log(`index=${index}, word=${word}`);
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalSentences, setModalSentences] = React.useState(
     sentences.join('\n')
   );
   const [modalWord, setModalWord] = React.useState(word);
 
-  console.log('모달 단어확인', modalWord, modalSentences);
   function openModal() {
     setModalWord(word);
     setModalSentences(sentences.join('\n'));
@@ -78,6 +80,7 @@ function WordCard(props) {
   function saveWordData(e) {
     e.preventDefault();
     // textarea 에 들어있는 문장을 enter 단위로 분해하여 배열에 저장
+
     const splitSentences = modalSentences.split('\n');
     // 저장한 배열로 전체 단어 data 상태 변화
     handleSentenceData(modalWord, splitSentences, index);
@@ -99,6 +102,7 @@ function WordCard(props) {
 
   function deleteWordCard() {
     deleteWordData(index);
+    handleWordCardLength();
   }
 
   return (
@@ -109,17 +113,19 @@ function WordCard(props) {
       state 를 변경한다. 
       */}
 
-      <div className="wordcard" onClick={openModal}>
+      <div className="wordcard">
         <button
           className="btn_delete_wordcard"
           onClick={deleteWordCard}
         ></button>
-        <div className="word">{word}</div>
-        <ul className="sentences">
-          {sentences.map((sentence, index) => {
-            return <li key={index}>{sentence}</li>;
-          })}
-        </ul>
+        <div className="wordcard-content" onClick={openModal}>
+          <div className="word">{word}</div>
+          <ul className="sentences">
+            {sentences.map((sentence, index) => {
+              return <li key={index}>{sentence}</li>;
+            })}
+          </ul>
+        </div>
       </div>
 
       <Modal
