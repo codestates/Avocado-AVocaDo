@@ -1,6 +1,8 @@
 /* eslint-disable */
 import React from 'react';
 import PropTypes, { func } from 'prop-types';
+import Modal_bootstrap from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import Modal from 'react-modal';
 
 // npm install react-modal
@@ -21,10 +23,26 @@ import '../CSS/Modal_Word.css';
 해결 => modal open 할때 상태를 변경함 
 
 */
-const customStyles = {
+const wordModalStyles = {
   content: {
     width: '500px',
     height: 'auto',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    border: '2px solid #cccccc',
+    borderRadius: '6px',
+    backgroundColor: '#f5f6f7',
+  },
+};
+
+const confirmModalStyles = {
+  content: {
+    width: '300px',
+    height: '300px',
     top: '50%',
     left: '50%',
     right: 'auto',
@@ -57,6 +75,7 @@ function WordCard(props) {
 
   console.log(`index=${index}, word=${word}`);
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [confirmModalIsOpen, setconfirmModalOpen] = React.useState(false);
   const [modalSentences, setModalSentences] = React.useState(
     sentences.join('\n')
   );
@@ -103,6 +122,14 @@ function WordCard(props) {
   function deleteWordCard() {
     deleteWordData(index);
     handleWordCardLength();
+    closeConfirmModal();
+  }
+
+  function openConfirmModal() {
+    setconfirmModalOpen(true);
+  }
+  function closeConfirmModal() {
+    setconfirmModalOpen(false);
   }
 
   return (
@@ -116,7 +143,7 @@ function WordCard(props) {
       <div className="wordcard">
         <button
           className="btn_delete_wordcard"
-          onClick={deleteWordCard}
+          onClick={openConfirmModal}
         ></button>
         <div className="wordcard-content" onClick={openModal}>
           <div className="word">{word}</div>
@@ -127,11 +154,30 @@ function WordCard(props) {
           </ul>
         </div>
       </div>
+      {/*  */}
+
+      <Modal_bootstrap show={confirmModalIsOpen} onHide={closeConfirmModal}>
+        <Modal_bootstrap.Header closeButton>
+          <Modal_bootstrap.Title>단어를 삭제할까요?</Modal_bootstrap.Title>
+        </Modal_bootstrap.Header>
+        <Modal_bootstrap.Body>
+          확인버튼을 누르면 단어가 삭제됩니다
+        </Modal_bootstrap.Body>
+        <Modal_bootstrap.Footer>
+          <Button variant="secondary" onClick={closeConfirmModal}>
+            취소
+          </Button>
+          <Button variant="secondary" onClick={deleteWordCard}>
+            확인
+          </Button>
+        </Modal_bootstrap.Footer>
+      </Modal_bootstrap>
+      {/*  */}
 
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        style={customStyles}
+        style={wordModalStyles}
         contentLabel="A! VOCADO"
       >
         {/* HTML <dl> 요소는 설명 목록을 나타냅니다. 
