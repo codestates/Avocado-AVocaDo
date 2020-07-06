@@ -149,3 +149,7 @@ li {
   cursor: pointer;
   transform: scale(1.7);
 }
+.main_nav > div > a {
+  text-decoration: none;
+  color: inherit;
+}

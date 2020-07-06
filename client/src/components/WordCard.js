@@ -154,7 +154,8 @@ function WordCard(props) {
           </ul>
         </div>
       </div>
-      {/*  */}
+
+      {/* 부트스트랩 modal */}
 
       <Modal_bootstrap show={confirmModalIsOpen} onHide={closeConfirmModal}>
         <Modal_bootstrap.Header closeButton>
@@ -172,7 +173,7 @@ function WordCard(props) {
           </Button>
         </Modal_bootstrap.Footer>
       </Modal_bootstrap>
-      {/*  */}
+      {/*부트스트랩 모달  */}
 
       <Modal
         isOpen={modalIsOpen}
