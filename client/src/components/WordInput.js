@@ -17,12 +17,13 @@ class WordInput extends Component {
     const searchResult =
       kmp.kmp(JSON.stringify(this.props.wordData), findingWord).length > 0;
 
+    const wordDataLength = this.props.wordData.length;
     if (searchResult) {
       alert('이미 단어장에 있는 단어입니다!');
     } else {
-      this.props.handleWordCardLength();
       this.props.addWordData();
-      this.props.postInputWord();
+      this.props.postInputWord(wordDataLength);
+      this.props.handleWordCardLength();
     }
 
     document.querySelector('.word_input').value = '';
