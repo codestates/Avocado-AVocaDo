@@ -24,6 +24,7 @@ class Login extends React.Component {
     this.postLoginData = this.postLoginData.bind(this);
     this.handleCustomLogin = this.handleCustomLogin.bind(this);
     this.responseGoogle = this.responseGoogle.bind(this);
+    console.log(this.props);
   }
 
   responseGoogle(response) {
@@ -204,8 +205,13 @@ class Login extends React.Component {
           // App component 로 부터 메서드 받아서 로그인 상태 변경
           // this.props.handleLogin(); isLogin -> true
           // 로그인 성공시 초기 page 로 이동
-          this.props.history.push('/');
+          console.log('상태확인', response.status);
+          this.props.handleLogin();
+          console.log('axios', this.props);
         }
+      })
+      .then(() => {
+        this.props.history.push('/');
       })
       .catch((error) => {
         console.error('postLoginData ERROR', error);
@@ -221,10 +227,12 @@ class Login extends React.Component {
       alert('비밀번호를 입력해주세요!');
     } else {
       this.postLoginData();
+      // this.props.history.push('/');
     }
   }
 
   render() {
+    console.log('render', this.props);
     return (
       <div className="login_wrap">
         <div className="login_container">
@@ -323,6 +331,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   history: PropTypes.object.isRequired,
+  handleLogin: PropTypes.func.isRequired,
 };
 
 export default withRouter(Login);
