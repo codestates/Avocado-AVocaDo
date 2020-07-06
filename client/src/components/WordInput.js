@@ -15,14 +15,13 @@ class WordInput extends Component {
     e.preventDefault();
     const findingWord = `"word":"${this.props.currentWord}"`;
 
-    console.log(JSON.stringify(this.props.wordData));
     const searchResult =
       kmp.kmp(JSON.stringify(this.props.wordData), findingWord).length > 0;
 
     if (searchResult) {
       alert('이미 단어장에 있는 단어입니다!');
     } else {
-      this.props.addWordData();
+      this.props.addWordData(this.props.currentWord);
       this.props.postInputWord();
     }
 

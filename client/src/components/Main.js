@@ -24,6 +24,7 @@ class Main extends React.Component {
       updateWordData,
       deleteWordData,
       handleSentenceData,
+      checkOverlapWord,
     } = this.props;
     return (
       <div>
@@ -52,6 +53,7 @@ class Main extends React.Component {
             deleteWordData={deleteWordData}
             handleSentenceData={handleSentenceData}
             handleInput={handleInput}
+            checkOverlapWord={checkOverlapWord}
           />
         </div>
       </div>

@@ -33,13 +33,14 @@ function WordCard(props) {
   const {
     word,
     sentences,
+    index,
     postInputWord,
     addWordData,
     deleteWordData,
     handleInput,
     updateWordData,
     handleSentenceData,
-    index,
+    checkOverlapWord,
   } = props;
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -64,6 +65,21 @@ function WordCard(props) {
   function saveWordData(e) {
     e.preventDefault();
     // textarea 에 들어있는 문장을 enter 단위로 분해하여 배열에 저장
+
+    // 단어 따로 문장 따로 ?
+
+    // 초기 단어정보인 word 와 sentences 를 받는다.
+    // 저장 버튼을 누르기 전까지는 변하지 않느다.
+    // 왜냐면 input 과 textarea value 상태를 WordCard 에서 따로 관리하기 때문
+    // 저장버튼을 눌렀을 때만 변경사항이 반영된다.
+
+    // 받아온 즉시 값을 const 변수로 받아놓는다. => word, sentences
+    // 저장버튼을 눌렀을 때
+    // 단어만 변했으면 단어만 put 요청을 보내고
+    // 문장만 변했으면 문장만 put 요청을 보낸다.
+    // 둘다 변했으면 둘다 put 요청을 보낸다.
+
+    // console.log(word, sentences);
     const splitSentences = modalSentences.split('\n');
     // 저장한 배열로 전체 단어 data 상태 변화
     handleSentenceData(modalWord, splitSentences, index);

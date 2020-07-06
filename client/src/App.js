@@ -6,7 +6,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Main from './components/Main';
 import Wordbook from './components/Wordbook';
-
+import kmp from 'kmp-matcher';
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -83,8 +83,8 @@ class App extends React.Component {
   };
 
   // 전달인자로 받아서 반영하면 되지 않나??
-  addWordData = () => {
-    this.state.wordData.push({ word: this.state.currentWord, sentences: [] });
+  addWordData = (word) => {
+    this.state.wordData.push({ word: word, sentences: [] });
     this.setState({ wordData: this.state.wordData });
   };
 
@@ -101,6 +101,18 @@ class App extends React.Component {
     this.setState({ wordData: this.state.wordData });
   };
 
+  checkOverlapWord(word) {
+    const findingWord = `"word":"${word}"`;
+
+    const searchResult =
+      kmp.kmp(JSON.stringify(this.state.wordData), findingWord).length > 0;
+
+    if (searchResult) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   render() {
     const { isLogin, userInfo, wordData, currentWord } = this.state;
     return (
@@ -133,6 +145,7 @@ class App extends React.Component {
                 handleInput={this.handleInput.bind(this)}
                 addWordData={this.addWordData.bind(this)}
                 handleSentenceData={this.handleSentenceData.bind(this)}
+                checkOverlapWord={this.checkOverlapWord.bind(this)}
               />
             )}
           />

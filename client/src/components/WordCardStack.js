@@ -17,6 +17,7 @@ class WordCardStack extends React.Component {
       deleteWordData,
       handleInput,
       handleSentenceData,
+      checkOverlapWord,
     } = this.props;
     return (
       <div className="wordcardstack_wrap">
@@ -35,6 +36,7 @@ class WordCardStack extends React.Component {
                     addWordData={addWordData}
                     handleInput={handleInput}
                     handleSentenceData={handleSentenceData}
+                    checkOverlapWord={checkOverlapWord}
                   />
                 );
               })
