@@ -184,6 +184,8 @@ class App extends React.Component {
                 postInputWord={this.postInputWord.bind(this)}
                 updateWordData={this.updateWordData.bind(this)}
                 deleteWordData={this.deleteWordData.bind(this)}
+                handleSentenceData={this.handleSentenceData.bind(this)}
+                updateWordData={this.updateWordData.bind(this)}
               />
             )}
           />

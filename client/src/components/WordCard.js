@@ -8,7 +8,17 @@ import '../CSS/WordCard.css';
 import '../CSS/Modal_Word.css';
 
 // word card 에서 모달 컴포넌트 호출 및 데이터 전달
+/* TODO: 
 
+문제 > 페이지네이션을 하고난 후 모달을 클릭했을 때 페이지네이션으로 변경된
+단어와 문장이 반영이 안됨 
+
+현상 : 0~4 까지의 데이터만 반복해서 출력이 된다. 
+
+문제원인 : modalWord, modalSentences 가 변경되지 않는다. 
+모달안에서의 상태가 변경이 안됨
+
+*/
 const customStyles = {
   content: {
     width: '500px',
@@ -42,13 +52,17 @@ function WordCard(props) {
     index,
   } = props;
 
+  console.log('들어오는 단어확인', word, sentences);
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalSentences, setModalSentences] = React.useState(
     sentences.join('\n')
   );
   const [modalWord, setModalWord] = React.useState(word);
 
+  console.log('모달 단어확인', modalWord, modalSentences);
   function openModal() {
+    setModalWord(word);
+    setModalSentences(sentences.join('\n'));
     setIsOpen(true);
   }
 
