@@ -154,6 +154,25 @@ function WordCard(props) {
           </ul>
         </div>
       </div>
+      {/*  */}
+
+      <Modal_bootstrap show={confirmModalIsOpen} onHide={closeConfirmModal}>
+        <Modal_bootstrap.Header closeButton>
+          <Modal_bootstrap.Title>단어를 삭제할까요?</Modal_bootstrap.Title>
+        </Modal_bootstrap.Header>
+        <Modal_bootstrap.Body>
+          확인버튼을 누르면 단어가 삭제됩니다
+        </Modal_bootstrap.Body>
+        <Modal_bootstrap.Footer>
+          <Button variant="secondary" onClick={closeConfirmModal}>
+            취소
+          </Button>
+          <Button variant="secondary" onClick={deleteWordCard}>
+            확인
+          </Button>
+        </Modal_bootstrap.Footer>
+      </Modal_bootstrap>
+      {/*  */}
 
       {/* 부트스트랩 modal */}
 
