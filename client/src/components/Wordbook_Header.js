@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../CSS/Main.css';
+
+import '../CSS/Wordbook.css';
+
 
 function Wordbook_Header() {
   return (

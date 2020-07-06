@@ -5,6 +5,7 @@ module.exports = {
   post: (req, res) => {
     // const { word } = req.body;
 
+
     // if (req.session) {
     //   if (word in dummy['data']) {
     //     res.status(400).end('words already exists');
@@ -18,6 +19,7 @@ module.exports = {
     const { word, sentences } = req.body;
 
     if (req.session.userId) {
+
       let obj = {};
       obj['word'] = word;
       obj['sentences'] = sentences;
