@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes, { func } from 'prop-types';
 import Modal_bootstrap from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Modal from 'react-modal';
 
 // npm install react-modal
@@ -154,25 +155,6 @@ function WordCard(props) {
           </ul>
         </div>
       </div>
-      {/*  */}
-
-      <Modal_bootstrap show={confirmModalIsOpen} onHide={closeConfirmModal}>
-        <Modal_bootstrap.Header closeButton>
-          <Modal_bootstrap.Title>단어를 삭제할까요?</Modal_bootstrap.Title>
-        </Modal_bootstrap.Header>
-        <Modal_bootstrap.Body>
-          확인버튼을 누르면 단어가 삭제됩니다
-        </Modal_bootstrap.Body>
-        <Modal_bootstrap.Footer>
-          <Button variant="secondary" onClick={closeConfirmModal}>
-            취소
-          </Button>
-          <Button variant="secondary" onClick={deleteWordCard}>
-            확인
-          </Button>
-        </Modal_bootstrap.Footer>
-      </Modal_bootstrap>
-      {/*  */}
 
       {/* 부트스트랩 modal */}
 
@@ -184,16 +166,23 @@ function WordCard(props) {
           확인버튼을 누르면 단어가 삭제됩니다
         </Modal_bootstrap.Body>
         <Modal_bootstrap.Footer>
-          <Button variant="secondary" onClick={closeConfirmModal}>
-            취소
-          </Button>
-          <Button variant="secondary" onClick={deleteWordCard}>
-            확인
-          </Button>
+          <div className="btn_modal_confirm">
+            <Button variant="secondary" block onClick={closeConfirmModal}>
+              취소
+            </Button>
+          </div>
+          <div className="btn_modal_confirm">
+            <Button variant="secondary" block onClick={deleteWordCard}>
+              확인
+            </Button>
+          </div>
         </Modal_bootstrap.Footer>
       </Modal_bootstrap>
       {/*부트스트랩 모달  */}
 
+      {/* 필요한 것 form, button */}
+
+      {/*  */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -209,6 +198,16 @@ function WordCard(props) {
         {/* dd -> content */}
 
         <div className="modal_container">
+          <Form>
+            <Form.Group controlId="formGroupEmail">
+              <Form.Label>Word</Form.Label>
+              <Form.Control type="text" placeholder="Enter email" />
+            </Form.Group>
+            <Form.Group controlId="formGroupPassword">
+              <Form.Label>Sentence</Form.Label>
+              <Form.Control type="text" placeholder="Password" />
+            </Form.Group>
+          </Form>
           <form className="modal_word_form" onSubmit={saveWordData}>
             <h1 className="modal_heading">Create Sentences</h1>
 
