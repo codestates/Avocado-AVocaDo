@@ -1,3 +1,4 @@
+/* eslint-disable */
 // const { users } = require('../../models');
 // const crypto = require('crypto');
 
@@ -8,6 +9,7 @@ const access_token = '1217568225253856|FoxJJZdueieUJtKvnDsVbQw6rYY';
 
 module.exports = {
   post: (req, res) => {
+    console.log(req.body);
     // 밑에는 데이터베이스를 이용하기 전에 먼저 서버 테스트를 하기 위한 코드입니다
     const { loginType, userId, password, tokenId } = req.body;
     if (password !== undefined) {
@@ -15,8 +17,12 @@ module.exports = {
         // if userId and logintype in database everything is ok
         // else userId =0, password = 0; ->밑의 54번째줄 if문에서 걸리게 하기 위해서
         // send 404
-        if (dummyUsers[userId] === password) {
-          res.status(200).end();
+        if (dummyUsers[userId]) {
+          if (dummyUsers[userId]['password'] === password) {
+            res.status(200).end();
+          } else {
+            res.status(401).send('unvalid user');
+          }
         } else {
           loginType = null;
           res.status(401).send('unvalid user');

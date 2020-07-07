@@ -28,6 +28,11 @@ button {
   border: 0;
   border-radius: 0;
 }
+a {
+  /* a 태그 색 안쓰고 상위 요소에서 지정한 색깔 사용 */
+  color: inherit;
+  text-decoration: none;
+}
 
 .login_form {
   position: relative;
@@ -38,12 +43,6 @@ button {
   border: 0;
   margin: 0;
   padding: 0;
-}
-
-a {
-  /* a 태그 색 안쓰고 상위 요소에서 지정한 색깔 사용 */
-  color: inherit;
-  text-decoration: none;
 }
 
 .login_wrap {
@@ -116,6 +115,7 @@ a {
   font-size: 15px;
   text-align: center;
   color: #828282;
+  text-decoration: none;
 }
 
 .social_login-box {
@@ -139,8 +139,8 @@ a {
 .facebook_login_btn {
   position: relative;
   width: 48%;
-  height: 50px;
   float: right;
+  height: 50px;
   cursor: pointer;
   padding-left: 13px;
   text-align: left;
@@ -157,4 +157,9 @@ a {
 .fa-facebook-official:before {
   font-size: 25px;
   color: #3b5998;
+}
+
+.signup_link_text {
+  color: inherit;
+  text-decoration: none;
 }

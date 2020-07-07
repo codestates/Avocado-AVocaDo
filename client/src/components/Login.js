@@ -19,41 +19,124 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
+
+    // state 사용위해 Login 클래스의 this 를 bind 함
+    this.postLoginData = this.postLoginData.bind(this);
+    this.handleCustomLogin = this.handleCustomLogin.bind(this);
+    this.responseGoogle = this.responseGoogle.bind(this);
+    console.log(this.props);
   }
 
   responseGoogle(response) {
-    console.log(response);
-    const googleLoginData = {};
-    googleLoginData.loginType = 'google';
-    googleLoginData.userId = response.googleId;
-    // this.setState({ id: response.googleId });
+    /* {
+      loginType : google/facebook/custom, 
+      userId : '000000',  (custom일 경우 email을 그대로 입력)
+       tokenId : '000000'(social login일때만 입력), 
+      password : customId일때만 입력
+} */
+    // 구글에서 로그인 하고 나서의 응답 처리
+    console.log('google res', response);
+    const { tokenId, googleId } = response;
+    const googleLoginData = {
+      loginType: 'google',
+      userId: googleId,
+      tokenId: tokenId,
+    };
+    this.setState({ id: googleId });
 
-    // axios.post('http://127.0.0.1:8080/users/signin', googleLoginData).
-    //     then((response) => {
+    axios
+      .post('http://localhost:8080/users/signin', googleLoginData)
+      .then((response) => {
+        if (response.status === 401) {
+          alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
+        } else {
+          this.props.handleLogin();
+        }
+      })
+      .then(() => {
+        this.props.history.push('/');
+      })
+      .catch((error) => {
+        console.error('responseGoogle', error);
+      });
 
-    //         if (response.status === 404) {
-    //             alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.')
-    //         }
-    //     }).catch((error) => {
-    //         console.error('responseGoogle', error);
-    //     });
+    // fetch('http://localhost:8080/users/signin', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   withCredentials: true,
+    //   credentials: 'include',
+    //   body: JSON.stringify(googleLoginData),
+    // }).then((res) => {
+    //   // console.log(res);
+    //   if (res.ok) {
+    //     return res.json();
+    //   } else {
+    //     console.log('fail to fetch post');
+    //   }
+    // });
+  }
 
-    fetch('http://127.0.0.1:8080/users/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      withCredentials: true,
-      credentials: 'include',
-      body: JSON.stringify(googleLoginData),
-    }).then((res) => {
-      // console.log(res);
-      if (res.ok) {
-        return res.json();
-      } else {
-        console.log('fail to fetch post');
-      }
-    });
+  responseFacebook(response) {
+    /* App Not Setup: This app is still in development mode, 
+    and you don't have access to it. 
+    Switch to a registered test user or ask an app admin for permissions. */
+    // => facebook 계정문제로 보임
+    console.log('Facebook res', response);
+    /*  서버에 보낼 data 설정  */
+    // ========================================================
+    // const { accessToken, userID } = response
+    // const facebookLoginData = {
+    //   loginType: 'facebook',
+    //   userId: userID,
+    //   tokenId: accessToken,
+    // };
+    // ========================================================
+
+    /* 응답받은 id로 상태변경 */
+
+    // this.setState({ id: userID });
+    // ========================================================
+
+    /* 서버에 로그인 post 요청 */
+    // ========================================================
+    // axios.post('http://localhost:8080/users/signin', facebookLoginData).
+    //   then((response) => {
+    //     if (response.status === 401) {
+    //       alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.')
+    //     }
+    //     else {
+
+    //       this.props.handleLogin();
+    //     }
+    //   }).then(() => {
+
+    //     this.props.history.push('/');
+    //   })
+
+    //   .catch((error) => {
+    //     console.error('responseGoogle', error);
+    //   });
+    // ========================================================
+
+    // 기존 fetch code
+    // fetch('http://localhost:8080/users/signin', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   withCredentials: true,
+    //   credentials: 'include',
+    //   body: JSON.stringify(googleLoginData),
+    // }).then((res) => {
+    //   // console.log(res);
+    //   if (res.ok) {
+    //     return res.json();
+    //   } else {
+    //     console.log('fail to fetch post');
+    //   }
+    // });
   }
 
   responseLogout() {
@@ -92,7 +175,7 @@ class Login extends React.Component {
     //   // })
     //   .then((data) => console.log(data));
 
-    fetch('http://127.0.0.1:8080', {
+    fetch('http://localhost:8080/users/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain',
@@ -122,12 +205,13 @@ class Login extends React.Component {
     // 원인 : axios 의 data 는 JSON.stringify 해서 보내면 서버에서 데이터가 undefined 가 나온다.
 
     const loginData = {
-      email: this.state.email,
+      loginType: 'custom',
+      userId: this.state.email,
       password: this.state.password,
     };
     // url 은 test 를 위해 임의로 지정하였음 => 변경가능
     return axios
-      .post('http://localhost:5000/login', loginData)
+      .post('http://localhost:8080/users/signin', loginData)
       .then((response) => {
         if (response.status === 404) {
           alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
@@ -135,34 +219,38 @@ class Login extends React.Component {
           // App component 로 부터 메서드 받아서 로그인 상태 변경
           // this.props.handleLogin(); isLogin -> true
           // 로그인 성공시 초기 page 로 이동
-          this.props.history.push('/');
+          console.log('상태확인', response.status);
+          this.props.handleLogin();
+          console.log('axios', this.props);
         }
+      })
+      .then(() => {
+        this.props.history.push('/');
       })
       .catch((error) => {
         console.error('postLoginData ERROR', error);
       });
   }
 
+  handleCustomLogin(e) {
+    e.preventDefault();
+
+    if (this.state.email.length < 1) {
+      alert('아이디를 입력해주세요!');
+    } else if (this.state.password.length < 1) {
+      alert('비밀번호를 입력해주세요!');
+    } else {
+      this.postLoginData();
+      // this.props.history.push('/');
+    }
+  }
+
   render() {
+    console.log('render', this.props);
     return (
       <div className="login_wrap">
-        {/* head 에 넣어야 함  */}
-        {/* <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"></link> */}
         <div className="login_container">
-          <form
-            className="login_form"
-            onSubmit={(e) => {
-              e.preventDefault();
-
-              if (this.state.email.length < 1) {
-                alert('아이디를 입력해주세요!');
-              } else if (this.state.password.length < 1) {
-                alert('비밀번호를 입력해주세요!');
-              } else {
-                this.postLoginData();
-              }
-            }}
-          >
+          <form className="login_form" onSubmit={this.handleCustomLogin}>
             <fieldset className="login_fieldset">
               <h1 className="login_logo">A! VOCADO</h1>
 
@@ -209,7 +297,6 @@ class Login extends React.Component {
               />
             </fieldset>
 
-            {/* <i className="fa fa-camera-retro fa-lg"></i> */}
             <div className="social_login-box">
               <GoogleLogin
                 clientId="811632505516-b1tg07ri7qbimr6jivnp9plrif1eufg2.apps.googleusercontent.com"
@@ -229,6 +316,8 @@ class Login extends React.Component {
                 cookiePolicy={'single_host_origin'}
               />
               <FacebookLogin
+                // 1088597931155576
+                // origin : 1217568225253856
                 appId="1217568225253856"
                 textButton="　페이스북 계정으로 로그인"
                 // 새로고침하면 자동으로 popup 되는 문제 해결
@@ -243,7 +332,9 @@ class Login extends React.Component {
             </div>
 
             <div className="link_to_signup">
-              <Link to="/signup">회원가입</Link>
+              <Link to="/signup" className="signup_link_text">
+                회원가입
+              </Link>
             </div>
           </form>
         </div>
@@ -254,6 +345,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   history: PropTypes.object.isRequired,
+  handleLogin: PropTypes.func.isRequired,
 };
 
 export default withRouter(Login);
