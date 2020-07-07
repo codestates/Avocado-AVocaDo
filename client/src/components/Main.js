@@ -11,8 +11,6 @@ class Main extends React.Component {
     super(props);
   }
 
-
-
   render() {
     const {
       isLogin,
@@ -28,16 +26,15 @@ class Main extends React.Component {
       updateWordData,
       deleteWordData,
       handleSentenceData,
+      handleWordCardLength,
     } = this.props;
     return (
       <div>
-
         <div>
           <Main_Header
             isLogin={isLogin}
             userInfo={userInfo}
             handleLogout={handleLogout}
-
           />
         </div>
         <div>
@@ -47,11 +44,11 @@ class Main extends React.Component {
             addWordData={addWordData}
             currentWord={currentWord}
             wordData={wordData}
+            handleWordCardLength={handleWordCardLength}
           />
         </div>
         <div>
           <WordCardStack
-
             wordData={wordData}
             addWordData={addWordData}
             postInputWord={postInputWord}
@@ -59,7 +56,7 @@ class Main extends React.Component {
             deleteWordData={deleteWordData}
             handleSentenceData={handleSentenceData}
             handleInput={handleInput}
-
+            handleWordCardLength={handleWordCardLength}
           />
         </div>
       </div>

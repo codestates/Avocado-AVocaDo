@@ -9,21 +9,21 @@ class WordInput extends Component {
 
     // props 쓸려면 this bind 해야함
     this.submitWord = this.submitWord.bind(this);
-    console.log('WordInput!!', this.props);
   }
   submitWord(e) {
     e.preventDefault();
     const findingWord = `"word":"${this.props.currentWord}"`;
 
-    console.log(JSON.stringify(this.props.wordData));
     const searchResult =
       kmp.kmp(JSON.stringify(this.props.wordData), findingWord).length > 0;
 
+    const wordDataLength = this.props.wordData.length;
     if (searchResult) {
       alert('이미 단어장에 있는 단어입니다!');
     } else {
       this.props.addWordData();
-      this.props.postInputWord();
+      this.props.postInputWord(wordDataLength);
+      this.props.handleWordCardLength();
     }
 
     document.querySelector('.word_input').value = '';
