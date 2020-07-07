@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../CSS/Wordbook.css';
+import axios from 'axios';
 
 import Modal_bootstrap from 'react-bootstrap/Modal';
 import Modal from 'react-modal';
@@ -10,9 +11,23 @@ import { Accordion, Card, Button } from
 // npm uninstall react-bootstrap
 // npm install react-bootstrap@1.0.1
 
+const API_KEY = 'AIzaSyBG6LBMPxrFJC48KMQcO8R04igj - KknE_g';
+const ENGINE_ID = '002602307990519608607:hij8aj8dveo';
+
 export default class WordAccordion extends Component {
   constructor(props) {
     super(props)
+    this.getGoogleImages = this.getGoogleImages.bind(this);
+  }
+
+  //async, await
+  getGoogleImages(word) {
+    axios
+      .get(`https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${ENGINE_ID}&q=${word}`)
+      .then((res) => {
+        console.log('--------', res)
+        return res.data
+      })
   }
 
   render() {
@@ -41,6 +56,7 @@ export default class WordAccordion extends Component {
                 </ul>
                 <div>
                   구글 이미지 또는 기사
+                  {this.getGoogleImages()}
                 </div>
               </Card.Body>
             </Accordion.Collapse>
