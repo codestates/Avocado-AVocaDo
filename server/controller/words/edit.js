@@ -1,4 +1,4 @@
-const { words } = require('../../models/users');
+const { Word } = require('../../models');
 const dummy = require('../words/dummy');
 const e = require('express');
 

@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Sentence.init(
     {
-      sentence: DataTypes.STRING,
+      sentence: DataTypes.TEXT,
     },
     {
       sequelize,
