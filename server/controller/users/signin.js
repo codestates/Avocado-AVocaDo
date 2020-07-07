@@ -1,3 +1,4 @@
+/* eslint-disable */
 // const { users } = require('../../models');
 // const crypto = require('crypto');
 
@@ -8,7 +9,6 @@ const access_token = '1217568225253856|FoxJJZdueieUJtKvnDsVbQw6rYY';
 
 module.exports = {
   post: (req, res) => {
-
     console.log(req.body);
     // 밑에는 데이터베이스를 이용하기 전에 먼저 서버 테스트를 하기 위한 코드입니다
     const { loginType, userId, password, tokenId } = req.body;

@@ -149,7 +149,12 @@ function WordCard(props) {
           <div className="word">{word}</div>
           <ul className="sentences">
             {sentences.map((sentence, index) => {
-              return <li key={index}>{sentence}</li>;
+              // 카드 내에 출력되는 예문이 일정 길이를 넘어가면 줄임말로 생략합니다. 
+              if (sentence.length > 20) {
+                return <li key={index}>{sentence.slice(0, 20)}...</li>;
+              } else {
+                return <li key={index}>{sentence}</li>;
+              }
             })}
           </ul>
         </div>
