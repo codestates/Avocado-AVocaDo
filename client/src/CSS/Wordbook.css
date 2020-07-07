@@ -2,7 +2,7 @@
   display: flex;
   background-color: #03c75a;
   min-height: 25vh;
-  position: sticky;
+  position: -webkit-sticky;
   align-items: flex-end;
   top: 0;
   font-size: 14px;
