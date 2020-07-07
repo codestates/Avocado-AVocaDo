@@ -17,26 +17,31 @@ class WordCardStack extends React.Component {
       deleteWordData,
       handleInput,
       handleSentenceData,
-      handleWordCardLength,
+      addSentences,
     } = this.props;
     return (
       <div className="wordcardstack_wrap">
         <div className="wordcard_stack">
           {wordData
             ? wordData.map((word, index) => {
+                let wordValue;
+                let wordKey = Object.keys(word.word)[0];
+                for (let i in word.word) {
+                  wordValue = word.word[i];
+                }
+
                 return (
                   <WordCard
-                    key={index}
-                    word={word.word}
+                    key={wordKey}
+                    word={wordValue}
                     sentences={word.sentences}
-                    index={word.wordId}
+                    index={wordKey}
                     postInputWord={postInputWord}
                     updateWordData={updateWordData}
                     deleteWordData={deleteWordData}
-                    addWordData={addWordData}
                     handleInput={handleInput}
                     handleSentenceData={handleSentenceData}
-                    handleWordCardLength={handleWordCardLength}
+                    addSentences={addSentences}
                   />
                 );
               })

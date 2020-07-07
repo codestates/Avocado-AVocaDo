@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import Wordbook_Header from './Wordbook_Header';
 import WordList from './WordList';
@@ -14,13 +15,17 @@ class Wordbook extends React.Component {
       userInfo,
       handleLogout,
       wordData,
-      postInputWord,
       updateWordData,
       deleteWordData,
       handleSentenceData,
       handleWordCardLength,
+      word,
+      isLogin,
+      currentWord,
+      addSentences,
     } = this.props;
 
+    console.log('Wordbook', wordData);
     return (
       <div>
         <div className="wordbook_header_wrap">
@@ -29,7 +34,10 @@ class Wordbook extends React.Component {
         <div>
           <WordList
             wordData={wordData}
-            postInputWord={postInputWord}
+            word={word}
+            isLogin={isLogin}
+            currentWord={currentWord}
+            addSentences={addSentences}
             updateWordData={updateWordData}
             deleteWordData={deleteWordData}
             handleSentenceData={handleSentenceData}
@@ -41,15 +49,15 @@ class Wordbook extends React.Component {
   }
 }
 
-Wordbook.propTypes = {
-  userInfo: PropTypes.object.isRequired,
-  handleLogout: PropTypes.func.isRequired,
-  wordData: PropTypes.array.isRequired,
-  handleSentenceData: PropTypes.func.isRequired,
-  postInputWord: PropTypes.func.isRequired,
-  updateWordData: PropTypes.func.isRequired,
-  deleteWordData: PropTypes.func.isRequired,
-  handleWordCardLength: PropTypes.func.isRequired,
-};
+// Wordbook.propTypes = {
+//   userInfo: PropTypes.object.isRequired,
+//   handleLogout: PropTypes.func.isRequired,
+//   wordData: PropTypes.array.isRequired,
+//   handleSentenceData: PropTypes.func.isRequired,
+//   postInputWord: PropTypes.func.isRequired,
+//   updateWordData: PropTypes.func.isRequired,
+//   deleteWordData: PropTypes.func.isRequired,
+//   handleWordCardLength: PropTypes.func.isRequired,
+// };
 
 export default Wordbook;

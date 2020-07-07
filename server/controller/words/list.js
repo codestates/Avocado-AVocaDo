@@ -3,7 +3,8 @@ const dummy = require('../../models/dummy');
 
 module.exports = {
   get: (req, res) => {
-    if (req.session.userId) {
+    // test 를 위해 true 로 변경하였음
+    if (true) {
       res.status(200).json(dummy);
     } else {
       res.status(401).send('need user session');
