@@ -88,17 +88,26 @@
 
 .wordcardstack_wrap {
   height: 100%;
-  display: flex;
+  display: block;
   justify-content: center;
 }
 
-.wordcard_stack {
+.wordcardstack_notice_area {
+  display: flex;
+  justify-content: flex-end;
+  width: 800px;
+  margin: 0 auto;
+  height: 10vh;
+}
+
+.wordcardstack_area {
   width: 1000px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
-  padding: 40px;
+  padding: 10px 40px;
 }
 
 .wordcard {
