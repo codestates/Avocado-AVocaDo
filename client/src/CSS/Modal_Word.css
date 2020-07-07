@@ -88,14 +88,8 @@ input textarea {
   font-weight: 500;
   text-align: center;
 }
-.btn_modal.btn_modal_save {
-  float: left;
-  width: 48%;
-  height: 50px;
-}
 
-.btn_modal.btn_modal_cancel {
-  float: right;
+.btn_modal_confirm {
+  display: inline-block;
   width: 48%;
-  height: 50px;
 }
