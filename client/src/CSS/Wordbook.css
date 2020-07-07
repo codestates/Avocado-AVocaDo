@@ -1,5 +1,3 @@
-/* WordBook, WordList, Pagination */
-
 .wordbook_header_wrap {
   display: flex;
   background-color: #03c75a;
@@ -19,11 +17,6 @@
   width: 100%;
 }
 
-.wordbook_nav > a {
-  color: inherit;
-  text-decoration: none;
-}
-
 .wordlist_wrap {
   height: 100%;
   display: flex;
@@ -32,12 +25,24 @@
 
 .wordlist_stack {
   width: 1000px;
-  display: flex;
-  justify-content: space-between;
+  display: inline-block;
+  justify-content: center;
   align-items: flex-start;
-  flex-wrap: wrap;
   padding: 40px;
   margin-top: 30px;
+}
+
+.accordion_area {
+  display: flex;
+  justify-content: center;
+}
+
+.accordion_card {
+  width: 800px;
+}
+
+.card_header {
+  width: 500px;
 }
 
 .pagination_wrap {
@@ -56,3 +61,4 @@
   padding: 5px 12px;
   line-height: 1.5;
 }
+

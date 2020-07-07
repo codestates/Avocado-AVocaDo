@@ -11,6 +11,7 @@ class Wordbook extends React.Component {
 
   render() {
     const {
+
       userInfo,
       handleLogout,
       wordData,
@@ -29,6 +30,8 @@ class Wordbook extends React.Component {
         <div>
           <WordList
             wordData={wordData}
+            word={wordData.word}
+            sentences={wordData.sentences}
             postInputWord={postInputWord}
             updateWordData={updateWordData}
             deleteWordData={deleteWordData}

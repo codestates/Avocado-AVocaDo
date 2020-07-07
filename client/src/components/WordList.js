@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import WordCard from './WordCard';
+import WordAccordion from './WordAccordion';
 import Pagination from './Pagination';
 import { paginate } from '../utils/paginate';
 import '../CSS/Wordbook.css';
-
+import { Accordion, Card, Button } from 'react-bootstrap';
 
 class WordList extends React.Component {
   constructor(props) {
     super(props);
-    // TODO: 왜 wordData 를 받아서 state 로 관리하는지?
     this.state = {
       wordData: this.props.wordData,
       pageSize: 5,
@@ -34,6 +33,7 @@ class WordList extends React.Component {
     const { pageSize, currentPage, wordData: allData } = this.state;
 
     const words = paginate(allData, currentPage, pageSize);
+    console.log('words------', words)
     // pagenation 이후에도 모달창을 사용할 수 있도록 index 를 조정하였음
     // const indexCoefficient = (currentPage - 1) * pageSize;
     return (
@@ -42,22 +42,15 @@ class WordList extends React.Component {
           <div className="wordlist_stack">
             {words
               ? words.map((word, index) => {
-
-                  return (
-                    <WordCard
-                      key={index}
-                      word={word.word}
-                      sentences={word.sentences}
-                      index={word.wordId}
-                      postInputWord={postInputWord}
-                      updateWordData={updateWordData}
-                      deleteWordData={deleteWordData}
-                      handleSentenceData={handleSentenceData}
-                      handleWordCardLength={handleWordCardLength}
-                    />
-                  );
-                })
-
+                return (
+                  <WordAccordion
+                    defaultActiveKey="0"
+                    key={index}
+                    word={word.word}
+                    sentences={word.sentences}>
+                  </WordAccordion>
+                );
+              })
               : 'noWord!'}
           </div>
         </div>
