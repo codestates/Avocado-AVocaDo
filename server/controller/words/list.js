@@ -1,3 +1,4 @@
+/* eslint-disable */
 const { words } = require('../../models/users');
 const dummy = require('../../models/dummy');
 
