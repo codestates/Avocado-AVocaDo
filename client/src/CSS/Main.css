@@ -3,7 +3,7 @@
 .main_header_wrap {
   display: flex;
   background-color: #03c75a;
-  height: 25vh;
+  min-height: 25vh;
   position: sticky;
   top: 0;
   align-items: flex-end;
@@ -102,6 +102,7 @@
 }
 
 .wordcard {
+  position: relative;
   width: 400px;
   background-color: white;
   margin-bottom: 70px;
@@ -118,22 +119,37 @@
   margin-bottom: 10px;
 }
 
-.wordlist_wrap {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.wordlist_stack {
-  width: 1000px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  padding: 40px;
-  margin-top: 30px;
-}
-
 li {
   list-style: none;
+}
+
+.wordcard:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.btn_delete_wordcard {
+  position: absolute;
+  top: -7px;
+  right: -11px;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border: none;
+  outline: none;
+  border-radius: 0;
+  background-color: #11ffee00;
+  background-position: -41px -42px;
+  background-image: url(https://static-whale.pstatic.net/main/sprite@2x.png);
+  background-repeat: no-repeat;
+  background-size: 98px 81px;
+}
+
+.btn_delete_wordcard:hover {
+  cursor: pointer;
+  transform: scale(1.7);
+}
+.main_nav > div > a {
+  text-decoration: none;
+  color: inherit;
 }

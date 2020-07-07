@@ -4,6 +4,7 @@ import '../CSS/Main.css';
 
 function Main_Header() {
   return (
+
     <div className="main_header_wrap">
       <nav className="main_nav">
         <Link to="/main">
@@ -23,6 +24,7 @@ function Main_Header() {
         </div>
       </nav>
     </div>
+
   );
 }
 export default Main_Header;

@@ -1,28 +1,30 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import '../CSS/Main.css';
 import kmp from 'kmp-matcher';
+import _ from 'lodash';
 class WordInput extends Component {
   constructor(props) {
     super(props);
 
     // props 쓸려면 this bind 해야함
     this.submitWord = this.submitWord.bind(this);
-    console.log('WordInput!!', this.props);
   }
   submitWord(e) {
     e.preventDefault();
-    const findingWord = `"word":"${this.props.currentWord}"`;
 
-    console.log(JSON.stringify(this.props.wordData));
-    const searchResult =
-      kmp.kmp(JSON.stringify(this.props.wordData), findingWord).length > 0;
+    const findingWord = this.props.currentWord;
 
-    if (searchResult) {
+    let findResult = _.find(this.props.word, function (word) {
+      return word === findingWord;
+    });
+
+    if (findResult) {
       alert('이미 단어장에 있는 단어입니다!');
+      document.querySelector('.word_input').value = '';
     } else {
-      this.props.addWordData();
+      // TODO: 무조건 서버에 보내고 get 으로 받아서 data 를 초기화 시켜야 함
       this.props.postInputWord();
     }
 

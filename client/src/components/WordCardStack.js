@@ -6,11 +6,9 @@ import '../CSS/Main.css';
 class WordCardStack extends React.Component {
   constructor(props) {
     super(props);
-    console.log('wordCard!Stack', this.props);
   }
 
   render() {
-    console.log(this.props);
     const {
       addWordData,
       wordData,
@@ -19,26 +17,31 @@ class WordCardStack extends React.Component {
       deleteWordData,
       handleInput,
       handleSentenceData,
+      addSentences,
     } = this.props;
-    console.log('확인!2', this.props);
-    console.log('handleSentenseData', handleSentenceData);
     return (
       <div className="wordcardstack_wrap">
         <div className="wordcard_stack">
           {wordData
             ? wordData.map((word, index) => {
+                let wordValue;
+                let wordKey = Object.keys(word.word)[0];
+                for (let i in word.word) {
+                  wordValue = word.word[i];
+                }
+
                 return (
                   <WordCard
-                    key={index}
-                    word={word.word}
+                    key={wordKey}
+                    word={wordValue}
                     sentences={word.sentences}
-                    index={index}
+                    index={wordKey}
                     postInputWord={postInputWord}
                     updateWordData={updateWordData}
                     deleteWordData={deleteWordData}
-                    addWordData={addWordData}
                     handleInput={handleInput}
                     handleSentenceData={handleSentenceData}
+                    addSentences={addSentences}
                   />
                 );
               })

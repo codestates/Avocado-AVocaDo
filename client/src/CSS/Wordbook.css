@@ -16,3 +16,41 @@
   justify-content: space-between;
   width: 100%;
 }
+
+.wordlist_wrap {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.wordlist_stack {
+  width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 40px;
+  margin-top: 30px;
+}
+
+.pagination_wrap {
+  display: flex;
+  justify-content: center;
+  height: 10vh;
+}
+
+.pagination {
+  display: flex;
+}
+
+.pagination a {
+  float: left;
+  font-size: 1em;
+  padding: 5px 12px;
+  line-height: 1.5;
+}
+
+.wordbook_nav > a {
+  color: inherit;
+  text-decoration: none;
+}
