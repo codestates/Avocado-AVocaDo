@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
-import { Accordion, Card, Button } from 'react-bootstrap';
 import '../CSS/Wordbook.css';
+
+import Modal_bootstrap from 'react-bootstrap/Modal';
+import Modal from 'react-modal';
+
+import { Accordion, Card, Button } from
+  'react-bootstrap';
+// Accordion 사용하려면 부트스트랩 다운그레이드 해야 합니다. 
+// npm uninstall react-bootstrap
+// npm install react-bootstrap@1.0.1
 
 export default class WordAccordion extends Component {
   constructor(props) {
@@ -14,10 +22,15 @@ export default class WordAccordion extends Component {
         <Accordion
           defaultActiveKey="0">
           <Card className="accordion_card">
-            <Card.Header className="card_haeder">
+            <Card.Header>
               <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                {word}
+                <div className="word_btn">
+                  {word}
+                </div>
               </Accordion.Toggle>
+              <div className="edit_btn">
+                🥑
+                </div>
             </Card.Header>
             <Accordion.Collapse eventKey="1">
               <Card.Body>
@@ -26,6 +39,9 @@ export default class WordAccordion extends Component {
                     return <li key={index}>{sentence}</li>;
                   })}
                 </ul>
+                <div>
+                  구글 이미지 또는 기사
+                </div>
               </Card.Body>
             </Accordion.Collapse>
           </Card>
