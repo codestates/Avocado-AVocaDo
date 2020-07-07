@@ -1,4 +1,4 @@
-const dummy = require('../../models/dummy');
+const dummy = require('../words/dummy');
 
 module.exports = {
   put: (req, res) => {

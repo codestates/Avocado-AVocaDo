@@ -1,7 +1,5 @@
-/* eslint-disable */
 const { words } = require('../../models/users');
 const dummy = require('../../models/dummy');
-const e = require('express');
 
 module.exports = {
   put: (req, res) => {

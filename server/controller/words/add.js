@@ -1,32 +1,48 @@
-/* eslint-disable */
-const { words } = require('../../models/users');
-const dummy = require('../../models/dummy');
+const { Word, UserWord, sequelize } = require('../../models');
+const dummy = require('../words/dummy');
 
 module.exports = {
-  post: (req, res) => {
-    // const { word } = req.body;
-
-    // if (req.session) {
-    //   if (word in dummy['data']) {
-    //     res.status(400).end('words already exists');
-    //   } else {
-    //     dummy['data'][word] = [];
-    //     res.status(200).json(dummy);
-    //   }
-    // } else {
-    //   res.status(401).send('need user session');
-    // }
+  post: async (req, res) => {
     const { word, sentences } = req.body;
 
-    if (req.session.userId) {
-      let obj = {};
-      obj['word'] = word;
-      obj['sentences'] = sentences;
-      dummy['data'].push(obj);
-      res.status(200).json(dummy);
+    req.session.id = 1;
+    if (req.session.id) {
+      Word.findOrCreate({
+        where: {
+          word,
+        },
+        default: {
+          word,
+        },
+      })
+        .spread((data, create) => {
+          console.log(create);
+          return data[0].id;
+        })
+        .then((data) => {
+          UserWord.findOrCreate({
+            where: {
+              WordId: data,
+              UserId: req.session.id,
+            },
+          });
+        })
+        .then(() => {
+          res.status(200).end('OK');
+        });
     } else {
       res.status(401).send('invalid user');
     }
+
+    // if (req.session.userId) {
+    //   let obj = {};
+    //   obj['word'] = word;
+    //   obj['sentences'] = sentences;
+    //   dummy['data'].push(obj);
+    //   res.status(200).json(dummy);
+    // } else {
+    //   res.status(401).send('invalid user');
+    // }
   },
 };
 
