@@ -1,7 +1,6 @@
 const { Word } = require('../../models');
 const dummy = require('../words/dummy');
 
-
 module.exports = {
   delete: (req, res) => {
     // const { word } = req.body;
@@ -16,7 +15,7 @@ module.exports = {
     // }
     const { wordId } = req.body;
 
-    if (req.session) {
+    if (req.session.userId) {
       // Sentence.destroy({
       //   where: {
       //     WordId: wordId,

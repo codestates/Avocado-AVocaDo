@@ -1,5 +1,5 @@
-const { words } = require('../../models/users');
-const dummy = require('../../models/dummy');
+// const { words } = require('../../models/users');
+// const dummy = require('../../models/dummy');
 
 module.exports = {
   put: (req, res) => {

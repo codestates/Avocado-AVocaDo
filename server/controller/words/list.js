@@ -1,16 +1,25 @@
-const { Word, UserWord, UserSentence, Sentence } = require('../../models');
+const {
+  Word,
+  UserWord,
+  UserSentence,
+  Sentence,
+  User,
+} = require('../../models');
 const dummy = require('../words/dummy');
+// const user = require('../../models/user');
 
 module.exports = {
   get: (req, res) => {
-    if (req.session.id) {
+    res.status(200).end('OK');
+    req.session.userId = 1;
+    if (req.session.userId) {
       // Word.findAll({
       //   include: [
       //     {
       //       model: UserWord,
       //       required: true,
       //       where: {
-      //         UserId: req.session.id,
+      //         UserId: req.session.userId,
       //       },
       //     },
       //   ],
@@ -19,18 +28,32 @@ module.exports = {
       // });
 
       UserWord.findAll({
-        where: {
-          user_id: req.session.id,
-        },
         include: [
           {
-            model: Word,
+            where: {
+              UserId: req.session.userId,
+            },
+            model: User,
             required: true,
           },
         ],
       }).then((data) => {
         console.log(data);
       });
+
+      // UserWord.findAll({
+      //   where: {
+      //     UserId: req.session.userId,
+      //   },
+      //   include: [
+      //     {
+      //       model: Word,
+      //       required: true,
+      //     },
+      //   ],
+      // }).then((data) => {
+      //   console.log(data);
+      // });
 
       // UserWord.findAll({
       //   where: { UserId: req.session.id },

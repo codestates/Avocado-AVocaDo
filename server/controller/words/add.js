@@ -1,12 +1,12 @@
-const { Word, UserWord, sequelize } = require('../../models');
+const { Word, UserWord } = require('../../models');
 const dummy = require('../words/dummy');
 
 module.exports = {
   post: async (req, res) => {
-    const { word, sentences } = req.body;
+    const { word } = req.body;
 
-    req.session.id = 1;
-    if (req.session.id) {
+    req.session.userId = 1;
+    if (req.session.userId) {
       Word.findOrCreate({
         where: {
           word,
@@ -15,20 +15,19 @@ module.exports = {
           word,
         },
       })
-        .spread((data, create) => {
-          console.log(create);
+        .then((data) => {
           return data[0].id;
         })
         .then((data) => {
           UserWord.findOrCreate({
             where: {
               WordId: data,
-              UserId: req.session.id,
+              UserId: req.session.userId,
             },
           });
         })
         .then(() => {
-          res.status(200).end('OK');
+          res.status(200).json();
         });
     } else {
       res.status(401).send('invalid user');
