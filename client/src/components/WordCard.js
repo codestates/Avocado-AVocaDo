@@ -1,6 +1,9 @@
 /* eslint-disable */
 import React from 'react';
 import PropTypes, { func } from 'prop-types';
+import Modal_bootstrap from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Modal from 'react-modal';
 
 // npm install react-modal
@@ -18,11 +21,29 @@ import '../CSS/Modal_Word.css';
 문제원인 : modalWord, modalSentences 가 변경되지 않는다. 
 모달안에서의 상태가 변경이 안됨
 
+해결 => modal open 할때 상태를 변경함 
+
 */
-const customStyles = {
+const wordModalStyles = {
   content: {
     width: '500px',
     height: 'auto',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    border: '2px solid #cccccc',
+    borderRadius: '6px',
+    backgroundColor: '#f5f6f7',
+  },
+};
+
+const confirmModalStyles = {
+  content: {
+    width: '300px',
+    height: '300px',
     top: '50%',
     left: '50%',
     right: 'auto',
@@ -43,23 +64,24 @@ function WordCard(props) {
   const {
     word,
     sentences,
+    index,
     postInputWord,
     addWordData,
     deleteWordData,
     handleInput,
     updateWordData,
     handleSentenceData,
-    index,
+    handleWordCardLength,
   } = props;
 
-  console.log('들어오는 단어확인', word, sentences);
+  console.log(`index=${index}, word=${word}`);
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [confirmModalIsOpen, setconfirmModalOpen] = React.useState(false);
   const [modalSentences, setModalSentences] = React.useState(
     sentences.join('\n')
   );
   const [modalWord, setModalWord] = React.useState(word);
 
-  console.log('모달 단어확인', modalWord, modalSentences);
   function openModal() {
     setModalWord(word);
     setModalSentences(sentences.join('\n'));
@@ -78,6 +100,7 @@ function WordCard(props) {
   function saveWordData(e) {
     e.preventDefault();
     // textarea 에 들어있는 문장을 enter 단위로 분해하여 배열에 저장
+
     const splitSentences = modalSentences.split('\n');
     // 저장한 배열로 전체 단어 data 상태 변화
     handleSentenceData(modalWord, splitSentences, index);
@@ -99,6 +122,15 @@ function WordCard(props) {
 
   function deleteWordCard() {
     deleteWordData(index);
+    handleWordCardLength();
+    closeConfirmModal();
+  }
+
+  function openConfirmModal() {
+    setconfirmModalOpen(true);
+  }
+  function closeConfirmModal() {
+    setconfirmModalOpen(false);
   }
 
   return (
@@ -109,23 +141,52 @@ function WordCard(props) {
       state 를 변경한다. 
       */}
 
-      <div className="wordcard" onClick={openModal}>
+      <div className="wordcard">
         <button
           className="btn_delete_wordcard"
-          onClick={deleteWordCard}
+          onClick={openConfirmModal}
         ></button>
-        <div className="word">{word}</div>
-        <ul className="sentences">
-          {sentences.map((sentence, index) => {
-            return <li key={index}>{sentence}</li>;
-          })}
-        </ul>
+        <div className="wordcard-content" onClick={openModal}>
+          <div className="word">{word}</div>
+          <ul className="sentences">
+            {sentences.map((sentence, index) => {
+              return <li key={index}>{sentence}</li>;
+            })}
+          </ul>
+        </div>
       </div>
 
+      {/* 부트스트랩 modal */}
+
+      <Modal_bootstrap show={confirmModalIsOpen} onHide={closeConfirmModal}>
+        <Modal_bootstrap.Header closeButton>
+          <Modal_bootstrap.Title>단어를 삭제할까요?</Modal_bootstrap.Title>
+        </Modal_bootstrap.Header>
+        <Modal_bootstrap.Body>
+          확인버튼을 누르면 단어가 삭제됩니다
+        </Modal_bootstrap.Body>
+        <Modal_bootstrap.Footer>
+          <div className="btn_modal_confirm">
+            <Button variant="secondary" block onClick={closeConfirmModal}>
+              취소
+            </Button>
+          </div>
+          <div className="btn_modal_confirm">
+            <Button variant="secondary" block onClick={deleteWordCard}>
+              확인
+            </Button>
+          </div>
+        </Modal_bootstrap.Footer>
+      </Modal_bootstrap>
+      {/*부트스트랩 모달  */}
+
+      {/* 필요한 것 form, button */}
+
+      {/*  */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        style={customStyles}
+        style={wordModalStyles}
         contentLabel="A! VOCADO"
       >
         {/* HTML <dl> 요소는 설명 목록을 나타냅니다. 
@@ -137,6 +198,16 @@ function WordCard(props) {
         {/* dd -> content */}
 
         <div className="modal_container">
+          <Form>
+            <Form.Group controlId="formGroupEmail">
+              <Form.Label>Word</Form.Label>
+              <Form.Control type="text" placeholder="Enter email" />
+            </Form.Group>
+            <Form.Group controlId="formGroupPassword">
+              <Form.Label>Sentence</Form.Label>
+              <Form.Control type="text" placeholder="Password" />
+            </Form.Group>
+          </Form>
           <form className="modal_word_form" onSubmit={saveWordData}>
             <h1 className="modal_heading">Create Sentences</h1>
 
