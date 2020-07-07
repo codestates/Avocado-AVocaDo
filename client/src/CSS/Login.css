@@ -30,8 +30,8 @@ button {
 }
 a {
   /* a 태그 색 안쓰고 상위 요소에서 지정한 색깔 사용 */
-  color: inherit;
-  text-decoration: none;
+  color: inherit !important;
+  text-decoration: none !important;
 }
 
 .login_form {
