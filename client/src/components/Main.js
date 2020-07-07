@@ -1,6 +1,8 @@
 /* eslint-disable */
 import React from 'react';
+
 // import { Switch, Route, Redirect } from 'react-router-dom'; // userHistory
+
 import Main_Header from './Main_Header';
 import WordInput from './WordInput';
 import WordCardStack from './WordCardStack';
@@ -10,7 +12,6 @@ class Main extends React.Component {
   }
 
   render() {
-    console.log('Main', this.props);
     const {
       isLogin,
       userInfo,
@@ -25,6 +26,7 @@ class Main extends React.Component {
       updateWordData,
       deleteWordData,
       handleSentenceData,
+      handleWordCardLength,
     } = this.props;
     return (
       <div>
@@ -42,6 +44,7 @@ class Main extends React.Component {
             addWordData={addWordData}
             currentWord={currentWord}
             wordData={wordData}
+            handleWordCardLength={handleWordCardLength}
           />
         </div>
         <div>
@@ -53,6 +56,7 @@ class Main extends React.Component {
             deleteWordData={deleteWordData}
             handleSentenceData={handleSentenceData}
             handleInput={handleInput}
+            handleWordCardLength={handleWordCardLength}
           />
         </div>
       </div>

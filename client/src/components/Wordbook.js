@@ -17,6 +17,8 @@ class Wordbook extends React.Component {
       postInputWord,
       updateWordData,
       deleteWordData,
+      handleSentenceData,
+      handleWordCardLength,
     } = this.props;
 
     return (
@@ -30,6 +32,8 @@ class Wordbook extends React.Component {
             postInputWord={postInputWord}
             updateWordData={updateWordData}
             deleteWordData={deleteWordData}
+            handleSentenceData={handleSentenceData}
+            handleWordCardLength={handleWordCardLength}
           />
         </div>
       </div>
@@ -45,6 +49,7 @@ Wordbook.propTypes = {
   postInputWord: PropTypes.func.isRequired,
   updateWordData: PropTypes.func.isRequired,
   deleteWordData: PropTypes.func.isRequired,
+  handleWordCardLength: PropTypes.func.isRequired,
 };
 
 export default Wordbook;

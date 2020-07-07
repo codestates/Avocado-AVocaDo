@@ -1,3 +1,4 @@
+/* eslint-disable */
 const { words } = require('../../models/users');
 const dummy = require('../../models/dummy');
 
@@ -17,7 +18,7 @@ module.exports = {
     // }
     const { word, sentences } = req.body;
 
-    if (req.session) {
+    if (req.session.userId) {
       let obj = {};
       obj['word'] = word;
       obj['sentences'] = sentences;
