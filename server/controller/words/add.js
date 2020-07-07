@@ -1,5 +1,6 @@
 const { Word, UserWord, sequelize } = require('../../models');
 const dummy = require('../words/dummy');
+
 module.exports = {
   post: async (req, res) => {
     const { word, sentences } = req.body;

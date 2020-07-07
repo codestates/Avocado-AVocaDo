@@ -1,6 +1,6 @@
-// const { words } = require('../../models/users');
 const { Word } = require('../../models');
 const dummy = require('../words/dummy');
+
 
 module.exports = {
   delete: (req, res) => {
