@@ -41,8 +41,20 @@
   width: 800px;
 }
 
-.card_header {
-  width: 500px;
+.card-header {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-link {
+  width: 800px;
+  padding: 0 !important;
+  display: flex !important;
+}
+
+.accordion_items {
+  display: flex;
+  justify-content: space-around;
 }
 
 .pagination_wrap {
