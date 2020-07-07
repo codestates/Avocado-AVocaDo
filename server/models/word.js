@@ -9,9 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      //   Word.belongsToMany(models.User, { through: 'UserWord' });
-      //   Word.belongsToMany(models.User, { through: 'UserWord' });
-      //   models.User.belongsToMany(Word, { through: 'UserWord' });
+
+      Word.hasMany(models.Sentence);
     }
   }
   Word.init(

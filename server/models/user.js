@@ -1,6 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 const crypto = require('crypto');
+const usersentence = require('./usersentence');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -10,8 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.belongsToMany(models.Word, { through: 'UserWord' });
-      models.Word.belongsToMany(User, { through: 'UserWord' });
+      User.belongsToMany(models.Word, {
+        through: 'UserWord',
+      });
+      models.Word.belongsToMany(User, {
+        through: 'UserWord',
+      });
+      User.belongsToMany(models.Sentence, {
+        through: 'UserSentence',
+      });
+      models.Sentence.belongsToMany(User, {
+        through: 'UserSentence',
+      });
     }
   }
   User.init(

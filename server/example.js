@@ -1,8 +1,8 @@
 const db = require('./models');
 // console.log(User);
-console.log(db.UserWord);
-db.User.belongsToMany(db.Word, { through: 'UserWord' });
-db.Word.belongsToMany(db.User, { through: 'UserWord' });
+
+// db.User.belongsToMany(db.Word, { through: 'UserWord' });
+// db.Word.belongsToMany(db.User, { through: 'UserWord' });
 
 db.Word.sync().then(() => {
   return db.Word.findAll();
@@ -15,6 +15,9 @@ db.Sentence.sync().then(() => {
 });
 db.UserWord.sync().then(() => {
   return db.UserWord.findAll();
+});
+db.UserSentence.sync().then(() => {
+  return db.UserSentence.findAll();
 });
 
 // User.sync()
