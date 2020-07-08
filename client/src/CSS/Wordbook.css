@@ -1,0 +1,80 @@
+.wordbook_header_wrap {
+  display: flex;
+  background-color: #03c75a;
+  min-height: 25vh;
+  position: -webkit-sticky;
+  align-items: flex-end;
+  top: 0;
+  font-size: 14px;
+  color: white;
+}
+
+.wordbook_nav {
+  padding: 20px;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.wordlist_wrap {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.wordlist_stack {
+  width: 1000px;
+  display: inline-block;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+  margin-top: 30px;
+}
+
+.accordion_area {
+  display: flex;
+  justify-content: center;
+}
+
+.accordion_card {
+  width: 800px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-link {
+  width: 800px;
+  padding: 0 !important;
+  display: flex !important;
+}
+
+.accordion_items {
+  display: flex;
+  justify-content: space-around;
+}
+
+.pagination_wrap {
+  display: flex;
+  justify-content: center;
+  height: 10vh;
+}
+
+.pagination {
+  display: flex;
+}
+
+.pagination a {
+  float: left;
+  font-size: 1em;
+  padding: 5px 12px;
+  line-height: 1.5;
+}
+
+.wordbook_nav > a {
+  color: inherit;
+  text-decoration: none;
+}

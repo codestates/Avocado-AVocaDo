@@ -2,10 +2,6 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #f5f6f7;
-}
-
 html body,
 form,
 fieldset,
@@ -42,6 +38,7 @@ a {
 }
 
 .signup_wraper {
+  background-color: #f5f6f7;
   position: relative;
   width: 100%;
 }
@@ -66,8 +63,12 @@ a {
   width: 100%;
 }
 
+.signup_fieldset > h1 {
+  font-weight: bold;
+}
+
 .id_area,
-.password_area {
+.password_area.username_area {
   position: relative;
 }
 

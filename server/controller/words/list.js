@@ -1,13 +1,10 @@
-const { words } = require('../../models/users');
+// const { words } = require('../../models/users');
 const dummy = require('../../models/dummy');
 
 module.exports = {
   get: (req, res) => {
-    if (req.session) {
-      res.status(200).json(dummy);
-    } else {
-      res.status(401).send('need user session');
-    }
+    console.log(dummy);
+    res.status(200).json(dummy);
   },
 };
 
