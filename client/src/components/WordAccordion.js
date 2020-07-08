@@ -30,7 +30,7 @@ class WordAccordion extends Component {
         return res.json()
       })
       .then((data) => {
-        // console.log('data.articles', data.articles)
+        console.log('data.articles', data.articles)
         this.setState({
           articles: data.articles
         })
@@ -75,7 +75,7 @@ class WordAccordion extends Component {
                     {this.getArticles(word)}
                     {this.state.articles.map((article, index) => {
                       return <li>
-                        <a key={index} href={article.url}>{article.title}</a>
+                        <a key={index} href={article.url}>{article.title} | {article.source.name}</a>
                       </li>
                     })}
                   </ul>
