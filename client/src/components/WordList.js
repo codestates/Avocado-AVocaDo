@@ -95,24 +95,24 @@ class WordList extends React.Component {
 
       alert('검색결과가 단어장에 없습니다!')
       return words
-      ? words.map((word, index) => {
-        let wordValue;
-        let wordKey = Object.keys(word.word)[0];
-        for (let i in word.word) {
-          wordValue = word.word[i];
-        }
-        return (
-          <WordAccordion
-            defaultActiveKey="0"
-            key={index}
-            word={wordValue}
-            index={wordKey}
-            sentences={word.sentences}>
-          </WordAccordion>
-        );
-      })
-      : 'noWord!'
-      
+        ? words.map((word, index) => {
+          let wordValue;
+          let wordKey = Object.keys(word.word)[0];
+          for (let i in word.word) {
+            wordValue = word.word[i];
+          }
+          return (
+            <WordAccordion
+              defaultActiveKey="0"
+              key={index}
+              word={wordValue}
+              index={wordKey}
+              sentences={word.sentences}>
+            </WordAccordion>
+          );
+        })
+        : 'noWord!'
+
     }
 
     else {
@@ -151,6 +151,7 @@ class WordList extends React.Component {
       isLogin,
       currentWord,
       addSentences,
+      isSearch
     } = this.props;
     console.log('WordList', wordData);
     const count = Object.keys(wordData).length;
@@ -159,21 +160,38 @@ class WordList extends React.Component {
     // TODO: 
     // pagenation 이후에도 모달창을 사용할 수 있도록 index 를 조정하였음
     // const indexCoefficient = (currentPage - 1) * pageSize;
-    return (
-      <React.Fragment>
-        <div className="wordlist_wrap">
-          <div className="wordlist_stack">
-            {this.renderWordAccordion()}
+
+    if (isSearch) {
+      return (
+        <React.Fragment>
+          <div className="wordlist_wrap">
+            <div className="wordlist_stack">
+              {this.renderWordAccordion()}
+            </div>
           </div>
-        </div>
-        <Pagination
-          pageSize={pageSize}
-          itemsCount={count}
-          currentPage={currentPage}
-          onPageChange={this.handlePageChange}
-        />
-      </React.Fragment>
-    );
+        </React.Fragment>
+      )
+
+    }
+
+    else {
+      return (
+        <React.Fragment>
+          <div className="wordlist_wrap">
+            <div className="wordlist_stack">
+              {this.renderWordAccordion()}
+            </div>
+          </div>
+          <Pagination
+            pageSize={pageSize}
+            itemsCount={count}
+            currentPage={currentPage}
+            onPageChange={this.handlePageChange}
+          />
+        </React.Fragment>
+      );
+    }
+
   }
 }
 
