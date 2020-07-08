@@ -29,12 +29,8 @@ app.use(cookieParser());
 
 const root = '/';
 
-app.post(root, (req, res) => {
-  if (req.session.userId) {
-    res.status(200).end();
-  } else {
-    res.status(404).end();
-  }
+app.get(root, (req, res) => {
+  res.status(200).end('welcome A!Voca Do!');
 });
 
 app.use('/users', userRouter);
