@@ -68,7 +68,7 @@ class WordAccordion extends Component {
                 </div>
                 <div className="articles-section">
                   <div>
-                    관련 기사를 읽고 단어를 익혀보세요.
+                    <h6>관련 기사를 읽고 단어를 익혀보세요.</h6>
                   </div>
                   <ul className="articles">
                     {/* {this.getArticles(word)} */}
