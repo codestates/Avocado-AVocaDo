@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       Word.hasMany(models.Sentence, {
         onDelete: 'cascade',
       });
+      Word.hasMany(models.UserWord, {
+        onDelete: 'cascade',
+      });
     }
   }
   Word.init(

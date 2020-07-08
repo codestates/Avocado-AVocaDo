@@ -13,27 +13,13 @@ module.exports = {
     res.status(200).end('OK');
     req.session.userId = 1;
     if (req.session.userId) {
-      // Word.findAll({
-      //   include: [
-      //     {
-      //       model: UserWord,
-      //       required: true,
-      //       where: {
-      //         UserId: req.session.userId,
-      //       },
-      //     },
-      //   ],
-      // }).then((data) => {
-      //   console.log(data);
-      // });
-
       UserWord.findAll({
+        where: {
+          UserId: req.session.userId,
+        },
         include: [
           {
-            where: {
-              UserId: req.session.userId,
-            },
-            model: User,
+            model: Word,
             required: true,
           },
         ],
@@ -42,23 +28,9 @@ module.exports = {
       });
 
       // UserWord.findAll({
-      //   where: {
-      //     UserId: req.session.userId,
-      //   },
-      //   include: [
-      //     {
-      //       model: Word,
-      //       required: true,
-      //     },
-      //   ],
-      // }).then((data) => {
-      //   console.log(data);
-      // });
-
-      // UserWord.findAll({
       //   where: { UserId: req.session.id },
       // });
-      res.status(200).json(dummy);
+      // res.status(200).json(dummy);
     } else {
       res.status(401).send('need user session');
     }
