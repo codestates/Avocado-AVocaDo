@@ -37,7 +37,8 @@ class WordAccordion extends Component {
   };
 
   render() {
-    const { word, sentences } = this.props
+    console.log('WordAccordion', this.props);
+    const { word, sentences, index } = this.props
     return (
       < div className="accordion_area" >
         <Accordion

@@ -162,3 +162,31 @@ li {
   text-decoration: none;
   color: inherit;
 }
+
+.btn_submit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 56px;
+    border-radius: 0 2px 2px 0;
+    background-color: #03c75a;
+}
+
+.ico_search_submit{
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  vertical-align: top;
+  background-position: -429px -172px;
+  background-image: url(https://s.pstatic.net/static/www/img/uit/2020/sp_main.123161.png);
+    background-repeat: no-repeat;
+    background-size: 471px 442px;
+
+}
+
+.form_search_box{
+  position: absolute;
+  right: 0;
+  top:0
+}

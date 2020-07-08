@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
+import _ from 'lodash';
 import WordAccordion from './WordAccordion';
 import WordCard from './WordCard';
 import Pagination from './Pagination';
@@ -15,11 +16,127 @@ class WordList extends React.Component {
       pageSize: 5,
       currentPage: 1,
     };
+
+    this.renderWordAccordion = this.renderWordAccordion.bind(this);
   }
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
   };
+
+  renderWordAccordion() {
+
+    const {
+      wordData,
+      index,
+      isSearch,
+      searchText
+    } = this.props;
+
+    const { pageSize, currentPage } = this.state;
+    const words = paginate(wordData, currentPage, pageSize);
+
+    // TODO: 검색버튼을 누르면 isSearch = true 로 변경 
+
+    /* wordData
+    [
+      0: {word: {3: "3"}, updatedAt: "Wed, 08 Jul 2020 05:46:37 GMT", sentences: {…}}
+    1: {word: {5: "5"}, updatedAt: "Wed, 08 Jul 2020 05:46:37 GMT", sentences: {…}}
+    ] */
+
+
+    let result = _.map(wordData, function (wordObj) {
+
+      let findResult = _.find(wordObj.word, function (word) {
+
+        return word === searchText;
+      })
+
+      if (findResult) {
+        return wordObj
+      }
+    });
+
+    let searchResult = _.find(result, function (object) {
+
+      return object !== undefined;
+    })
+
+    console.log(result);
+    console.log('searchResult', isSearch, searchResult)
+
+    if (searchResult) {
+      var searchArr = [searchResult];
+    }
+    if (isSearch && searchArr) {
+
+      // 여기서 
+      // 검색결과를 map 으로 렌더링한 것을 리턴한다. 
+      return searchArr.map((word, index) => {
+        let wordValue;
+        let wordKey = Object.keys(word.word)[0];
+        for (let i in word.word) {
+          wordValue = word.word[i];
+        }
+        return (
+          <WordAccordion
+            defaultActiveKey="0"
+            key={index}
+            word={wordValue}
+            index={wordKey}
+            sentences={word.sentences}>
+          </WordAccordion>
+        );
+      });
+    }
+
+    else if (isSearch && !searchArr) {
+
+
+      alert('검색결과가 단어장에 없습니다!')
+      return words
+      ? words.map((word, index) => {
+        let wordValue;
+        let wordKey = Object.keys(word.word)[0];
+        for (let i in word.word) {
+          wordValue = word.word[i];
+        }
+        return (
+          <WordAccordion
+            defaultActiveKey="0"
+            key={index}
+            word={wordValue}
+            index={wordKey}
+            sentences={word.sentences}>
+          </WordAccordion>
+        );
+      })
+      : 'noWord!'
+      
+    }
+
+    else {
+      return words
+        ? words.map((word, index) => {
+          let wordValue;
+          let wordKey = Object.keys(word.word)[0];
+          for (let i in word.word) {
+            wordValue = word.word[i];
+          }
+          return (
+            <WordAccordion
+              defaultActiveKey="0"
+              key={index}
+              word={wordValue}
+              index={wordKey}
+              sentences={word.sentences}>
+            </WordAccordion>
+          );
+        })
+        : 'noWord!'
+    }
+  }
+
 
   render() {
     const {
@@ -39,54 +156,14 @@ class WordList extends React.Component {
     const count = Object.keys(wordData).length;
     const { pageSize, currentPage } = this.state;
 
-    const words = paginate(wordData, currentPage, pageSize);
+    // TODO: 
     // pagenation 이후에도 모달창을 사용할 수 있도록 index 를 조정하였음
     // const indexCoefficient = (currentPage - 1) * pageSize;
     return (
       <React.Fragment>
         <div className="wordlist_wrap">
           <div className="wordlist_stack">
-            {
-              /*     words
-                    ? words.map((word, index) => {
-                      let wordValue;
-                      let wordKey = Object.keys(word.word)[0];
-                      for (let i in word.word) {
-                        wordValue = word.word[i];
-                      }
-    
-                      return (
-                        <WordCard
-                          key={wordKey}
-                          word={wordValue}
-                          sentences={word.sentences}
-                          index={wordKey}
-                          updateWordData={updateWordData}
-                          deleteWordData={deleteWordData}
-                          handleSentenceData={handleSentenceData}
-                          addSentences={addSentences}
-                        />
-                      );
-                    })
-                    : 'noWord!' */
-              words
-                ? words.map((word, index) => {
-                  let wordValue;
-                  let wordKey = Object.keys(word.word)[0];
-                  for (let i in word.word) {
-                    wordValue = word.word[i];
-                  }
-                  return (
-                    <WordAccordion
-                      defaultActiveKey="0"
-                      key={index}
-                      word={wordValue}
-                      sentences={word.sentences}>
-                    </WordAccordion>
-                  );
-                })
-                : 'noWord!'
-            }
+            {this.renderWordAccordion()}
           </div>
         </div>
         <Pagination

@@ -4,7 +4,7 @@ import PropTypes, { func } from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Accordion  from 'react-bootstrap/Accordion'
+import Accordion from 'react-bootstrap/Accordion'
 import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
 import _ from 'lodash';
 // npm install react-modal
@@ -25,23 +25,9 @@ import '../CSS/Modal_Word.css';
 해결 => modal open 할때 상태를 변경함 
 
 */
-const wordModalStyles = {
-  content: {
-    width: '500px',
-    height: 'auto',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    border: '2px solid #cccccc',
-    borderRadius: '6px',
-    backgroundColor: '#f5f6f7',
-  },
-};
 
 // react-modal hooks 를 사용하기 위해 function component 로 변경
+
 
 function WordCard(props) {
   const {
@@ -70,7 +56,6 @@ function WordCard(props) {
   const [sentenceFirst, setsentenceFirst] = React.useState(sentenceArr[0]);
   const [sentenceSecond, setsentenceSecond] = React.useState(sentenceArr[1]);
   const [sentenceThird, setsentenceThird] = React.useState(sentenceArr[2]);
-  const [sentenceIsNull, setIsSentence] = React.useState(false);
 
   const [modalWord, setModalWord] = React.useState(word);
 
@@ -126,7 +111,7 @@ function WordCard(props) {
     return WordObject;
   }
   function saveWordData() {
-    
+
     let sentencesLength = Object.keys(sentences).length;
 
     if (
@@ -208,31 +193,6 @@ function WordCard(props) {
   }
 
 
-  function CustomToggle({ children, eventKey }) {
-    const decoratedOnClick = useAccordionToggle(eventKey, () =>
-      console.log('totally custom!'),
-    );
-
-    const btnstyle = {
-
-
-    }
-  
-    return (
-
-      <Button variant="secondary"  onClick={decoratedOnClick} >
-      예문
-    </Button>
-      // <button
-      //   type="button"
-      //   style={{ backgroundColor: 'green' }}
-      //   onClick={decoratedOnClick}
-      // >
-      //   {children}
-      // </button>
-    );
-  }
-  
   // TODO: 단어는 모달에 출력이 되나 문장이 출력되고 있지 않음
   return (
     <div>
@@ -282,13 +242,6 @@ function WordCard(props) {
         <Modal.Header closeButton>
           <Modal.Title>예문추가</Modal.Title>
         </Modal.Header>
-        {/* HTML <dl> 요소는 설명 목록을 나타냅니다. 
-        <dl>은 <dt>로 표기한 용어와 
-        <dd> 요소로 표기한 설명 그룹의 목록을 감싸서 설명 목록을 생성합니다. */}
-
-        {/* dl -> ul  */}
-        {/* dt -> title  */}
-        {/* dd -> content */}
         <Modal.Body>
 
           <Form>
@@ -302,11 +255,11 @@ function WordCard(props) {
               />
             </Form.Group>
 
-            <Accordion defaultActiveKey="1">
+            <Accordion defaultActiveKey="0">
 
               <Form.Group controlId="formGroupPassword">
 
-              <Accordion.Toggle as={Button} variant="link" eventKey="1">    sentence 1 </Accordion.Toggle>
+                <Accordion.Toggle as={Button} variant="link" eventKey="1" className="modal_sentence" > sentence 1 </Accordion.Toggle>
 
                 <Accordion.Collapse eventKey="1">
                   <Form.Control
@@ -319,6 +272,9 @@ function WordCard(props) {
 
               </Form.Group>
 
+            </Accordion>
+
+            <Accordion defaultActiveKey="0">
               <Form.Group controlId="formGroupPassword">
 
                 <Accordion.Toggle as={Button} variant="link" eventKey="2">
@@ -338,6 +294,9 @@ function WordCard(props) {
 
               </Form.Group>
 
+            </Accordion>
+
+            <Accordion defaultActiveKey="0">
               <Form.Group controlId="formGroupPassword">
 
 
@@ -351,8 +310,8 @@ function WordCard(props) {
                     placeholder="문장"
                     onChange={handlesentenceThird}
                     value={sentenceThird ? sentenceThird : ''}
-                  />    
-                  </Accordion.Collapse>
+                  />
+                </Accordion.Collapse>
 
 
 
