@@ -1,16 +1,11 @@
 const { Word, UserWord, Sentence, UserSentence } = require('../../models');
-const dummy = require('../words/dummy');
+
+const { getAllData } = require('./getAllData');
 
 module.exports = {
   post: async (req, res) => {
     const { word, sentences } = req.body;
 
-    let responseArr = [];
-    let responseObj = {
-      data: responseArr,
-    };
-
-    req.session.userId = 1;
     if (req.session.userId) {
       if (Array.isArray(sentences)) {
         sentences.forEach((sentence) => {
@@ -65,47 +60,34 @@ module.exports = {
                 WordId: data.id,
                 UserId: req.session.userId,
               },
-            }).then((data) => {
-              UserSentence.findAll({
-                where: {
-                  userId: req.session.userId,
-                },
-                attributes: ['SentenceId'],
-                includes: [
-                  {
-                    model: Sentence,
-                    required: true,
-                    attributes: ['sentence'],
-                    where: {
-                      WordId: data[0].WordId,
-                    },
-                  },
-                ],
-              }).then((data) => {
-                console.log(data[0].toJSON());
-                console.log(data[1]);
-              });
             });
-          })
-          .then(() => {
-            res.status(200).json(responseObj);
+            // .then((data) => {
+            //   UserSentence.findAll({
+            //     where: {
+            //       userId: req.session.userId,
+            //     },
+            //     attributes: ['SentenceId'],
+            //     include: [
+            //       {
+            //         model: Sentence,
+            //         required: true,
+            //         attributes: ['sentence'],
+            //         where: {
+            //           WordId: data[0].WordId,
+            //         },
+            //       },
+            //     ],
+            //   }).then((data) => {
+            //     data.forEach((row)=>{
+
+            //     })
+            //   });
+            // });
           });
       }
-      // res.status(200).end();
+      getAllData(req.session.userId, res, 201);
     } else {
       res.status(401).send('invalid user');
     }
-
-    // if (req.session.userId) {
-    //   let obj = {};
-    //   obj['word'] = word;
-    //   obj['sentences'] = sentences;
-    //   dummy['data'].push(obj);
-    //   res.status(200).json(dummy);
-    // } else {
-    //   res.status(401).send('invalid user');
-    // }
   },
 };
-
-// words.create({ word }).then(res.status(201).send('등록되었습니다'));
