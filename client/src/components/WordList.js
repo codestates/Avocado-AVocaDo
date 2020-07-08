@@ -84,7 +84,8 @@ class WordList extends React.Component {
             key={index}
             word={wordValue}
             index={wordKey}
-            sentences={word.sentences}>
+            sentences={word.sentences}
+            updateWordData={this.props.updateWordData}>
           </WordAccordion>
         );
       });
@@ -95,24 +96,27 @@ class WordList extends React.Component {
 
       alert('검색결과가 단어장에 없습니다!')
       return words
-      ? words.map((word, index) => {
-        let wordValue;
-        let wordKey = Object.keys(word.word)[0];
-        for (let i in word.word) {
-          wordValue = word.word[i];
-        }
-        return (
-          <WordAccordion
-            defaultActiveKey="0"
-            key={index}
-            word={wordValue}
-            index={wordKey}
-            sentences={word.sentences}>
-          </WordAccordion>
-        );
-      })
-      : 'noWord!'
-      
+        ? words.map((word, index) => {
+          let wordValue;
+          let wordKey = Object.keys(word.word)[0];
+          for (let i in word.word) {
+            wordValue = word.word[i];
+          }
+          return (
+            <WordAccordion
+              defaultActiveKey="0"
+              key={index}
+              word={wordValue}
+              index={wordKey}
+              sentences={word.sentences}
+              updateWordData={this.props.updateWordData}
+              deleteWordData={this.props.deleteWordData}>
+              addSentences={this.props.addSentences}
+            </WordAccordion>
+          );
+        })
+        : 'noWord!'
+
     }
 
     else {
@@ -129,7 +133,9 @@ class WordList extends React.Component {
               key={index}
               word={wordValue}
               index={wordKey}
-              sentences={word.sentences}>
+              sentences={word.sentences}
+              updateWordData={this.props.updateWordData}
+              deleteWordData={this.props.deleteWordData}>
             </WordAccordion>
           );
         })

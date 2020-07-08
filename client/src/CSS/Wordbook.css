@@ -42,19 +42,32 @@
 }
 
 .card-header {
-  display: flex;
+  display: inline-block;
   justify-content: center;
 }
 
 .btn-link {
-  width: 800px;
-  padding: 0 !important;
-  display: flex !important;
+  width: 100%;
+}
+
+.accordion_btns {
+  display: flex;
+  justify-content: space-between;
 }
 
 .accordion_items {
   display: flex;
   justify-content: space-around;
+}
+
+.modal_btn_section {
+  width: 100px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete_word_btn {
+  margin-left: 20px;
 }
 
 .pagination_wrap {
