@@ -9,6 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      UserWord.belongsTo(models.User, {
+        onDelete: 'cascade',
+      });
+      UserWord.belongsTo(models.Word, {
+        onDelete: 'cascade',
+      });
     }
   }
   UserWord.init(
