@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../CSS/Wordbook.css';
-import axios from 'axios';
 
 import Modal_bootstrap from 'react-bootstrap/Modal';
 import Modal from 'react-modal';
@@ -31,7 +30,7 @@ class WordAccordion extends Component {
         return res.json()
       })
       .then((data) => {
-        console.log('data.articles', data.articles)
+        // console.log('data.articles', data.articles)
         this.setState({
           articles: data.articles
         })
@@ -58,19 +57,26 @@ class WordAccordion extends Component {
             </Card.Header>
             <Accordion.Collapse eventKey="1">
               <Card.Body>
-                <ul className="sentences">
-                  {sentences.map((sentence, index) => {
-                    return <li key={index}>{sentence}</li>;
-                  })}
-                </ul>
+                <div className="sentences-section">
+                  <div>
+                    <h5>Sentences</h5>
+                  </div>
+                  <ul className="sentences">
+                    {sentences.map((sentence, index) => {
+                      return <li key={index}>{sentence}</li>;
+                    })}
+                  </ul>
+                </div>
                 <div className="articles-section">
                   <div>
-                    Articles-section
+                    <h5>Article-section</h5>
                   </div>
                   <ul className="articles">
                     {this.getArticles(word)}
                     {this.state.articles.map((article, index) => {
-                      return <li key={index}>{article.title}</li>
+                      return <li>
+                        <a key={index} href={article.url}>{article.title}</a>
+                      </li>
                     })}
                   </ul>
                 </div>
