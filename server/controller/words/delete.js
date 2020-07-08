@@ -4,7 +4,6 @@ const { getAllData } = require('./getAllData');
 module.exports = {
   delete: (req, res) => {
     const { wordId, sentenceId } = req.body;
-    req.session.userId = 1;
     if (req.session.userId) {
       if (sentenceId) {
         Promise.all(

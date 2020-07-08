@@ -6,7 +6,6 @@ module.exports = {
   post: async (req, res) => {
     const { word, sentences } = req.body;
 
-    req.session.userId = 1;
     if (req.session.userId) {
       if (Array.isArray(sentences)) {
         sentences.forEach((sentence) => {
