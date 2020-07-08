@@ -1,34 +1,271 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable */
+import React from 'react';
+import PropTypes, { func } from 'prop-types';
+import Modal_bootstrap from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-modal';
 
-class WordCard extends Component {
-  constructor(props) {
-    super(props);
-  }
+// npm install react-modal
+import '../CSS/WordCard.css';
+import '../CSS/Modal_Word.css';
 
-  render() {
-    const { wordData } = this.props;
-    // postInputWord, updateWordData, deleteWordData
-    // 'postInputWord' is assigned a value but never used 에러로 주석처리 했습니다.
+// word card 에서 모달 컴포넌트 호출 및 데이터 전달
+/* TODO: 
 
-    return (
-      <div className="word_card" style={{ cursor: 'pointer' }}>
-        <div className="word">{wordData[0].word}</div>
-        <ul className="sentences">
-          {wordData[0].sentence.map((sentence, index) => {
-            return <li key={index}>{sentence}</li>;
-          })}
-        </ul>
-      </div>
-    );
-  }
-}
+문제 > 페이지네이션을 하고난 후 모달을 클릭했을 때 페이지네이션으로 변경된
+단어와 문장이 반영이 안됨 
 
-WordCard.propTypes = {
-  wordData: PropTypes.array.isRequired,
-  'wordData[].word': PropTypes.string.isRequired,
-  'wordData[].sentence': PropTypes.string.isRequired,
-  'wordData[].sentence.map': PropTypes.string.isRequired,
+현상 : 0~4 까지의 데이터만 반복해서 출력이 된다. 
+
+문제원인 : modalWord, modalSentences 가 변경되지 않는다. 
+모달안에서의 상태가 변경이 안됨
+
+해결 => modal open 할때 상태를 변경함 
+
+*/
+const wordModalStyles = {
+  content: {
+    width: '500px',
+    height: 'auto',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    border: '2px solid #cccccc',
+    borderRadius: '6px',
+    backgroundColor: '#f5f6f7',
+  },
 };
+
+const confirmModalStyles = {
+  content: {
+    width: '300px',
+    height: '300px',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    border: '2px solid #cccccc',
+    borderRadius: '6px',
+    backgroundColor: '#f5f6f7',
+  },
+};
+
+Modal.setAppElement('#root');
+
+// react-modal hooks 를 사용하기 위해 function component 로 변경
+
+function WordCard(props) {
+  const {
+    word,
+    sentences,
+    index,
+    postInputWord,
+    addWordData,
+    deleteWordData,
+    handleInput,
+    updateWordData,
+    handleSentenceData,
+    handleWordCardLength,
+  } = props;
+
+  console.log(`index=${index}, word=${word}`);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [confirmModalIsOpen, setconfirmModalOpen] = React.useState(false);
+  const [modalSentences, setModalSentences] = React.useState(
+    sentences.join('\n')
+  );
+  const [modalWord, setModalWord] = React.useState(word);
+
+  function openModal() {
+    setModalWord(word);
+    setModalSentences(sentences.join('\n'));
+    setIsOpen(true);
+  }
+
+  // function afterOpenModal() {
+  //   // references are now sync'd and can be accessed.
+  //   // Modal 안의 Title
+  //   // subtitle.style.color = '#000';
+  // }
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function saveWordData(e) {
+    e.preventDefault();
+    // textarea 에 들어있는 문장을 enter 단위로 분해하여 배열에 저장
+
+    const splitSentences = modalSentences.split('\n');
+    // 저장한 배열로 전체 단어 data 상태 변화
+    handleSentenceData(modalWord, splitSentences, index);
+    // put??
+    // 서버로 뭘 보내줘야 하나?
+    // 단어와 바뀐 문장전체
+    updateWordData(modalWord, splitSentences);
+
+    closeModal();
+  }
+
+  function handleModalSentences(e) {
+    setModalSentences(e.target.value);
+  }
+
+  function handleModalWord(e) {
+    setModalWord(e.target.value);
+  }
+
+  function deleteWordCard() {
+    deleteWordData(index);
+    handleWordCardLength();
+    closeConfirmModal();
+  }
+
+  function openConfirmModal() {
+    setconfirmModalOpen(true);
+  }
+  function closeConfirmModal() {
+    setconfirmModalOpen(false);
+  }
+
+  return (
+    <div>
+      {/* 클릭했을 때의 단어를 반영 */}
+      {/* X 버튼을 클릭했을 때 
+      배열에서 데이터를 삭제하고 삭제한 배열을 반영하여
+      state 를 변경한다. 
+      */}
+
+      <div className="wordcard">
+        <button
+          className="btn_delete_wordcard"
+          onClick={openConfirmModal}
+        ></button>
+        <div className="wordcard-content" onClick={openModal}>
+          <div className="word">{word}</div>
+          <ul className="sentences">
+            {sentences.map((sentence, index) => {
+              // 카드 내에 출력되는 예문이 일정 길이를 넘어가면 줄임말로 생략합니다. 
+              if (sentence.length > 20) {
+                return <li key={index}>{sentence.slice(0, 20)}...</li>;
+              } else {
+                return <li key={index}>{sentence}</li>;
+              }
+            })}
+          </ul>
+        </div>
+      </div>
+      {/*  */}
+
+      <Modal_bootstrap show={confirmModalIsOpen} onHide={closeConfirmModal}>
+        <Modal_bootstrap.Header closeButton>
+          <Modal_bootstrap.Title>단어를 삭제할까요?</Modal_bootstrap.Title>
+        </Modal_bootstrap.Header>
+        <Modal_bootstrap.Body>
+          확인버튼을 누르면 단어가 삭제됩니다
+        </Modal_bootstrap.Body>
+        <Modal_bootstrap.Footer>
+          <Button variant="secondary" onClick={closeConfirmModal}>
+            취소
+          </Button>
+          <Button variant="secondary" onClick={deleteWordCard}>
+            확인
+          </Button>
+        </Modal_bootstrap.Footer>
+      </Modal_bootstrap>
+      {/*  */}
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={wordModalStyles}
+        contentLabel="A! VOCADO"
+      >
+        {/* HTML <dl> 요소는 설명 목록을 나타냅니다. 
+        <dl>은 <dt>로 표기한 용어와 
+        <dd> 요소로 표기한 설명 그룹의 목록을 감싸서 설명 목록을 생성합니다. */}
+
+        {/* dl -> ul  */}
+        {/* dt -> title  */}
+        {/* dd -> content */}
+
+        <div className="modal_container">
+          <form className="modal_word_form" onSubmit={saveWordData}>
+            <h1 className="modal_heading">Create Sentences</h1>
+
+            <dl className="modal_form_group">
+              <dt>
+                <label>{'Word'}</label>
+              </dt>
+
+              <dd>
+                <input
+                  className="modal_input"
+                  value={modalWord}
+                  onChange={handleModalWord}
+                ></input>
+              </dd>
+            </dl>
+
+            <dl className="modal_form_group">
+              <dt>
+                <label>{'Sentences'}</label>
+              </dt>
+
+              <dd>
+                <textarea
+                  className="modal_textarea"
+                  value={modalSentences}
+                  onChange={handleModalSentences}
+                ></textarea>
+              </dd>
+            </dl>
+
+            <div className="modal_btn_area">
+              <input
+                type="submit"
+                title="저장"
+                alt="저장"
+                value="저장"
+                className="btn_modal btn_modal_save"
+              />
+              <button
+                className="btn_modal btn_modal_cancel"
+                value="취소"
+                onClick={closeModal}
+              >
+                취소
+              </button>
+            </div>
+          </form>
+        </div>
+      </Modal>
+    </div>
+  );
+}
+// class WordCard extends React.Component {
+//   constructor(props) {
+//     super(props);
+//   }
+
+//   render() {
+//     const { word,sentences,postInputWord } = this.props;
+//     // postInputWord, updateWordData, deleteWordData
+//     return (
+// <div className="word_card" style={{ cursor: 'pointer' }}>
+//   <div className="word">{word}</div>
+//   <ul className="sentences">
+//     {sentences.map((sentence, index) => {
+//       return <li key={index}>{sentence}</li>;
+//     })}
+//   </ul>
+// </div>
+//     );
+//   }
+// }
 
 export default WordCard;
