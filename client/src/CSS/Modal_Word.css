@@ -93,3 +93,10 @@ input textarea {
   display: inline-block;
   width: 48%;
 }
+
+
+.form-group > button{
+
+  width: fit-content ;
+
+}
