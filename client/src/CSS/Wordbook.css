@@ -11,7 +11,7 @@
 
 .wordbook_nav {
   padding: 20px;
-  position: absolute;
+  position: relative;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -77,4 +77,12 @@
 .wordbook_nav > a {
   color: inherit;
   text-decoration: none;
+}
+
+
+.form_search_box{
+  position: absolute;
+  right: 155px;
+  top: 50%;
+  transform: translateY(-50%);
 }

@@ -18,8 +18,9 @@ function Wordbook_Header(props) {
     console.log('searchText', searchInput)
   }
 
-  function querySearchText() {
+  function querySearchText(e) {
 
+    e.preventDefault();
     const queryText = document.querySelector('.form-control').value;
     handleSearch(queryText);
   }

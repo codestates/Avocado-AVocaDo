@@ -186,5 +186,7 @@ li {
 }
 
 .form_search_box{
-  position: relative;
+  position: absolute;
+  right: 0;
+  top:0
 }

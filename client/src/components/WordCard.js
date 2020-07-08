@@ -29,10 +29,6 @@ import '../CSS/Modal_Word.css';
 // react-modal hooks 를 사용하기 위해 function component 로 변경
 
 
-const linkStyle = {
-
-  'display': 'inline'
-}
 function WordCard(props) {
   const {
     word,
@@ -263,7 +259,7 @@ function WordCard(props) {
 
               <Form.Group controlId="formGroupPassword">
 
-                <Accordion.Toggle as={Button} variant="link" eventKey="1" className="modal_sentence" style={linkStyle}> sentence 1 </Accordion.Toggle>
+                <Accordion.Toggle as={Button} variant="link" eventKey="1" className="modal_sentence" > sentence 1 </Accordion.Toggle>
 
                 <Accordion.Collapse eventKey="1">
                   <Form.Control
