@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../CSS/Wordbook.css';
+import axios from 'axios';
 
 import Modal_bootstrap from 'react-bootstrap/Modal';
 import Modal from 'react-modal';
@@ -10,15 +11,37 @@ import { Accordion, Card, Button } from
 // npm uninstall react-bootstrap
 // npm install react-bootstrap@1.0.1
 
-export default class WordAccordion extends Component {
+class WordAccordion extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      articles: []
+    }
+
+    this.getArticles = this.getArticles.bind(this);
   }
+
+  // 헤드라인에 word를 포함하는 기사를 배열로 리턴합니다. 
+  getArticles(word) {
+    const apiKey = 'd23a9f96f669464aac9d22621c8bd7d9';
+    const url = `https://newsapi.org/v2/everything?q=${word}&apiKey=${apiKey}`
+    fetch(url)
+      .then((res) => {
+        return res.json()
+      })
+      .then((data) => {
+        console.log('data.articles', data.articles)
+        this.setState({
+          articles: data.articles
+        })
+      })
+  };
 
   render() {
     const { word, sentences } = this.props
     return (
-      <div className="accordion_area">
+      < div className="accordion_area" >
         <Accordion
           defaultActiveKey="0">
           <Card className="accordion_card">
@@ -29,8 +52,7 @@ export default class WordAccordion extends Component {
                 </div>
               </Accordion.Toggle>
               <div
-                className="edit_btn"
-              >
+                className="edit_btn">
                 🥑
                 </div>
             </Card.Header>
@@ -41,15 +63,25 @@ export default class WordAccordion extends Component {
                     return <li key={index}>{sentence}</li>;
                   })}
                 </ul>
-                <div>
-                  구글 이미지 또는 기사
+                <div className="articles-section">
+                  <div>
+                    Articles-section
+                  </div>
+                  <ul className="articles">
+                    {this.getArticles(word)}
+                    {this.state.articles.map((article, index) => {
+                      return <li key={index}>{article.title}</li>
+                    })}
+                  </ul>
                 </div>
               </Card.Body>
             </Accordion.Collapse>
           </Card>
         </Accordion>
 
-      </div>
+      </div >
     )
   }
 }
+
+export default WordAccordion;

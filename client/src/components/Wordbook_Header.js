@@ -10,9 +10,6 @@ function Wordbook_Header() {
       <Link to="/main">
         <h3>이전 페이지로</h3>
       </Link>
-      <div>
-        <input type="text">ㅇㅇ</input>
-      </div>
       <Link to="/">
         <h3>LOGOUT</h3>
       </Link>
