@@ -24,7 +24,7 @@ export default class WordAccordion extends Component {
 
   render() {
     console.log('WordAccordion', this.props);
-    const { word, sentences } = this.props
+    const { word, sentences,index } = this.props
     return (
       <div className="accordion_area">
         <Accordion

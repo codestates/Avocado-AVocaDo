@@ -8,9 +8,23 @@ import '../CSS/Wordbook.css';
 class Wordbook extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+
+      isSearch: false,
+      searchText: '',
+    }
+
+  }
+
+  handleSearch(queryText) {
+
+    this.setState({ isSearch: true, searchText: queryText });
+   
   }
 
   render() {
+    console.log('Wordbook state',this.state)
     const {
 
       userInfo,
@@ -26,11 +40,17 @@ class Wordbook extends React.Component {
       addSentences,
     } = this.props;
 
+    const { isSearch, searchText } = this.state;
     console.log('Wordbook', wordData);
     return (
       <div>
         <div className="wordbook_header_wrap">
-          <Wordbook_Header userInfo={userInfo} handleLogout={handleLogout} />
+          <Wordbook_Header 
+          
+          userInfo={userInfo} handleLogout={handleLogout} 
+          isSearch={isSearch} searchText={searchText}
+          handleSearch={this.handleSearch.bind(this)}
+          />
         </div>
         <div>
           <WordList
@@ -43,6 +63,9 @@ class Wordbook extends React.Component {
             deleteWordData={deleteWordData}
             handleSentenceData={handleSentenceData}
             handleWordCardLength={handleWordCardLength}
+            isSearch={isSearch}
+            searchText={searchText}
+            handleSearch={this.handleSearch.bind(this)}
           />
         </div>
       </div>
