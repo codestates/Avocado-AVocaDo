@@ -1,11 +1,13 @@
-const { getAllData } = require('./getAllData');
+// const { words } = require('../../models/users');
+const dummy = require('../../models/dummy');
 
 module.exports = {
   get: (req, res) => {
-    if (req.session.userId) {
-      getAllData(req.session.userId, res, 200);
-    } else {
-      res.status(401).send('need user session');
-    }
+    console.log(dummy);
+    res.status(200).json(dummy);
   },
 };
+
+// words.findAll({ where: { user_id: req.session.userid } }).then((list) => {
+//   res.status(200).send(list);
+// });
