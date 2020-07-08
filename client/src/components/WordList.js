@@ -1,15 +1,16 @@
 /* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
+import WordAccordion from './WordAccordion';
 import WordCard from './WordCard';
 import Pagination from './Pagination';
 import { paginate } from '../utils/paginate';
 import '../CSS/Wordbook.css';
+import { Accordion, Card, Button } from 'react-bootstrap';
 
 class WordList extends React.Component {
   constructor(props) {
     super(props);
-    // TODO: 왜 wordData 를 받아서 state 로 관리하는지?
     this.state = {
       pageSize: 5,
       currentPage: 1,
@@ -46,48 +47,45 @@ class WordList extends React.Component {
         <div className="wordlist_wrap">
           <div className="wordlist_stack">
             {
+              /*     words
+                    ? words.map((word, index) => {
+                      let wordValue;
+                      let wordKey = Object.keys(word.word)[0];
+                      for (let i in word.word) {
+                        wordValue = word.word[i];
+                      }
+    
+                      return (
+                        <WordCard
+                          key={wordKey}
+                          word={wordValue}
+                          sentences={word.sentences}
+                          index={wordKey}
+                          updateWordData={updateWordData}
+                          deleteWordData={deleteWordData}
+                          handleSentenceData={handleSentenceData}
+                          addSentences={addSentences}
+                        />
+                      );
+                    })
+                    : 'noWord!' */
               words
                 ? words.map((word, index) => {
-                    let wordValue;
-                    let wordKey = Object.keys(word.word)[0];
-                    for (let i in word.word) {
-                      wordValue = word.word[i];
-                    }
-
-                    return (
-                      <WordCard
-                        key={wordKey}
-                        word={wordValue}
-                        sentences={word.sentences}
-                        index={wordKey}
-                        updateWordData={updateWordData}
-                        deleteWordData={deleteWordData}
-                        handleSentenceData={handleSentenceData}
-                        addSentences={addSentences}
-                      />
-                    );
-                  })
-                : 'noWord!'
-
-              /* words
-              ? words.map((word, index) => {
-
+                  let wordValue;
+                  let wordKey = Object.keys(word.word)[0];
+                  for (let i in word.word) {
+                    wordValue = word.word[i];
+                  }
                   return (
-                    <WordCard
+                    <WordAccordion
+                      defaultActiveKey="0"
                       key={index}
-                      word={word.word}
-                      sentences={word.sentences}
-                      index={word.wordId}
-                      postInputWord={postInputWord}
-                      updateWordData={updateWordData}
-                      deleteWordData={deleteWordData}
-                      handleSentenceData={handleSentenceData}
-                      handleWordCardLength={handleWordCardLength}
-                    />
+                      word={wordValue}
+                      sentences={word.sentences}>
+                    </WordAccordion>
                   );
                 })
-
-              : 'noWord!' */
+                : 'noWord!'
             }
           </div>
         </div>

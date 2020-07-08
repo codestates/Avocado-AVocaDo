@@ -42,6 +42,8 @@ class App extends React.Component {
       let wordArr = _.map(res.data.data, function (wordObj) {
         return _.values(wordObj.word)[0];
       });
+      console.log('getWordData',res.data.data)
+      // wordObj.word => {1:'apple',2:'d'} = [apple,d]
       this.setState({ word: wordArr });
       this.setState({ wordData: res.data.data });
     });
@@ -62,6 +64,7 @@ class App extends React.Component {
         this.setState({ wordData: res.data.data });
       });
   }
+  // res.config.data / res.data.data
 
   // TODO: sentences id 를 어떻게 줘야할까
 
@@ -79,6 +82,7 @@ class App extends React.Component {
     // 문장이 없는 상태에서만 호출되어야 함!!
     // put 요청: 유저가 단어를 수정한 경우, 또는 예문을 수정/추가/삭제한 경우 그 값을 서버에 전송한다.
 
+    // api 형식에 맞추기 위함
     let word = {};
     word[wordObj.wordId] = wordObj.word;
     let sentences = wordObj.sentences;
@@ -97,12 +101,13 @@ class App extends React.Component {
   }
 
   updateWordData(wordObj) {
+    // api 형식에 맞추기 위함
     let sendWord = {};
     sendWord[wordObj.wordId] = wordObj.word;
     let sendObj = {};
-
     sendObj['word'] = sendWord;
     sendObj['sentences'] = wordObj.sentences;
+
     // put 요청: 유저가 단어를 수정한 경우, 또는 예문을 수정/추가/삭제한 경우 그 값을 서버에 전송한다.
     axios
       .post('http://localhost:8080/words/sentences', sendObj)
@@ -119,11 +124,11 @@ class App extends React.Component {
     // TODO: sentenceIds => sentence Id 배열
     // delete 요청: 유저가 단어/예문을 삭제한 경우 서버에 삭제를 요청한다.
 
+    // api 형식에 맞추기 위함
     const { wordId } = wordObj;
-
     const wordIdobj = { wordId: wordId };
-
     console.log(`wordIdobj ${wordIdobj}`);
+
     axios
       .delete('http://localhost:8080/words', {
         data: wordIdobj,

@@ -2,7 +2,7 @@
   display: flex;
   background-color: #03c75a;
   min-height: 25vh;
-  position: sticky;
+  position: -webkit-sticky;
   align-items: flex-end;
   top: 0;
   font-size: 14px;
@@ -25,12 +25,36 @@
 
 .wordlist_stack {
   width: 1000px;
-  display: flex;
-  justify-content: space-between;
+  display: inline-block;
+  justify-content: center;
   align-items: flex-start;
-  flex-wrap: wrap;
   padding: 40px;
   margin-top: 30px;
+}
+
+.accordion_area {
+  display: flex;
+  justify-content: center;
+}
+
+.accordion_card {
+  width: 800px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-link {
+  width: 800px;
+  padding: 0 !important;
+  display: flex !important;
+}
+
+.accordion_items {
+  display: flex;
+  justify-content: space-around;
 }
 
 .pagination_wrap {
