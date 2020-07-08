@@ -12,6 +12,7 @@ class Wordbook extends React.Component {
 
   render() {
     const {
+
       userInfo,
       handleLogout,
       wordData,

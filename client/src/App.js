@@ -42,6 +42,7 @@ class App extends React.Component {
       let wordArr = _.map(res.data.data, function (wordObj) {
         return _.values(wordObj.word)[0];
       });
+      console.log('getWordData',res.data.data)
       // wordObj.word => {1:'apple',2:'d'} = [apple,d]
       this.setState({ word: wordArr });
       this.setState({ wordData: res.data.data });
@@ -63,6 +64,7 @@ class App extends React.Component {
         this.setState({ wordData: res.data.data });
       });
   }
+  // res.config.data / res.data.data
 
   // TODO: sentences id 를 어떻게 줘야할까
 
