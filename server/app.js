@@ -9,7 +9,10 @@ const app = express();
 const port = 8080;
 
 let corsOpt = {
-  origin: ['http://localhost:3000','http://avocado-client-react.s3-website.ap-northeast-2.amazonaws.com'],
+  origin: [
+    'http://localhost:3000',
+    'http://avocado-client-react.s3-website.ap-northeast-2.amazonaws.com',
+  ],
   methods: ['POST', 'GET', 'DELETE', 'PUT'],
   credentials: true,
 };

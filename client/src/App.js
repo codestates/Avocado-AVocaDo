@@ -21,57 +21,7 @@ class App extends React.Component {
           wordId: 1,
           word: 'apple',
           sentences: ['I like apple', 'I hate apple'],
-        },
-        {
-          wordId: 2,
-          word: '1',
-          sentences: ['123', '123'],
-        },
-        {
-          wordId: 3,
-          word: '2',
-          sentences: ['123', '123'],
-        },
-        {
-          wordId: 4,
-          word: '3',
-          sentences: ['123', '123'],
-        },
-        {
-          wordId: 5,
-          word: '4',
-          sentences: ['123', '123'],
-        },
-        {
-          wordId: 6,
-          word: '5',
-          sentences: ['123', '123'],
-        },
-        {
-          wordId: 7,
-          word: '6',
-          sentences: ['123', '123'],
-        },
-        {
-          wordId: 8,
-          word: '7',
-          sentences: ['123', '123'],
-        },
-        {
-          wordId: 9,
-          word: '8',
-          sentences: ['123', '123'],
-        },
-        {
-          wordId: 10,
-          word: '9',
-          sentences: ['123', '123'],
-        },
-        {
-          wordId: 11,
-          word: '10',
-          sentences: ['123', '123'],
-        },
+        }
       ],
       // TODO: 서버로 부터 데이터 받은 후 받은 데이터로 초기화 시켜줘야 함
       // DB 처럼 추가, 삭제되면 wordID 다시 설정해야 함
@@ -110,9 +60,10 @@ class App extends React.Component {
         sentences: [],
       })
       .then((res) => {
-        console.log(res);
+        console.log('post-reponse', res);
       });
   }
+  // res.config.data / res.data.data
 
   updateWordData(word, sentences) {
     // put 요청: 유저가 단어를 수정한 경우, 또는 예문을 수정/추가/삭제한 경우 그 값을 서버에 전송한다.
