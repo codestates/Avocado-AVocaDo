@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use strict';
 const { Model } = require('sequelize');
 const crypto = require('crypto');
@@ -40,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       hooks: {
-        afterValidate: (data, options) => {
+        afterValidate: (data) => {
           if (data.loginType === 'custom') {
             var shasum = crypto.createHmac('sha1', 'A!VoCado!');
             shasum.update(data.password);

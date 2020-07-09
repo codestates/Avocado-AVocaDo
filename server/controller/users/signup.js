@@ -1,3 +1,4 @@
+/* eslint-disable */
 // const { users } = require('../../models');
 const { User } = require('../../models');
 

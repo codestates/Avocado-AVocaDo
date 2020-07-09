@@ -1,9 +1,9 @@
 /* eslint-disable */
-import React from 'react';
-import PropTypes, { func } from 'prop-types';
 import _ from 'lodash';
-import WordAccordion from './WordAccordion';
 import WordCard from './WordCard';
+import React from 'react';
+import PropTypes from 'prop-types';
+import WordAccordion from './WordAccordion';
 import Pagination from './Pagination';
 import { paginate } from '../utils/paginate';
 import '../CSS/Wordbook.css';

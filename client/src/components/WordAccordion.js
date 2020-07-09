@@ -14,15 +14,16 @@ class WordAccordion extends Component {
   constructor(props) {
     super(props);
 
-    // const sentenceArr = _.values(this.props.sentences);
+    this.sentenceArr = _.values(this.props.sentences);
 
     this.state = {
       articles: [],
       showHide: false,
       confirmShowHide: false,
-      sentenceFirst: this.props.sentences[0],
-      sentenceSecond: this.props.sentences[1],
-      sentenceThird: this.props.sentences[2],
+      sentences: this.props.sentences,
+      sentenceFirst: this.sentenceArr[0], // this.props.sentences[0],
+      sentenceSecond: this.sentenceArr[1],
+      sentenceThird: this.sentenceArr[2],
       modalWord: this.props.word,
     };
   }
@@ -171,6 +172,7 @@ class WordAccordion extends Component {
   render() {
     console.log('WordAccordion', this.props);
     console.log('sentences', this.props.sentences);
+    console.log('sentenceArr', this.sentenceArr);
     // const { word, sentences, index } = this.props
     return (
       <div className="accordion_area">
@@ -217,7 +219,7 @@ class WordAccordion extends Component {
                     <h6>관련 기사를 읽고 단어를 익혀보세요.</h6>
                   </div>
                   <ul className="articles">
-                    {this.getArticles(this.props.word)}
+                    {/* {this.getArticles(this.props.word)} */}
                     {this.state.articles
                       .map((article, index) => {
                         return (
@@ -248,7 +250,7 @@ class WordAccordion extends Component {
                 <Form.Control
                   type="text"
                   placeholder="단어 추가"
-                  value={this.props.modalWord}
+                  value={this.state.modalWord}
                   onChange={this.props.handleModalWord}
                 />
               </Form.Group>
