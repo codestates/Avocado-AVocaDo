@@ -19,6 +19,7 @@ class Main extends React.Component {
       handleInput,
       addWordData,
       currentWord,
+      word,
     } = this.props;
     const {
       handleLogout,
@@ -26,7 +27,7 @@ class Main extends React.Component {
       updateWordData,
       deleteWordData,
       handleSentenceData,
-      handleWordCardLength,
+      addSentences,
     } = this.props;
     return (
       <div>
@@ -39,12 +40,12 @@ class Main extends React.Component {
         </div>
         <div>
           <WordInput
+            word={word}
             postInputWord={postInputWord}
             handleInput={handleInput}
             addWordData={addWordData}
             currentWord={currentWord}
             wordData={wordData}
-            handleWordCardLength={handleWordCardLength}
           />
         </div>
         <div>
@@ -56,7 +57,7 @@ class Main extends React.Component {
             deleteWordData={deleteWordData}
             handleSentenceData={handleSentenceData}
             handleInput={handleInput}
-            handleWordCardLength={handleWordCardLength}
+            addSentences={addSentences}
           />
         </div>
       </div>
