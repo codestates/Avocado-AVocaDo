@@ -163,7 +163,6 @@ class WordList extends React.Component {
     const count = Object.keys(wordData).length;
     const { pageSize, currentPage } = this.state;
 
-    // TODO: 
     // pagenation 이후에도 모달창을 사용할 수 있도록 index 를 조정하였음
     // const indexCoefficient = (currentPage - 1) * pageSize;
 

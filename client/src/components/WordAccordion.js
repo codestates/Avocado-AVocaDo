@@ -9,6 +9,7 @@ import Accordion from 'react-bootstrap/Accordion';
 
 import _ from 'lodash';
 
+
 class WordAccordion extends Component {
   constructor(props) {
     super(props)
@@ -170,7 +171,7 @@ class WordAccordion extends Component {
     console.log('open', this.state.modalIsOpen)
     // const { word, sentences, index } = this.props
     return (
-      <div className="accordion_area" >
+      < div className="accordion_area" >
         <Accordion
           defaultActiveKey="0">
           <Card className="accordion_card">
@@ -197,6 +198,10 @@ class WordAccordion extends Component {
                   </div>
                 </div>
               </Accordion.Toggle>
+              <div
+                className="edit_btn">
+                🥑
+                </div>
             </Card.Header>
             <Accordion.Collapse eventKey="1">
               <Card.Body>
