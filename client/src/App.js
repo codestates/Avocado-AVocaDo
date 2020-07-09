@@ -39,7 +39,7 @@ class App extends React.Component {
   }
   getWordData() {
     const url = 'http://54.180.104.184:8080/words';
-    axios.get(url).then((res) => {
+    return axios.get(url).then((res) => {
       let wordArr = _.map(res.data.data, function (wordObj) {
         return _.values(wordObj.word)[0];
       });
@@ -140,7 +140,7 @@ class App extends React.Component {
   // 전달인자로 받아서 반영하면 되지 않나??
 
   componentDidMount() {
-    this.getWordData();
+    // this.getWordData();
   }
 
   render() {
@@ -153,8 +153,9 @@ class App extends React.Component {
           <Route
             exact
             path="/"
-            render={() => {
+            render={async () => {
               if (isLogin) {
+                await this.getWordData();
                 return <Redirect to="/main" />;
               } else {
                 return (
