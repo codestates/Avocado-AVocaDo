@@ -18,53 +18,59 @@ class App extends React.Component {
       currentWord: null,
       wordData: [
         {
-          word: { 1: "apple" },
+          word: { 1: 'apple' },
           updatedAt: String(new Date().toUTCString()),
-          sentences: {101:'apple is red',102:'apple is expensive',103:'samsung'}
+          sentences: {
+            101: 'apple is red',
+            102: 'apple is expensive',
+            103: 'samsung',
+          },
         },
         {
-          word: { 2: "banana" },
+          word: { 2: 'banana' },
           updatedAt: String(new Date().toUTCString()),
-          sentences: { 1: "1", 2: "2" ,11:"11"}
+          sentences: { 1: '1', 2: '2', 11: '11' },
         },
         {
-          word: { 3: "3" },
+          word: { 3: '3' },
           updatedAt: String(new Date().toUTCString()),
-          sentences: { 3: "3", 4: "4" ,13:"11"}
+          sentences: { 3: '3', 4: '4', 13: '11' },
         },
         {
-          word: { 4: "4" },
+          word: { 4: '4' },
           updatedAt: String(new Date().toUTCString()),
-          sentences: { 5: "5", 6: "6",15:"11" }
+          sentences: { 5: '5', 6: '6', 15: '11' },
         },
         {
-          word: { 5: "5" },
+          word: { 5: '5' },
           updatedAt: String(new Date().toUTCString()),
-          sentences: { 7: "7", 8: "8",17:"11" }
+          sentences: { 7: '7', 8: '8', 17: '11' },
         },
         {
-          word: { 6: "6" },
+          word: { 6: '6' },
           updatedAt: String(new Date().toUTCString()),
-          sentences: { 9: "9", 10: "10",19:"11" }
+          sentences: { 9: '9', 10: '10', 19: '11' },
         },
         {
-          word: { 7: "7" },
+          word: { 7: '7' },
           updatedAt: String(new Date().toUTCString()),
-          sentences: { 11: "11", 12: "12",21:"11" }
+          sentences: { 11: '11', 12: '12', 21: '11' },
         },
         {
-          word: { 8: "8" },
+          word: { 8: '8' },
           updatedAt: String(new Date().toUTCString()),
-          sentences: { 13: "13", 14: "14",23:"11" }
-        }, {
-          word: { 9: "9" },
+          sentences: { 13: '13', 14: '14', 23: '11' },
+        },
+        {
+          word: { 9: '9' },
           updatedAt: String(new Date().toUTCString()),
-          sentences: { 15: "15", 16: "16",25:"11" }
-        }, {
-          word: { 10: "10" },
+          sentences: { 15: '15', 16: '16', 25: '11' },
+        },
+        {
+          word: { 10: '10' },
           updatedAt: String(new Date().toUTCString()),
-          sentences: { 17: "17", 18: "18",27:"11" }
-        }
+          sentences: { 17: '17', 18: '18', 27: '11' },
+        },
       ],
       // TODO: 서버로 부터 데이터 받은 후 받은 데이터로 초기화 시켜줘야 함
       // DB 처럼 추가, 삭제되면 wordID 다시 설정해야 함
@@ -83,6 +89,8 @@ class App extends React.Component {
     this.setState({
       isLogin: false,
     });
+
+    console.log('handleLogout', this.state);
   }
   getWordData() {
     // get 요청: 서버로부터 유저와 일치하는 모든 단어/예문을 불러온다.
@@ -171,6 +179,7 @@ class App extends React.Component {
     this.handleWordCardLength();
   }
   render() {
+    console.log(this.state);
     console.log('render', this.state);
     const { isLogin, userInfo, wordData, currentWord } = this.state;
     return (
