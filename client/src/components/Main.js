@@ -12,8 +12,6 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Main', this.props);
-    // this.props.handleLogout();
     this.props.getWordData();
   }
   render() {

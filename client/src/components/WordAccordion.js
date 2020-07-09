@@ -37,12 +37,32 @@ class WordAccordion extends Component {
         return res.json();
       })
       .then((data) => {
-        console.log('data.articles', data.articles[0]);
         this.setState({
           articles: data.articles,
         });
       });
   }
+
+  handlesentenceFirst = (e) => {
+    this.setState({
+      sentenceFirst: e.target.value,
+    });
+  };
+  handlesentenceSecond = (e) => {
+    this.setState({
+      sentenceSecond: e.target.value,
+    });
+  };
+  handlesentenceThird = (e) => {
+    this.setState({
+      sentenceThird: e.target.value,
+    });
+  };
+  handleModalWord = (e) => {
+    this.setState({
+      modalWord: e.target.value,
+    });
+  };
 
   handleModalShowHide = () => {
     this.setState({ showHide: !this.state.showHide });
@@ -83,27 +103,68 @@ class WordAccordion extends Component {
     return WordObject;
   };
 
-  saveWordData = () => {
-    let sentencesLength = Object.keys(this.props.sentences).length;
+  // saveWordData = () => {
+  //   let sentencesLength = Object.keys(this.props.sentences).length;
 
+  //   if (
+  //     this.state.sentenceFirst.length === 0 &&
+  //     this.state.sentenceSecond.length === 0 &&
+  //     this.state.sentenceThird.length === 0
+  //   ) {
+  //     return this.handleModalShowHide();
+  //   } else if (sentencesLength < 1) {
+  //     return this.createSentences();
+  //   } else {
+  //     const mappedWordObj = this.mapSentence();
+  //     this.props.updateWordData(mappedWordObj);
+  //   }
+  //   this.handleModalShowHide();
+  // };
+
+  handleSentences(sentenceArr) {
+    let wordObj = {
+      wordId: this.props.index,
+      word: this.state.modalWord,
+      sentences: _.values(sentenceArr),
+    };
+    console.log('createSentences', wordObj);
+    this.props.addSentences(wordObj);
+  }
+
+  saveWordData = () => {
+    // let sentencesLength = Object.keys(this.props.sentences).length;
+    let sentencesLength;
+    if (this.props.sentences) {
+      sentencesLength = Object.keys(this.props.sentences).length;
+    } else {
+      sentencesLength = 0;
+    }
     if (
-      this.state.sentenceFirst.length === 0 &&
-      this.state.sentenceSecond.length === 0 &&
-      this.state.sentenceThird.length === 0
+      !this.state.sentenceFirst &&
+      !this.state.sentenceSecond &&
+      !this.state.sentenceThird
     ) {
-      console.log('입력이없음');
+      // this.handleModalShowHide();
       return this.handleModalShowHide();
     } else if (sentencesLength < 1) {
-      console.log('sentenceIsNull', sentencesLength);
-
-      return this.createSentences();
+      this.createSentences();
+      return this.handleModalShowHide();
     } else {
-      console.log('update');
-
+      let sentenceKey = Object.keys(this.props.sentences);
+      if (sentenceKey.length === 1) {
+        // 2,3 을 새로보내기
+        this.handleSentences([
+          this.state.sentenceSecond,
+          this.state.sentenceThird,
+        ]);
+      } else if (sentenceKey.length === 2) {
+        // 3을 새로보내기
+        this.handleSentences([this.state.sentenceThird]);
+      }
       const mappedWordObj = this.mapSentence();
       this.props.updateWordData(mappedWordObj);
+      return this.handleModalShowHide();
     }
-    this.handleModalShowHide();
   };
 
   handlesentenceFirst = (e) => {
@@ -140,7 +201,6 @@ class WordAccordion extends Component {
         this.state.sentenceThird,
       ],
     };
-    console.log('createSentences', wordObj);
     this.props.addSentences(wordObj);
   };
 
@@ -170,9 +230,6 @@ class WordAccordion extends Component {
   };
 
   render() {
-    console.log('WordAccordion', this.props);
-    console.log('sentences', this.props.sentences);
-    console.log('sentenceArr', this.sentenceArr);
     // const { word, sentences, index } = this.props
     return (
       <div className="accordion_area">
@@ -182,7 +239,7 @@ class WordAccordion extends Component {
               <div className="toggle_section">
                 <div className="word_btn_section">
                   <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                    <div className="word_btn">{this.props.word}</div>
+                    <div className="word_btn">{this.state.modalWord}</div>
                   </Accordion.Toggle>
                 </div>
                 <div className="modal_btn_section">
@@ -251,7 +308,7 @@ class WordAccordion extends Component {
                   type="text"
                   placeholder="단어 추가"
                   value={this.state.modalWord}
-                  onChange={this.props.handleModalWord}
+                  onChange={this.handleModalWord}
                 />
               </Form.Group>
 
@@ -270,7 +327,7 @@ class WordAccordion extends Component {
                     <Form.Control
                       type="text"
                       placeholder="문장"
-                      onChange={this.props.handlesentenceFirst}
+                      onChange={this.handlesentenceFirst}
                       value={
                         this.state.sentenceFirst ? this.state.sentenceFirst : ''
                       }
@@ -288,7 +345,7 @@ class WordAccordion extends Component {
                     <Form.Control
                       type="text"
                       placeholder="문장"
-                      onChange={this.props.handlesentenceSecond}
+                      onChange={this.handlesentenceSecond}
                       value={
                         this.state.sentenceSecond
                           ? this.state.sentenceSecond
@@ -308,7 +365,7 @@ class WordAccordion extends Component {
                     <Form.Control
                       type="text"
                       placeholder="문장"
-                      onChange={this.props.handlesentenceThird}
+                      onChange={this.handlesentenceThird}
                       value={
                         this.state.sentenceThird ? this.state.sentenceThird : ''
                       }

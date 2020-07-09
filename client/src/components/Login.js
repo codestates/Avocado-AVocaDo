@@ -25,7 +25,6 @@ class Login extends React.Component {
     this.handleCustomLogin = this.handleCustomLogin.bind(this);
     this.responseGoogle = this.responseGoogle.bind(this);
     this.responseFacebook = this.responseFacebook.bind(this);
-    console.log(this.props);
   }
 
   responseGoogle(response) {
@@ -53,8 +52,6 @@ class Login extends React.Component {
       .then((response) => {
         if (response.status >= 200 && response.status <= 204) {
           this.props.handleLogin();
-        } else {
-          console.log('fail to fetch post');
         }
       })
       .then(() => {
@@ -62,7 +59,6 @@ class Login extends React.Component {
       })
       .catch(() => {
         alert('구글 로그인 인증에 실패했습니다.');
-        // console.error('responseGoogle', error);
       });
   }
 
@@ -85,19 +81,15 @@ class Login extends React.Component {
       // .post('http://localhost:8080/users/signin', facebookLoginData)
       .post('http://54.180.104.184:8080/users/signin', facebookLoginData)
       .then((response) => {
-        console.log(response);
         if (response.status >= 200 && response.status <= 204) {
           this.props.handleLogin();
-        } else {
-          console.log('fail to fetch post');
         }
       })
       .then(() => {
         this.props.history.push('/');
       })
-      .catch((error) => {
+      .catch(() => {
         alert('페이스북 로그인 인증에 실패했습니다.');
-        console.error('responseFacebook', error);
       });
   }
 
@@ -111,13 +103,10 @@ class Login extends React.Component {
       withCredentials: true,
       credentials: 'include',
     }).then((res) => {
-      // console.log(res);
       if (res.status >= 200 && res.status <= 204) {
         this.props.handleLogout();
         this.props.history.push('/');
         //여기에서 메인페이지로 리다이렉션 필요?
-      } else {
-        console.log('fail to fetch post');
       }
     });
   }
@@ -147,14 +136,6 @@ class Login extends React.Component {
         .then((response) => {
           if (response.status >= 200 && response.status <= 204) {
             this.props.handleLogin();
-          } else {
-            // App component 로 부터 메서드 받아서 로그인 상태 변경
-            // this.props.handleLogin(); isLogin -> true
-            // 로그인 성공시 초기 page 로 이동
-            // console.log('상태확인', response.status);
-
-            // console.log('axios', this.props);
-            console.log('fail to fetch post');
           }
         })
         .then(() => {
@@ -162,7 +143,6 @@ class Login extends React.Component {
         })
         .catch(() => {
           alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
-          // console.error('postLoginData ERROR', error);
         })
     );
   }
@@ -181,7 +161,6 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log('render', this.props);
     return (
       <div className="login_wrap">
         <div className="login_container">

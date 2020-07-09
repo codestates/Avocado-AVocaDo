@@ -11,21 +11,16 @@ class Wordbook extends React.Component {
     super(props);
 
     this.state = {
-
       isSearch: false,
       searchText: '',
-    }
-
+    };
   }
 
   handleSearch(queryText) {
-
     this.setState({ isSearch: true, searchText: queryText });
-
   }
 
   render() {
-    console.log('Wordbook state', this.state)
     const {
       userInfo,
       handleLogout,
@@ -42,14 +37,14 @@ class Wordbook extends React.Component {
     } = this.props;
 
     const { isSearch, searchText } = this.state;
-    console.log('Wordbook', wordData);
     return (
       <div>
         <div className="wordbook_header_wrap">
           <Wordbook_Header
-
-            userInfo={userInfo} handleLogout={handleLogout}
-            isSearch={isSearch} searchText={searchText}
+            userInfo={userInfo}
+            handleLogout={handleLogout}
+            isSearch={isSearch}
+            searchText={searchText}
             handleSearch={this.handleSearch.bind(this)}
           />
         </div>

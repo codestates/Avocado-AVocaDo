@@ -14,6 +14,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      // isLogin: localStorage.getItem('isLogin') ? true : false,
       isLogin: false,
       userInfo: null,
       currentWord: null,
@@ -26,8 +27,10 @@ class App extends React.Component {
   }
 
   handleLogin() {
+    // localStorage.setItem('isLogin','ok');
     this.setState({
       isLogin: true,
+      // isLogin: localStorage.getItem('isLogin');
     });
   }
   changeLoginState = () => {
@@ -44,64 +47,12 @@ class App extends React.Component {
       withCredentials: true,
       credentials: 'include',
     }).then((res) => {
-      // console.log(res);
       if (res.status >= 200 && res.status <= 204) {
         return res;
-      } else {
-        console.log('fail to fetch post');
       }
     });
     await this.changeLoginState();
   };
-
-  // 1.
-  // handleLogout() {
-  //   fetch('http://localhost:8080/users/signout', {
-  //     // fetch('http://54.180.104.184:8080/users/signout', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     withCredentials: true,
-  //     credentials: 'include',
-  //   })
-  //     .then((res) => {
-  //       if (res.status >= 200 && res.status <= 204) {
-  //         this.setState({
-  //           isLogin: false,
-  //         });
-  //       } else {
-  //         console.log('fail to fetch post');
-  //       }
-  //       return;
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //     });
-
-  // 2.
-  //   console.log('handleLogout', this.state);
-  // }
-  // handleLogout = async () => {
-  //   await fetch('http://54.180.104.184:8080/users/signout', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     withCredentials: true,
-  //     credentials: 'include',
-  //   }).then((res) => {
-  //     // console.log(res);
-  //     if (res.status >= 200 && res.status <= 204) {
-  //       return res;
-  //     } else {
-  //       console.log('fail to fetch post');
-  //     }
-  //   });
-  //   this.setState({
-  //     isLogin: false,
-  //   });
-  // }
 
   // 기존코드
   getWordData() {
@@ -111,8 +62,6 @@ class App extends React.Component {
     return axios
       .get(url)
       .then((res) => {
-        console.log(res);
-        // console.log(res.data.session);
         wordArr = _.map(res.data.data, function (wordObj) {
           return _.values(wordObj.word)[0];
         });
@@ -124,9 +73,7 @@ class App extends React.Component {
       .then(() => {
         this.setState({ word: wordArr });
       })
-      .catch((err) => {
-        // this.setState({ word: '', wordData: '' });
-      });
+      .catch((err) => {});
   }
   postInputWord() {
     // post 요청: 유저가 입력한 새로운 단어/예문을 서버에 전송한다.
@@ -161,7 +108,6 @@ class App extends React.Component {
     axios
       .post(url, addSentenceObj)
       .then((res) => {
-        console.log(res);
         this.setState({ wordData: res.data.data });
       })
       .then(() => {
@@ -184,7 +130,6 @@ class App extends React.Component {
     axios
       .post(url, sendObj)
       .then((res) => {
-        console.log(res);
         this.setState({ wordData: res.data.data });
       })
       .then(() => {
@@ -200,7 +145,6 @@ class App extends React.Component {
     // api 형식에 맞추기 위함
     const { wordId } = wordObj;
     const wordIdobj = { wordId: wordId };
-    console.log(`wordIdobj ${wordIdobj}`);
 
     axios
       .delete(url, {
@@ -219,23 +163,12 @@ class App extends React.Component {
     this.setState({ [key]: e.target.value });
   };
 
-  // 전달인자로 받아서 반영하면 되지 않나??
-
-  // componentDidMount() {
-  //   // if (!this.state.isLogin) {
-  //   //   this.handleLogout();
-  //   // }
-  //   // this.handleLogout();
-  //   console.log(this.state.isLogin);
-  //   this.getWordData();
-  // }
   componentDidMount = () => {
-    console.log('componentDidMount!!!!', this.state);
+    // localStorage.setItem('isLogin', false);
     this.getWordData();
   };
 
   render() {
-    console.log('render', this.state);
     const { isLogin, userInfo, wordData, currentWord, word } = this.state;
     return (
       // route 는 순차적으로 실행된다.
