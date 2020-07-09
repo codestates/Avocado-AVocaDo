@@ -77,7 +77,7 @@ class SignUp extends React.Component {
                       className="signup_input"
                       type="email"
                       placeholder="이메일을 입력 해주세요"
-                      maxLength="20"
+                      maxLength="30"
                       onChange={this.handleSignUpInput('email')}
                     ></input>
                   </span>
