@@ -16,18 +16,12 @@ class App extends React.Component {
       isLogin: false,
       userInfo: null,
       currentWord: null,
-      wordData: [
-        {
-          wordId: 1,
-          word: 'apple',
-          sentences: ['I like apple', 'I hate apple'],
-        }
-      ],
-      // TODO: 서버로 부터 데이터 받은 후 받은 데이터로 초기화 시켜줘야 함
-      // DB 처럼 추가, 삭제되면 wordID 다시 설정해야 함
-      // 추가, 삭제 할때마다
-      // wordData에서 wordId 를 1~end 까지 재할당
+      wordData: '',
+      word: '',
     };
+
+    this.getWordData = this.getWordData.bind(this);
+    this.addSentences = this.addSentences.bind(this);
   }
 
   handleLogin() {
@@ -40,96 +34,169 @@ class App extends React.Component {
     this.setState({
       isLogin: false,
     });
-  }
-  getWordData() {
-    // get 요청: 서버로부터 유저와 일치하는 모든 단어/예문을 불러온다.
-    axios.get('url').then((res) => {
-      this.setState({ wordData: res.data });
-    });
-  }
-  postInputWord(wordDataLength) {
-    // post 요청: 유저가 입력한 새로운 단어/예문을 서버에 전송한다.
 
-    // 새로운 단어 추가시
-    // wordId 가 1부터 시작하여 wordDataLength 에 +1 하여 post 보냄
-    const url = 'http://localhost:8080/words';
-    axios
-      .post(url, {
-        wordId: wordDataLength + 1,
-        word: this.state.currentWord,
-        sentences: [],
+    console.log('handleLogout', this.state);
+  }
+
+  // getWordData = async () => {
+
+  //   const url = 'http://54.180.104.184:8080/words';
+
+  //   const getData = async () => {
+  //     var wordArr;
+
+  //     const getWord = async () => {
+
+  //       return axios.get(url).then((res) => {
+
+  //         wordArr = _.map(res.data.data, function (wordObj) {
+  //           return _.values(wordObj.word)[0];
+  //         })
+  //         return res;
+  //       })
+
+  //     }
+
+  //     let wordData = await getWord();
+
+  //     const mapWordData = async () => {
+
+  //       this.setState({ wordData: wordData.data.data });
+  //     }
+
+  //     return axios.get(url).then((res) => {
+
+  //       wordArr = _.map(res.data.data, function (wordObj) {
+  //         return _.values(wordObj.word)[0];
+  //       })
+  //       return res;
+  //     })
+  //       .then((res) => {
+  //         this.setState({ wordData: res.data.data });
+  //       })
+  //       .then(() => {
+  //         this.setState({ word: wordArr });
+  //       });
+  //   }
+
+  // }
+
+  // 기존코드
+  getWordData() {
+    var wordArr;
+    const url = 'http://54.180.104.184:8080/words';
+    return axios
+      .get(url)
+      .then((res) => {
+        wordArr = _.map(res.data.data, function (wordObj) {
+          return _.values(wordObj.word)[0];
+        });
+        return res;
       })
       .then((res) => {
-        console.log('post-reponse', res);
+        this.setState({ wordData: res.data.data });
+      })
+      .then(() => {
+        this.setState({ word: wordArr });
+      });
+  }
+  postInputWord() {
+    // post 요청: 유저가 입력한 새로운 단어/예문을 서버에 전송한다.
+    const url = 'http://54.180.104.184:8080/words';
+    axios
+      .post(url, {
+        word: this.state.currentWord,
+      })
+      .then((res) => {
+        // test 위해 넣은 code
+        // 실제론 아래 TODO 로 변경해야 함
+        this.setState({ wordData: res.data.data });
+      })
+      .then(() => {
+        this.getWordData();
+      });
+  }
+
+  addSentences(wordObj) {
+    // 문장이 없는 상태에서만 호출되어야 함!!
+    // put 요청: 유저가 단어를 수정한 경우, 또는 예문을 수정/추가/삭제한 경우 그 값을 서버에 전송한다.
+
+    // api 형식에 맞추기 위함.
+    const url = 'http://54.180.104.184:8080/words';
+    let word = {};
+    word[wordObj.wordId] = wordObj.word;
+    let sentences = wordObj.sentences;
+    let addSentenceObj = { word: word, sentences: sentences };
+    // {word:{1:'adsfasdfa'},sentence:['a','b','c']}
+    console.log('addSentences', addSentences);
+    axios
+      .post(url, addSentenceObj)
+      .then((res) => {
+        console.log(res);
+        this.setState({ wordData: res.data.data });
+      })
+      .then(() => {
+        this.getWordData();
       });
   }
   // res.config.data / res.data.data
 
-  updateWordData(word, sentences) {
+  updateWordData(wordObj) {
+    // api 형식에 맞추기 위함
+    const url = 'http://54.180.104.184:8080/words';
+    let sendWord = {};
+    sendWord[wordObj.wordId] = wordObj.word;
+    let sendObj = {};
+    sendObj['word'] = sendWord;
+    sendObj['sentences'] = wordObj.sentences;
+
     // put 요청: 유저가 단어를 수정한 경우, 또는 예문을 수정/추가/삭제한 경우 그 값을 서버에 전송한다.
     axios
-      .put('http://localhost:8080/words/sentences', {
-        word: word,
-        sentences: sentences,
-      })
+      .post(url, sendObj)
       .then((res) => {
         console.log(res);
+        this.setState({ wordData: res.data.data });
       })
-      .catch((e) => {
-        console.log('updateWordData', e);
+      .then(() => {
+        this.getWordData();
       });
   }
 
-  deleteWordData(wordId) {
+  deleteWordData(wordObj) {
+    // TODO: sentenceIds => sentence Id 배열
     // delete 요청: 유저가 단어/예문을 삭제한 경우 서버에 삭제를 요청한다.
-    axios.delete('http://localhost:8080/words', {
-      data: { wordId: wordId },
-      withCredentials: true,
-    });
-    // wordId 가 배열 index 보다 1 크기 때문에 조정함
-    this.state.wordData.splice(wordId - 1, 1);
-    this.setState({ wordData: this.state.wordData });
-  }
+    const url = 'http://54.180.104.184:8080/words';
+    // api 형식에 맞추기 위함
+    const { wordId } = wordObj;
+    const wordIdobj = { wordId: wordId };
+    console.log(`wordIdobj ${wordIdobj}`);
 
+    axios
+      .delete(url, {
+        data: wordIdobj,
+        withCredentials: true,
+      })
+      .then((res) => {
+        this.setState({ wordData: res.data.data });
+      })
+      .then(() => {
+        this.getWordData();
+      });
+    // wordId 가 배열 index 보다 1 크기 때문에 조정함
+  }
   handleInput = (key) => (e) => {
     this.setState({ [key]: e.target.value });
   };
 
-  handleWordCardLength = () => {
-    // 단어를 추가, 삭제할 때 마다 wordId 초기화
-    _.forEach(this.state.wordData, function (wordObject, index) {
-      wordObject.wordId = index + 1;
-    });
-
-    this.setState({ wordData: this.state.wordData });
-  };
-
   // 전달인자로 받아서 반영하면 되지 않나??
-  addWordData = () => {
-    // 더할 때 마다 생성되는 wordId 를 어떻게 만들어야 하나?
-    // handleWordid ()
-    // 더할때는 추가 뺄때는 감소
 
-    // 맨처음에 data 받을 때도 초기화 시켜줘야 함
-    this.state.wordData.push({ word: this.state.currentWord, sentences: [] });
-    this.setState({ wordData: this.state.wordData });
-  };
-
-  handleSentenceData = (word, sentences, index) => {
-    this.state.wordData[index] = {
-      word: word,
-      sentences: sentences,
-    };
-
-    this.setState({ wordData: this.state.wordData });
-  };
   componentDidMount() {
-    console.log('componentDidMount', this.state);
-    this.handleWordCardLength();
+    this.getWordData();
   }
+
   render() {
     console.log('render', this.state);
-    const { isLogin, userInfo, wordData, currentWord } = this.state;
+    const { isLogin, userInfo, wordData, currentWord, word } = this.state;
     return (
       // route 는 순차적으로 실행된다.
       <div>
@@ -145,6 +212,7 @@ class App extends React.Component {
                   <Login
                     isLogin={isLogin}
                     handleLogin={this.handleLogin.bind(this)}
+                    handleLogout={this.handleLogout.bind(this)}
                   />
                 );
               }
@@ -154,22 +222,27 @@ class App extends React.Component {
           <Route
             exact
             path="/main"
-            render={() => (
-              <Main
-                isLogin={isLogin}
-                userInfo={userInfo}
-                wordData={wordData}
-                currentWord={currentWord}
-                handleLogout={this.handleLogout.bind(this)}
-                postInputWord={this.postInputWord.bind(this)}
-                updateWordData={this.updateWordData.bind(this)}
-                deleteWordData={this.deleteWordData.bind(this)}
-                handleInput={this.handleInput.bind(this)}
-                addWordData={this.addWordData.bind(this)}
-                handleSentenceData={this.handleSentenceData.bind(this)}
-                handleWordCardLength={this.handleWordCardLength.bind(this)}
-              />
-            )}
+            render={() => {
+              if (isLogin) {
+                return (
+                  <Main
+                    word={word}
+                    isLogin={isLogin}
+                    userInfo={userInfo}
+                    wordData={this.state.wordData ? this.state.wordData : null}
+                    currentWord={currentWord}
+                    handleLogout={this.handleLogout.bind(this)}
+                    postInputWord={this.postInputWord.bind(this)}
+                    updateWordData={this.updateWordData.bind(this)}
+                    deleteWordData={this.deleteWordData.bind(this)}
+                    handleInput={this.handleInput.bind(this)}
+                    addSentences={this.addSentences.bind(this)}
+                  />
+                );
+              } else {
+                <Redirect to="/" />;
+              }
+            }}
           />
           <Route
             exact
@@ -177,14 +250,15 @@ class App extends React.Component {
             render={() => (
               <Wordbook
                 userInfo={userInfo}
-                wordData={wordData}
+                wordData={wordData ? wordData : null}
                 handleLogout={this.handleLogout.bind(this)}
-                postInputWord={this.postInputWord.bind(this)}
                 updateWordData={this.updateWordData.bind(this)}
                 deleteWordData={this.deleteWordData.bind(this)}
-                handleSentenceData={this.handleSentenceData.bind(this)}
-                updateWordData={this.updateWordData.bind(this)}
-                handleWordCardLength={this.handleWordCardLength.bind(this)}
+                word={word}
+                isLogin={isLogin}
+                currentWord={currentWord}
+                handleInput={this.handleInput.bind(this)}
+                addSentences={this.addSentences.bind(this)}
               />
             )}
           />

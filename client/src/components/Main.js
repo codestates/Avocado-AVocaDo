@@ -26,7 +26,6 @@ class Main extends React.Component {
       postInputWord,
       updateWordData,
       deleteWordData,
-      handleSentenceData,
       addSentences,
     } = this.props;
     return (
@@ -45,17 +44,16 @@ class Main extends React.Component {
             handleInput={handleInput}
             addWordData={addWordData}
             currentWord={currentWord}
-            wordData={wordData}
+            wordData={wordData ? wordData : 'noWorld'}
           />
         </div>
         <div>
           <WordCardStack
-            wordData={wordData}
+            wordData={wordData ? wordData : 'noWorld'}
             addWordData={addWordData}
             postInputWord={postInputWord}
             updateWordData={updateWordData}
             deleteWordData={deleteWordData}
-            handleSentenceData={handleSentenceData}
             handleInput={handleInput}
             addSentences={addSentences}
           />

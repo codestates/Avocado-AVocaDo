@@ -1,16 +1,14 @@
 /* eslint-disable */
 // const { users } = require('../../models');
-const dummyUsers = require('./dummyUsers');
 const { User } = require('../../models');
 
 module.exports = {
   post: (req, res) => {
-    const { userId, password, userName } = req.body;
+    const { userId, password } = req.body;
 
     User.findOrCreate({
       where: { email: userId },
       defaults: {
-        userName,
         password,
         loginType: 'custom',
       },

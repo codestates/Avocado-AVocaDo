@@ -10,24 +10,20 @@ class WordCardStack extends React.Component {
 
   render() {
     const {
-      addWordData,
       wordData,
-      postInputWord,
       updateWordData,
       deleteWordData,
-      handleInput,
       handleSentenceData,
       addSentences,
     } = this.props;
     console.log('WordCardStack', this.props);
 
-    // option 1) 최신순 6개 렌더링 
+    // option 1) 최신순 6개 렌더링
     var recenteData;
     if (wordData) {
-     recenteData = wordData.slice(-6, wordData.length);
+      recenteData = wordData.slice(-6, wordData.length);
     }
 
-    console.log('recenteData', recenteData);
     // option 2) 10일 이내 전부 렌더링
     // function filterByDate() {
     //   const now = new Date();
@@ -41,32 +37,32 @@ class WordCardStack extends React.Component {
     // filterByDate.map(word => <WordCard ... />)
 
     return (
-      <div className="wordcardstack_wrap" >
+      <div className="wordcardstack_wrap">
         <div className="wordcardstack_notice_area">
           최근 등록된 단어만 표시됩니다.
         </div>
         <div className="wordcardstack_area">
           {recenteData
             ? recenteData.map((word, index) => {
-              let wordValue;
-              let wordKey = Object.keys(word.word)[0];
-              for (let i in word.word) {
-                wordValue = word.word[i];
-              }
+                let wordValue;
+                let wordKey = Object.keys(word.word)[0];
+                for (let i in word.word) {
+                  wordValue = word.word[i];
+                }
 
-              return (
-                <WordCard
-                key={wordKey}
-                word={wordValue}
-                sentences={word.sentences}
-                index={wordKey}
-                updateWordData={updateWordData}
-                deleteWordData={deleteWordData}
-                handleSentenceData={handleSentenceData}
-                addSentences={addSentences}
-              />
-              );
-            })
+                return (
+                  <WordCard
+                    key={wordKey}
+                    word={wordValue}
+                    sentences={word.sentences}
+                    index={wordKey}
+                    updateWordData={updateWordData}
+                    deleteWordData={deleteWordData}
+                    handleSentenceData={handleSentenceData}
+                    addSentences={addSentences}
+                  />
+                );
+              })
             : 'noWord!'}
         </div>
       </div>
