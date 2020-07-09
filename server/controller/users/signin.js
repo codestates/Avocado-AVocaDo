@@ -65,10 +65,8 @@ module.exports = {
       request.get(
         `https://oauth2.googleapis.com/tokeninfo?id_token=${tokenId}`,
         (error, response, body) => {
-          if (error) {
-            res.status(401).send('invalid user');
-          } else {
-            if (JSON.parse(body).error) {
+          try {
+            if (!JSON.parse(body).data.is_valid) {
               res.status(401).send('invalid user');
             } else {
               User.findOrCreate({
@@ -82,6 +80,9 @@ module.exports = {
                 accept(data[0].id);
               });
             }
+          } catch (err) {
+            res.status(401).send('invalid user');
+            // console.log(err);
           }
         }
       );
