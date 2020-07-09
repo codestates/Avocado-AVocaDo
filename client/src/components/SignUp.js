@@ -62,6 +62,7 @@ class SignUp extends React.Component {
                 alert('이름을 입력해주세요!');
               } else {
                 this.postSignUpData();
+                alert('회원 가입이 완료되었습니다.')
               }
             }}
           >
