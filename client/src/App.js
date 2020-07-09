@@ -48,7 +48,6 @@ class App extends React.Component {
         })
         .then(() => {
           this.setState({ word: wordArr });
-          console.log('getWordData', res.data.data);
         });
     });
   }
@@ -143,7 +142,7 @@ class App extends React.Component {
   // 전달인자로 받아서 반영하면 되지 않나??
 
   componentDidMount() {
-    // this.getWordData();
+    this.getWordData();
   }
 
   render() {
