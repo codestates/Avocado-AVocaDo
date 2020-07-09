@@ -14,15 +14,15 @@ class WordAccordion extends Component {
   constructor(props) {
     super(props)
 
-    const sentenceArr = _.values(this.props.sentences);
+    // const sentenceArr = _.values(this.props.sentences);
 
     this.state = {
       articles: [],
       showHide: false,
       confirmShowHide: false,
-      sentenceFirst: sentenceArr[0],
-      sentenceSecond: sentenceArr[1],
-      sentenceThird: sentenceArr[2],
+      sentenceFirst: this.props.sentences[0],
+      sentenceSecond: this.props.sentences[1],
+      sentenceThird: this.props.sentences[2],
       modalWord: this.props.word
     }
   }
@@ -90,7 +90,7 @@ class WordAccordion extends Component {
       this.state.sentenceThird.length === 0
     ) {
       console.log('입력이없음');
-      return this.closeModal();
+      return this.handleModalShowHide();
     } else if (sentencesLength < 1) {
       console.log('sentenceIsNull', sentencesLength);
 
@@ -161,14 +161,14 @@ class WordAccordion extends Component {
 
   renderSentences = () => {
     function renderLi(sentence, index) {
-      return <li key={index}>{sentence}</li>;
+      return <li key={index}>• {sentence}</li>;
     }
     return _.map(this.props.sentences, renderLi);
   };
 
   render() {
     console.log('WordAccordion', this.props);
-    console.log('open', this.state.modalIsOpen)
+    console.log('sentences', this.props.sentences)
     // const { word, sentences, index } = this.props
     return (
       < div className="accordion_area" >
@@ -176,43 +176,43 @@ class WordAccordion extends Component {
           defaultActiveKey="0">
           <Card className="accordion_card">
             <Card.Header>
-              <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                <div className="accordion_btns">
-                  <div className="word_btn_section">
+              <div className="toggle_section">
+                <div className="word_btn_section">
+                  <Accordion.Toggle as={Button} variant="link" eventKey="1">
                     <div className="word_btn">
                       {this.props.word}
                     </div>
-                  </div>
-                  <div className="modal_btn_section">
-                    <div
-                      className="edit_btn"
+                  </Accordion.Toggle>
+                </div>
+                <div className="modal_btn_section">
+                  <div className="edit_btn">
+                    <button
+                      className="edit_word_btn"
                       onClick={this.handleModalShowHide}>
                       🥑
-                    </div>
-                    <div className='delete_btn'>
-                      <button
-                        className="delete_word_btn"
-                        onClick={this.handleConfirmShowHide}
-                      >X</button>
-                    </div>
+                    </button>
+                  </div>
+                  <div className='delete_btn'>
+                    <button
+                      className="delete_word_btn"
+                      onClick={this.handleConfirmShowHide}>
+                      ✕
+                    </button>
                   </div>
                 </div>
-              </Accordion.Toggle>
-              <div
-                className="edit_btn">
-                🥑
-                </div>
+              </div>
             </Card.Header>
             <Accordion.Collapse eventKey="1">
               <Card.Body>
                 <div className="sentences-section">
-                  <div>
-                    <h5>Sentences</h5>
+                  <div className="my-sentences">
+                    <ul className="sentences">
+                      {this.renderSentences()}
+                    </ul>
                   </div>
-                  <ul className="sentences">
-                    {this.renderSentences()}
-                  </ul>
                 </div>
+                <p></p>
+                <p></p>
                 <div className="articles-section">
                   <div>
                     <h6>관련 기사를 읽고 단어를 익혀보세요.</h6>
@@ -221,9 +221,12 @@ class WordAccordion extends Component {
                     {/* {this.getArticles(this.props.word)} */}
                     {this.state.articles.map((article, index) => {
                       return <li>
-                        <a key={index} href={article.url}>{article.title} | {article.source.name}</a>
+                        <a key={index} href={article.url}>
+                          ▸ {article.title} | <b>{article.source.name}</b>
+                        </a>
                       </li>
-                    })}
+                    }).slice(0, 9)
+                    }
                   </ul>
                 </div>
               </Card.Body>
@@ -234,7 +237,7 @@ class WordAccordion extends Component {
         {/* 아보카도 클릭 시 열리는 모달 */}
         <Modal show={this.state.showHide}>
           <Modal.Header closeButton onClick={this.handleModalShowHide}>
-            <Modal.Title>예문추가</Modal.Title>
+            <Modal.Title>예문 추가</Modal.Title>
           </Modal.Header>
           <Modal.Body>
 
@@ -243,7 +246,7 @@ class WordAccordion extends Component {
                 <Form.Label>Word</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="단어추가"
+                  placeholder="단어 추가"
                   value={this.props.modalWord}
                   onChange={this.props.handleModalWord}
                 />
@@ -257,7 +260,7 @@ class WordAccordion extends Component {
                       type="text"
                       placeholder="문장"
                       onChange={this.props.handlesentenceFirst}
-                      value={this.props.sentenceFirst ? this.props.sentenceFirst : ''}
+                      value={this.state.sentenceFirst ? this.state.sentenceFirst : ''}
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -273,7 +276,7 @@ class WordAccordion extends Component {
                       type="text"
                       placeholder="문장"
                       onChange={this.props.handlesentenceSecond}
-                      value={this.props.sentenceSecond ? this.props.sentenceSecond : ''}
+                      value={this.state.sentenceSecond ? this.state.sentenceSecond : ''}
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -289,7 +292,7 @@ class WordAccordion extends Component {
                       type="text"
                       placeholder="문장"
                       onChange={this.props.handlesentenceThird}
-                      value={this.props.sentenceThird ? this.props.sentenceThird : ''}
+                      value={this.state.sentenceThird ? this.state.sentenceThird : ''}
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -315,7 +318,7 @@ class WordAccordion extends Component {
           <Modal.Header closeButton onClick={this.handleConfirmShowHide}>
             <Modal.Title>단어를 삭제할까요?</Modal.Title>
           </Modal.Header>
-          <Modal.Body>확인버튼을 누르면 단어가 삭제됩니다</Modal.Body>
+          <Modal.Body>확인 버튼을 누르면 단어가 삭제됩니다.</Modal.Body>
           <Modal.Footer>
             <div className="btn_modal_confirm">
               <Button variant="secondary" block onClick={this.closeConfirmModal}>
