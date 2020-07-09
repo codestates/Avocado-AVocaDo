@@ -4,9 +4,11 @@ import PropTypes, { func } from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+
 import Accordion from 'react-bootstrap/Accordion'
 import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
 import _ from 'lodash';
+
 // npm install react-modal
 import '../CSS/WordCard.css';
 import '../CSS/Modal_Word.css';
@@ -213,6 +215,7 @@ function WordCard(props) {
         </div>
       </div>
 
+
       {/* 부트스트랩 modal */}
 
       <Modal show={confirmModalIsOpen} onHide={closeConfirmModal}>
@@ -221,6 +224,7 @@ function WordCard(props) {
         </Modal.Header>
         <Modal.Body>확인버튼을 누르면 단어가 삭제됩니다</Modal.Body>
         <Modal.Footer>
+
           <div className="btn_modal_confirm">
             <Button variant="secondary" block onClick={closeConfirmModal}>
               취소
@@ -231,6 +235,7 @@ function WordCard(props) {
               확인
             </Button>
           </div>
+
         </Modal.Footer>
       </Modal>
       {/*부트스트랩 모달  */}
@@ -252,6 +257,7 @@ function WordCard(props) {
                 placeholder="단어추가"
                 value={modalWord}
                 onChange={handleModalWord}
+
               />
             </Form.Group>
 

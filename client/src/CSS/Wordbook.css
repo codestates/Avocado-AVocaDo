@@ -87,6 +87,10 @@
   padding: 5px 12px;
   line-height: 1.5;
 }
+.wordbook_nav > a {
+  color: inherit;
+  text-decoration: none;
+}
 
 .wordbook_nav > a {
   color: inherit;
