@@ -7,6 +7,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Main from './components/Main';
 import Wordbook from './components/Wordbook';
+axios.defaults.withCredentials = true;
 /* App wordId 추가 */
 class App extends React.Component {
   constructor(props) {
@@ -29,65 +30,89 @@ class App extends React.Component {
       isLogin: true,
     });
   }
-
-  handleLogout() {
+  changeLoginState = () => {
     this.setState({
       isLogin: false,
     });
+  };
+  handleLogout = async () => {
+    await fetch('http://54.180.104.184:8080/users/signout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+      credentials: 'include',
+    }).then((res) => {
+      // console.log(res);
+      if (res.status >= 200 && res.status <= 204) {
+        return res;
+      } else {
+        console.log('fail to fetch post');
+      }
+    });
+    await this.changeLoginState();
+  };
 
-    console.log('handleLogout', this.state);
-  }
-
-  // getWordData = async () => {
-
-  //   const url = 'http://54.180.104.184:8080/words';
-
-  //   const getData = async () => {
-  //     var wordArr;
-
-  //     const getWord = async () => {
-
-  //       return axios.get(url).then((res) => {
-
-  //         wordArr = _.map(res.data.data, function (wordObj) {
-  //           return _.values(wordObj.word)[0];
-  //         })
-  //         return res;
-  //       })
-
-  //     }
-
-  //     let wordData = await getWord();
-
-  //     const mapWordData = async () => {
-
-  //       this.setState({ wordData: wordData.data.data });
-  //     }
-
-  //     return axios.get(url).then((res) => {
-
-  //       wordArr = _.map(res.data.data, function (wordObj) {
-  //         return _.values(wordObj.word)[0];
-  //       })
-  //       return res;
+  // 1.
+  // handleLogout() {
+  //   fetch('http://localhost:8080/users/signout', {
+  //     // fetch('http://54.180.104.184:8080/users/signout', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     withCredentials: true,
+  //     credentials: 'include',
+  //   })
+  //     .then((res) => {
+  //       if (res.status >= 200 && res.status <= 204) {
+  //         this.setState({
+  //           isLogin: false,
+  //         });
+  //       } else {
+  //         console.log('fail to fetch post');
+  //       }
+  //       return;
   //     })
-  //       .then((res) => {
-  //         this.setState({ wordData: res.data.data });
-  //       })
-  //       .then(() => {
-  //         this.setState({ word: wordArr });
-  //       });
-  //   }
+  //     .then((res) => {
+  //       console.log(res);
+  //     });
 
+  // 2.
+  //   console.log('handleLogout', this.state);
+  // }
+  // handleLogout = async () => {
+  //   await fetch('http://54.180.104.184:8080/users/signout', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     withCredentials: true,
+  //     credentials: 'include',
+  //   }).then((res) => {
+  //     // console.log(res);
+  //     if (res.status >= 200 && res.status <= 204) {
+  //       return res;
+  //     } else {
+  //       console.log('fail to fetch post');
+  //     }
+  //   });
+  //   this.setState({
+  //     isLogin: false,
+  //   });
   // }
 
   // 기존코드
   getWordData() {
     var wordArr;
+    // const url = 'http://localhost:8080/words';
     const url = 'http://54.180.104.184:8080/words';
     return axios
       .get(url)
       .then((res) => {
+        console.log(res);
+        // console.log(res.data.session);
         wordArr = _.map(res.data.data, function (wordObj) {
           return _.values(wordObj.word)[0];
         });
@@ -98,10 +123,14 @@ class App extends React.Component {
       })
       .then(() => {
         this.setState({ word: wordArr });
+      })
+      .catch((err) => {
+        // this.setState({ word: '', wordData: '' });
       });
   }
   postInputWord() {
     // post 요청: 유저가 입력한 새로운 단어/예문을 서버에 전송한다.
+    // const url = 'http://localhost:8080/words';
     const url = 'http://54.180.104.184:8080/words';
     axios
       .post(url, {
@@ -122,13 +151,13 @@ class App extends React.Component {
     // put 요청: 유저가 단어를 수정한 경우, 또는 예문을 수정/추가/삭제한 경우 그 값을 서버에 전송한다.
 
     // api 형식에 맞추기 위함.
+    // const url = 'http://localhost:8080/words';
     const url = 'http://54.180.104.184:8080/words';
     let word = {};
     word[wordObj.wordId] = wordObj.word;
     let sentences = wordObj.sentences;
     let addSentenceObj = { word: word, sentences: sentences };
     // {word:{1:'adsfasdfa'},sentence:['a','b','c']}
-    console.log('addSentences', addSentences);
     axios
       .post(url, addSentenceObj)
       .then((res) => {
@@ -143,6 +172,7 @@ class App extends React.Component {
 
   updateWordData(wordObj) {
     // api 형식에 맞추기 위함
+    // const url = 'http://localhost:8080/words';
     const url = 'http://54.180.104.184:8080/words';
     let sendWord = {};
     sendWord[wordObj.wordId] = wordObj.word;
@@ -165,6 +195,7 @@ class App extends React.Component {
   deleteWordData(wordObj) {
     // TODO: sentenceIds => sentence Id 배열
     // delete 요청: 유저가 단어/예문을 삭제한 경우 서버에 삭제를 요청한다.
+    // const url = 'http://localhost:8080/words';
     const url = 'http://54.180.104.184:8080/words';
     // api 형식에 맞추기 위함
     const { wordId } = wordObj;
@@ -190,9 +221,18 @@ class App extends React.Component {
 
   // 전달인자로 받아서 반영하면 되지 않나??
 
-  componentDidMount() {
+  // componentDidMount() {
+  //   // if (!this.state.isLogin) {
+  //   //   this.handleLogout();
+  //   // }
+  //   // this.handleLogout();
+  //   console.log(this.state.isLogin);
+  //   this.getWordData();
+  // }
+  componentDidMount = () => {
+    console.log('componentDidMount!!!!', this.state);
     this.getWordData();
-  }
+  };
 
   render() {
     console.log('render', this.state);
@@ -226,6 +266,7 @@ class App extends React.Component {
               if (isLogin) {
                 return (
                   <Main
+                    getWordData={this.getWordData}
                     word={word}
                     isLogin={isLogin}
                     userInfo={userInfo}
@@ -240,27 +281,34 @@ class App extends React.Component {
                   />
                 );
               } else {
-                <Redirect to="/" />;
+                return <Redirect to="/" />;
               }
             }}
           />
           <Route
             exact
             path="/wordbook"
-            render={() => (
-              <Wordbook
-                userInfo={userInfo}
-                wordData={wordData ? wordData : null}
-                handleLogout={this.handleLogout.bind(this)}
-                updateWordData={this.updateWordData.bind(this)}
-                deleteWordData={this.deleteWordData.bind(this)}
-                word={word}
-                isLogin={isLogin}
-                currentWord={currentWord}
-                handleInput={this.handleInput.bind(this)}
-                addSentences={this.addSentences.bind(this)}
-              />
-            )}
+            render={() => {
+              if (isLogin) {
+                return (
+                  <Wordbook
+                    userInfo={userInfo}
+                    // wordData={wordData ? wordData : null}
+                    wordData={this.state.wordData ? this.state.wordData : null}
+                    handleLogout={this.handleLogout.bind(this)}
+                    updateWordData={this.updateWordData.bind(this)}
+                    deleteWordData={this.deleteWordData.bind(this)}
+                    word={word}
+                    isLogin={isLogin}
+                    currentWord={currentWord}
+                    handleInput={this.handleInput.bind(this)}
+                    addSentences={this.addSentences.bind(this)}
+                  />
+                );
+              } else {
+                return <Redirect to="/" />;
+              }
+            }}
           />
         </Switch>
       </div>

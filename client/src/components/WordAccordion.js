@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+/* eslint-disable */
+import React, { Component } from 'react';
 import '../CSS/Wordbook.css';
 
 import Modal from 'react-bootstrap/Modal';
@@ -9,10 +10,9 @@ import Accordion from 'react-bootstrap/Accordion';
 
 import _ from 'lodash';
 
-
 class WordAccordion extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     // const sentenceArr = _.values(this.props.sentences);
 
@@ -23,39 +23,40 @@ class WordAccordion extends Component {
       sentenceFirst: this.props.sentences[0],
       sentenceSecond: this.props.sentences[1],
       sentenceThird: this.props.sentences[2],
-      modalWord: this.props.word
-    }
+      modalWord: this.props.word,
+    };
   }
 
-  // 헤드라인에 word를 포함하는 기사를 배열로 리턴합니다. 
+  // 헤드라인에 word를 포함하는 기사를 배열로 리턴합니다.
   getArticles(word) {
     const apiKey = 'd23a9f96f669464aac9d22621c8bd7d9';
-    const url = `https://newsapi.org/v2/everything?q=${word}&apiKey=${apiKey}`
+    const url = `https://newsapi.org/v2/everything?q=${word}&apiKey=${apiKey}`;
     fetch(url)
       .then((res) => {
-        return res.json()
+        return res.json();
       })
       .then((data) => {
-        console.log('data.articles', data.articles[0])
+        console.log('data.articles', data.articles[0]);
         this.setState({
-          articles: data.articles
-        })
-      })
-  };
+          articles: data.articles,
+        });
+      });
+  }
 
   handleModalShowHide = () => {
-    this.setState({ showHide: !this.state.showHide })
-  }
+    this.setState({ showHide: !this.state.showHide });
+  };
 
   handleConfirmShowHide = () => {
-    this.setState({ confirmShowHide: !this.state.confirmShowHide })
-  }
+    this.setState({ confirmShowHide: !this.state.confirmShowHide });
+  };
 
   mapSentence = () => {
-    let modalSentence =
-      [this.state.sentenceFirst,
+    let modalSentence = [
+      this.state.sentenceFirst,
       this.state.sentenceSecond,
-      this.state.sentenceThird];
+      this.state.sentenceThird,
+    ];
     let updateSentenceObj = {};
 
     let sentenceKey;
@@ -106,36 +107,37 @@ class WordAccordion extends Component {
 
   handlesentenceFirst = (e) => {
     this.setState({
-      sentenceFirst: e.target.value
-    })
+      sentenceFirst: e.target.value,
+    });
   };
 
   handlesentenceSecond = (e) => {
     this.setState({
-      sentenceSecond: e.target.value
-    })
+      sentenceSecond: e.target.value,
+    });
   };
 
   handlesentenceThird = (e) => {
     this.setState({
-      sentenceThird: e.target.value
-    })
+      sentenceThird: e.target.value,
+    });
   };
 
   handleModalWord = (e) => {
     this.setState({
-      modalWord: e.target.value
-    })
+      modalWord: e.target.value,
+    });
   };
 
   createSentences = () => {
     let wordObj = {
       wordId: this.props.index,
       word: this.state.modalWord,
-      sentences:
-        [this.state.sentenceFirst,
+      sentences: [
+        this.state.sentenceFirst,
         this.state.sentenceSecond,
-        this.state.sentenceThird],
+        this.state.sentenceThird,
+      ],
     };
     console.log('createSentences', wordObj);
     this.props.addSentences(wordObj);
@@ -145,18 +147,18 @@ class WordAccordion extends Component {
     const mappedWordObj = this.mapSentence();
     this.props.deleteWordData(mappedWordObj);
     this.closeConfirmModal();
-  }
+  };
 
   openConfirmModal = () => {
     this.setState({
-      confirmModalIsOpen: true
-    })
+      confirmModalIsOpen: true,
+    });
   };
 
   closeConfirmModal = () => {
     this.setState({
-      confirmModalIsOpen: false
-    })
+      confirmModalIsOpen: false,
+    });
   };
 
   renderSentences = () => {
@@ -168,34 +170,33 @@ class WordAccordion extends Component {
 
   render() {
     console.log('WordAccordion', this.props);
-    console.log('sentences', this.props.sentences)
+    console.log('sentences', this.props.sentences);
     // const { word, sentences, index } = this.props
     return (
-      < div className="accordion_area" >
-        <Accordion
-          defaultActiveKey="0">
+      <div className="accordion_area">
+        <Accordion defaultActiveKey="0">
           <Card className="accordion_card">
             <Card.Header>
               <div className="toggle_section">
                 <div className="word_btn_section">
                   <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                    <div className="word_btn">
-                      {this.props.word}
-                    </div>
+                    <div className="word_btn">{this.props.word}</div>
                   </Accordion.Toggle>
                 </div>
                 <div className="modal_btn_section">
                   <div className="edit_btn">
                     <button
                       className="edit_word_btn"
-                      onClick={this.handleModalShowHide}>
+                      onClick={this.handleModalShowHide}
+                    >
                       🥑
                     </button>
                   </div>
-                  <div className='delete_btn'>
+                  <div className="delete_btn">
                     <button
                       className="delete_word_btn"
-                      onClick={this.handleConfirmShowHide}>
+                      onClick={this.handleConfirmShowHide}
+                    >
                       ✕
                     </button>
                   </div>
@@ -206,9 +207,7 @@ class WordAccordion extends Component {
               <Card.Body>
                 <div className="sentences-section">
                   <div className="my-sentences">
-                    <ul className="sentences">
-                      {this.renderSentences()}
-                    </ul>
+                    <ul className="sentences">{this.renderSentences()}</ul>
                   </div>
                 </div>
                 <p></p>
@@ -218,15 +217,18 @@ class WordAccordion extends Component {
                     <h6>관련 기사를 읽고 단어를 익혀보세요.</h6>
                   </div>
                   <ul className="articles">
-                    {/* {this.getArticles(this.props.word)} */}
-                    {this.state.articles.map((article, index) => {
-                      return <li>
-                        <a key={index} href={article.url}>
-                          ▸ {article.title} | <b>{article.source.name}</b>
-                        </a>
-                      </li>
-                    }).slice(0, 9)
-                    }
+                    {this.getArticles(this.props.word)}
+                    {this.state.articles
+                      .map((article, index) => {
+                        return (
+                          <li>
+                            <a key={index} href={article.url}>
+                              ▸ {article.title} | <b>{article.source.name}</b>
+                            </a>
+                          </li>
+                        );
+                      })
+                      .slice(0, 9)}
                   </ul>
                 </div>
               </Card.Body>
@@ -240,7 +242,6 @@ class WordAccordion extends Component {
             <Modal.Title>예문 추가</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-
             <Form>
               <Form.Group controlId="formGroupEmail">
                 <Form.Label>Word</Form.Label>
@@ -254,13 +255,23 @@ class WordAccordion extends Component {
 
               <Accordion defaultActiveKey="0">
                 <Form.Group controlId="formGroupPassword">
-                  <Accordion.Toggle as={Button} variant="link" eventKey="1" className="modal_sentence" > sentence 1 </Accordion.Toggle>
+                  <Accordion.Toggle
+                    as={Button}
+                    variant="link"
+                    eventKey="1"
+                    className="modal_sentence"
+                  >
+                    {' '}
+                    sentence 1{' '}
+                  </Accordion.Toggle>
                   <Accordion.Collapse eventKey="1">
                     <Form.Control
                       type="text"
                       placeholder="문장"
                       onChange={this.props.handlesentenceFirst}
-                      value={this.state.sentenceFirst ? this.state.sentenceFirst : ''}
+                      value={
+                        this.state.sentenceFirst ? this.state.sentenceFirst : ''
+                      }
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -270,13 +281,17 @@ class WordAccordion extends Component {
                 <Form.Group controlId="formGroupPassword">
                   <Accordion.Toggle as={Button} variant="link" eventKey="2">
                     sentence 2
-             </Accordion.Toggle>
+                  </Accordion.Toggle>
                   <Accordion.Collapse eventKey="2">
                     <Form.Control
                       type="text"
                       placeholder="문장"
                       onChange={this.props.handlesentenceSecond}
-                      value={this.state.sentenceSecond ? this.state.sentenceSecond : ''}
+                      value={
+                        this.state.sentenceSecond
+                          ? this.state.sentenceSecond
+                          : ''
+                      }
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -286,13 +301,15 @@ class WordAccordion extends Component {
                 <Form.Group controlId="formGroupPassword">
                   <Accordion.Toggle as={Button} variant="link" eventKey="3">
                     sentence 3
-             </Accordion.Toggle>
+                  </Accordion.Toggle>
                   <Accordion.Collapse eventKey="3">
                     <Form.Control
                       type="text"
                       placeholder="문장"
                       onChange={this.props.handlesentenceThird}
-                      value={this.state.sentenceThird ? this.state.sentenceThird : ''}
+                      value={
+                        this.state.sentenceThird ? this.state.sentenceThird : ''
+                      }
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -301,14 +318,18 @@ class WordAccordion extends Component {
           </Modal.Body>
           <Modal.Footer>
             <div className="btn_modal_confirm">
-              <Button variant="secondary" block onClick={this.handleModalShowHide}>
+              <Button
+                variant="secondary"
+                block
+                onClick={this.handleModalShowHide}
+              >
                 취소
-            </Button>
+              </Button>
             </div>
             <div className="btn_modal_confirm">
               <Button variant="secondary" block onClick={this.saveWordData}>
                 확인
-            </Button>
+              </Button>
             </div>
           </Modal.Footer>
         </Modal>
@@ -321,19 +342,23 @@ class WordAccordion extends Component {
           <Modal.Body>확인 버튼을 누르면 단어가 삭제됩니다.</Modal.Body>
           <Modal.Footer>
             <div className="btn_modal_confirm">
-              <Button variant="secondary" block onClick={this.closeConfirmModal}>
+              <Button
+                variant="secondary"
+                block
+                onClick={this.closeConfirmModal}
+              >
                 취소
-            </Button>
+              </Button>
             </div>
             <div className="btn_modal_confirm">
               <Button variant="secondary" block onClick={this.deleteWordCard}>
                 확인
-            </Button>
+              </Button>
             </div>
           </Modal.Footer>
         </Modal>
-      </div >
-    )
+      </div>
+    );
   }
 }
 

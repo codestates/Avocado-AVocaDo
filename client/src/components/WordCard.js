@@ -87,17 +87,20 @@ function WordCard(props) {
     //
     let sentenceKey;
     // 초기에 단어만 추가하여 문장이 없을때는 키를 임의로 만들어 보낸다.
-    if (!sentences) {
-      modalSentence.map((value, index) => {
-        return (updateSentenceObj[`new${index}`] = value);
-      });
-    } else {
-      sentenceKey = Object.keys(sentences);
-    }
+    // if (!sentences) {
+    //   modalSentence.map((value, index) => {
+    //     return (updateSentenceObj[`new${index}`] = value);
+    //   });
+    // } else {
+    //   sentenceKey = Object.keys(sentences);
+    // }
+    sentenceKey = Object.keys(sentences);
+    console.log('sentenceKeyTest!!!!!!!!!!!', sentenceKey);
 
     for (let i = 0; i < sentenceKey.length; i++) {
       updateSentenceObj[sentenceKey[i]] = modalSentence[i];
     }
+    console.log('updateSentenceObjTest-------------', updateSentenceObj);
 
     let WordObject = {
       wordId: index,
@@ -108,8 +111,20 @@ function WordCard(props) {
     return WordObject;
   }
   function saveWordData() {
-    let sentencesLength = Object.keys(sentences).length;
-
+    let sentencesLength;
+    if (sentences) {
+      sentencesLength = Object.keys(sentences).length;
+    } else {
+      sentencesLength = 0;
+    }
+    console.log(
+      'saveWordDataTest!!!!!',
+      sentenceFirst,
+      '------',
+      sentenceSecond,
+      '------',
+      sentenceThird
+    );
     if (
       sentenceFirst.length === 0 &&
       sentenceSecond.length === 0 &&
@@ -134,6 +149,7 @@ function WordCard(props) {
       // 모달에서의 문장배열을 보내려는 문장배열에 mapping 시키고 싶다.
 
       const mappedWordObj = mapSentence();
+      console.log('mappedWordObjTest-------------', mappedWordObj);
       updateWordData(mappedWordObj);
     }
     closeModal();
