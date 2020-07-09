@@ -35,7 +35,6 @@ class Login extends React.Component {
       password : customId일때만 입력
 } */
     // 구글에서 로그인 하고 나서의 응답 처리
-    console.log('google res', response);
     const { tokenId, googleId } = response;
     const { name, email } = response.profileObj;
     const googleLoginData = {
@@ -45,7 +44,6 @@ class Login extends React.Component {
       userName: name,
       email,
     };
-    this.setState({ id: googleId });
 
     axios
       .post('http://54.180.104.184:8080/users/signin', googleLoginData)
@@ -80,7 +78,7 @@ class Login extends React.Component {
       userName: name,
       email,
     };
-    this.setState({ id });
+    console.log(facebookLoginData);
 
     axios
       .post('http://54.180.104.184:8080/users/signin', facebookLoginData)
