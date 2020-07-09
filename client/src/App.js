@@ -188,6 +188,7 @@ class App extends React.Component {
                   <Login
                     isLogin={isLogin}
                     handleLogin={this.handleLogin.bind(this)}
+                    handleLogout={this.handleLogout.bind(this)}
                   />
                 );
               }
