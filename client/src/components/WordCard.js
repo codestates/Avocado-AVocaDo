@@ -1,9 +1,13 @@
 /* eslint-disable */
 import React from 'react';
 import PropTypes, { func } from 'prop-types';
-import Modal_bootstrap from 'react-bootstrap/Modal';
+import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-modal';
+import Form from 'react-bootstrap/Form';
+
+import Accordion from 'react-bootstrap/Accordion'
+import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
+import _ from 'lodash';
 
 // npm install react-modal
 import '../CSS/WordCard.css';
@@ -23,41 +27,9 @@ import '../CSS/Modal_Word.css';
 해결 => modal open 할때 상태를 변경함 
 
 */
-const wordModalStyles = {
-  content: {
-    width: '500px',
-    height: 'auto',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    border: '2px solid #cccccc',
-    borderRadius: '6px',
-    backgroundColor: '#f5f6f7',
-  },
-};
-
-const confirmModalStyles = {
-  content: {
-    width: '300px',
-    height: '300px',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    border: '2px solid #cccccc',
-    borderRadius: '6px',
-    backgroundColor: '#f5f6f7',
-  },
-};
-
-Modal.setAppElement('#root');
 
 // react-modal hooks 를 사용하기 위해 function component 로 변경
+
 
 function WordCard(props) {
   const {
@@ -70,20 +42,33 @@ function WordCard(props) {
     handleInput,
     updateWordData,
     handleSentenceData,
-    handleWordCardLength,
+    addSentences,
   } = props;
 
-  console.log(`index=${index}, word=${word}`);
+  /* TODO: 
+  너무 빨라서 open 할 때 data 를 반영하지 못한다. 
+  */
+
+  const sentenceArr = _.values(sentences);
+
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [confirmModalIsOpen, setconfirmModalOpen] = React.useState(false);
-  const [modalSentences, setModalSentences] = React.useState(
-    sentences.join('\n')
-  );
+
+  // 문장 state 관리
+  const [sentenceFirst, setsentenceFirst] = React.useState(sentenceArr[0]);
+  const [sentenceSecond, setsentenceSecond] = React.useState(sentenceArr[1]);
+  const [sentenceThird, setsentenceThird] = React.useState(sentenceArr[2]);
+
   const [modalWord, setModalWord] = React.useState(word);
+
+  // sentence 가 없을 때 true 로 변경함
+  // 확인버튼 눌렀을 때 sentenceIsNull= true 면 새로운 문장을 추가하는 메서드 호출
 
   function openModal() {
     setModalWord(word);
-    setModalSentences(sentences.join('\n'));
+    // setsentenceFirst(sentenceArr[0]);
+    // setsentenceSecond(sentenceArr[1]);
+    // setsentenceThird(sentenceArr[2]);
     setIsOpen(true);
   }
 
@@ -96,32 +81,102 @@ function WordCard(props) {
     setIsOpen(false);
   }
 
-  function saveWordData(e) {
-    e.preventDefault();
-    // textarea 에 들어있는 문장을 enter 단위로 분해하여 배열에 저장
+  function mapSentence() {
+    let modalSentence = [sentenceFirst, sentenceSecond, sentenceThird];
+    let updateSentenceObj = {};
 
-    const splitSentences = modalSentences.split('\n');
-    // 저장한 배열로 전체 단어 data 상태 변화
-    handleSentenceData(modalWord, splitSentences, index);
-    // put??
-    // 서버로 뭘 보내줘야 하나?
-    // 단어와 바뀐 문장전체
-    updateWordData(modalWord, splitSentences);
+    // sentence key 와 모달 문장을 mapping 한 객체를 서버에 보낸다.
+    // 만약 단어만 있는 상태라면??
 
+    // 문장은 undifiend 일 거고
+    //
+    let sentenceKey;
+    // 초기에 단어만 추가하여 문장이 없을때는 키를 임의로 만들어 보낸다.
+    if (!sentences) {
+      modalSentence.map((value, index) => {
+        return (updateSentenceObj[`new${index}`] = value);
+      });
+    } else {
+      sentenceKey = Object.keys(sentences);
+    }
+
+    for (let i = 0; i < sentenceKey.length; i++) {
+      updateSentenceObj[sentenceKey[i]] = modalSentence[i];
+    }
+
+    let WordObject = {
+      wordId: index,
+      word: modalWord,
+      sentences: updateSentenceObj,
+    };
+
+    return WordObject;
+  }
+  function saveWordData() {
+
+    let sentencesLength = Object.keys(sentences).length;
+
+    if (
+      sentenceFirst.length === 0 &&
+      sentenceSecond.length === 0 &&
+      sentenceThird.length === 0
+    ) {
+      console.log('입력이없음');
+      return closeModal();
+    } else if (sentencesLength < 1) {
+      console.log('sentenceIsNull', sentencesLength);
+
+      return createSentences();
+    } else {
+      console.log('update');
+      // textarea 에 들어있는 문장을 enter 단위로 분해하여 배열에 저장
+
+      // 저장한 배열로 전체 단어 data 상태 변화
+      // put??
+      // 서버로 뭘 보내줘야 하나?
+      // 단어와 바뀐 문장전체
+
+      // sentences 에 키마다 문장1,문장2,문장3 으로 대체하고 싶어
+      // 모달에서의 문장배열을 보내려는 문장배열에 mapping 시키고 싶다.
+
+      const mappedWordObj = mapSentence();
+      updateWordData(mappedWordObj);
+    }
     closeModal();
   }
 
-  function handleModalSentences(e) {
-    setModalSentences(e.target.value);
+  function handlesentenceFirst(e) {
+    setsentenceFirst(e.target.value);
+  }
+
+  function handlesentenceSecond(e) {
+    setsentenceSecond(e.target.value);
+  }
+
+  function handlesentenceThird(e) {
+    setsentenceThird(e.target.value);
   }
 
   function handleModalWord(e) {
     setModalWord(e.target.value);
   }
 
+  // TODO: 처음 문장이 없었을 때만 호출하여야 함
+  function createSentences() {
+
+    let wordObj = {
+      wordId: index,
+      word: modalWord,
+      sentences: [sentenceFirst, sentenceSecond, sentenceThird],
+    };
+
+    console.log('createSentences', wordObj);
+    addSentences(wordObj);
+  }
+
   function deleteWordCard() {
-    deleteWordData(index);
-    handleWordCardLength();
+    const mappedWordObj = mapSentence();
+    deleteWordData(mappedWordObj);
     closeConfirmModal();
   }
 
@@ -132,6 +187,15 @@ function WordCard(props) {
     setconfirmModalOpen(false);
   }
 
+  function renderSentences() {
+    function renderLi(sentence, index) {
+      return <li key={index}>{sentence}</li>;
+    }
+    return _.map(sentences, renderLi);
+  }
+
+
+  // TODO: 단어는 모달에 출력이 되나 문장이 출력되고 있지 않음
   return (
     <div>
       {/* 클릭했을 때의 단어를 반영 */}
@@ -147,102 +211,135 @@ function WordCard(props) {
         ></button>
         <div className="wordcard-content" onClick={openModal}>
           <div className="word">{word}</div>
-          <ul className="sentences">
-            {sentences.map((sentence, index) => {
-              // 카드 내에 출력되는 예문이 일정 길이를 넘어가면 줄임말로 생략합니다. 
-              if (sentence.length > 20) {
-                return <li key={index}>{sentence.slice(0, 20)}...</li>;
-              } else {
-                return <li key={index}>{sentence}</li>;
-              }
-            })}
-          </ul>
+          <ul className="sentences">{renderSentences()}</ul>
         </div>
       </div>
+
+
+      {/* 부트스트랩 modal */}
+
+      <Modal show={confirmModalIsOpen} onHide={closeConfirmModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>단어를 삭제할까요?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>확인버튼을 누르면 단어가 삭제됩니다</Modal.Body>
+        <Modal.Footer>
+
+          <div className="btn_modal_confirm">
+            <Button variant="secondary" block onClick={closeConfirmModal}>
+              취소
+            </Button>
+          </div>
+          <div className="btn_modal_confirm">
+            <Button variant="secondary" block onClick={deleteWordCard}>
+              확인
+            </Button>
+          </div>
+
+        </Modal.Footer>
+      </Modal>
+      {/*부트스트랩 모달  */}
+
+      {/* 필요한 것 form, button */}
+
       {/*  */}
+      <Modal show={modalIsOpen} onHide={closeModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>예문추가</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
 
-      <Modal_bootstrap show={confirmModalIsOpen} onHide={closeConfirmModal}>
-        <Modal_bootstrap.Header closeButton>
-          <Modal_bootstrap.Title>단어를 삭제할까요?</Modal_bootstrap.Title>
-        </Modal_bootstrap.Header>
-        <Modal_bootstrap.Body>
-          확인버튼을 누르면 단어가 삭제됩니다
-        </Modal_bootstrap.Body>
-        <Modal_bootstrap.Footer>
-          <Button variant="secondary" onClick={closeConfirmModal}>
-            취소
-          </Button>
-          <Button variant="secondary" onClick={deleteWordCard}>
-            확인
-          </Button>
-        </Modal_bootstrap.Footer>
-      </Modal_bootstrap>
-      {/*  */}
+          <Form>
+            <Form.Group controlId="formGroupEmail">
+              <Form.Label>Word</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="단어추가"
+                value={modalWord}
+                onChange={handleModalWord}
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={wordModalStyles}
-        contentLabel="A! VOCADO"
-      >
-        {/* HTML <dl> 요소는 설명 목록을 나타냅니다. 
-        <dl>은 <dt>로 표기한 용어와 
-        <dd> 요소로 표기한 설명 그룹의 목록을 감싸서 설명 목록을 생성합니다. */}
-
-        {/* dl -> ul  */}
-        {/* dt -> title  */}
-        {/* dd -> content */}
-
-        <div className="modal_container">
-          <form className="modal_word_form" onSubmit={saveWordData}>
-            <h1 className="modal_heading">Create Sentences</h1>
-
-            <dl className="modal_form_group">
-              <dt>
-                <label>{'Word'}</label>
-              </dt>
-
-              <dd>
-                <input
-                  className="modal_input"
-                  value={modalWord}
-                  onChange={handleModalWord}
-                ></input>
-              </dd>
-            </dl>
-
-            <dl className="modal_form_group">
-              <dt>
-                <label>{'Sentences'}</label>
-              </dt>
-
-              <dd>
-                <textarea
-                  className="modal_textarea"
-                  value={modalSentences}
-                  onChange={handleModalSentences}
-                ></textarea>
-              </dd>
-            </dl>
-
-            <div className="modal_btn_area">
-              <input
-                type="submit"
-                title="저장"
-                alt="저장"
-                value="저장"
-                className="btn_modal btn_modal_save"
               />
-              <button
-                className="btn_modal btn_modal_cancel"
-                value="취소"
-                onClick={closeModal}
-              >
-                취소
-              </button>
-            </div>
-          </form>
-        </div>
+            </Form.Group>
+
+            <Accordion defaultActiveKey="0">
+
+              <Form.Group controlId="formGroupPassword">
+
+                <Accordion.Toggle as={Button} variant="link" eventKey="1" className="modal_sentence" > sentence 1 </Accordion.Toggle>
+
+                <Accordion.Collapse eventKey="1">
+                  <Form.Control
+                    type="text"
+                    placeholder="문장"
+                    onChange={handlesentenceFirst}
+                    value={sentenceFirst ? sentenceFirst : ''}
+                  />
+                </Accordion.Collapse>
+
+              </Form.Group>
+
+            </Accordion>
+
+            <Accordion defaultActiveKey="0">
+              <Form.Group controlId="formGroupPassword">
+
+                <Accordion.Toggle as={Button} variant="link" eventKey="2">
+                  sentence 2
+             </Accordion.Toggle>
+
+                <Accordion.Collapse eventKey="2">
+
+                  <Form.Control
+                    type="text"
+                    placeholder="문장"
+                    onChange={handlesentenceSecond}
+                    value={sentenceSecond ? sentenceSecond : ''}
+                  />
+
+                </Accordion.Collapse>
+
+              </Form.Group>
+
+            </Accordion>
+
+            <Accordion defaultActiveKey="0">
+              <Form.Group controlId="formGroupPassword">
+
+
+                <Accordion.Toggle as={Button} variant="link" eventKey="3">
+                  sentence 3
+             </Accordion.Toggle>
+
+                <Accordion.Collapse eventKey="3">
+                  <Form.Control
+                    type="text"
+                    placeholder="문장"
+                    onChange={handlesentenceThird}
+                    value={sentenceThird ? sentenceThird : ''}
+                  />
+                </Accordion.Collapse>
+
+
+
+              </Form.Group>
+
+            </Accordion>
+          </Form>
+
+        </Modal.Body>
+
+        <Modal.Footer>
+          <div className="btn_modal_confirm">
+            <Button variant="secondary" block onClick={closeModal}>
+              취소
+            </Button>
+          </div>
+          <div className="btn_modal_confirm">
+            <Button variant="secondary" block onClick={saveWordData}>
+              확인
+            </Button>
+          </div>
+        </Modal.Footer>
       </Modal>
     </div>
   );

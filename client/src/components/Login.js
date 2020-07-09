@@ -78,6 +78,21 @@ class Login extends React.Component {
     // });
   }
 
+  /* {
+  "Id": "Policy1594019842056",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1594019832384",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::avocado-client-react/*",
+      "Principal": "*"
+    }
+  ]
+} */
   responseFacebook(response) {
     /* App Not Setup: This app is still in development mode, 
     and you don't have access to it. 

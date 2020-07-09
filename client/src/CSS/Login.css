@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 body {
-  background-color: #f5f6f7;
+  background-color: #f5f6f7 !important;
 }
 
 html body,
@@ -45,6 +45,9 @@ a {
   padding: 0;
 }
 
+#root {
+  background-color: #f5f6f7;
+}
 .login_wrap {
   position: relative;
   width: 100%;
@@ -162,4 +165,8 @@ a {
 .signup_link_text {
   color: inherit;
   text-decoration: none;
+}
+
+.login_logo {
+  font-weight: bold;
 }
