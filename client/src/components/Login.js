@@ -48,7 +48,7 @@ class Login extends React.Component {
     this.setState({ id: googleId });
 
     axios
-      .post('http://localhost:8080/users/signin', googleLoginData)
+      .post('http://54.180.104.184:8080/users/signin', googleLoginData)
       .then((response) => {
         if (response.status === 401) {
           alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
@@ -99,7 +99,7 @@ class Login extends React.Component {
     this.setState({ id });
 
     axios
-      .post('http://localhost:8080/users/signin', facebookLoginData)
+      .post('http://54.180.104.184:8080/users/signin', facebookLoginData)
       .then((response) => {
         if (response.status === 401) {
           alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
@@ -179,7 +179,7 @@ class Login extends React.Component {
     //         console.error('responseGoogle', error);
     //     });
 
-    fetch('http://127.0.0.1:8080/users/signout', {
+    fetch('http://54.180.104.184:8080/users/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -217,7 +217,7 @@ class Login extends React.Component {
     };
     // url 은 test 를 위해 임의로 지정하였음 => 변경가능
     return axios
-      .post('http://localhost:8080/users/signin', loginData)
+      .post('http://54.180.104.184:8080/users/signin', loginData)
       .then((response) => {
         if (response.status === 404) {
           alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
