@@ -60,6 +60,9 @@ class App extends React.Component {
         // test 위해 넣은 code
         // 실제론 아래 TODO 로 변경해야 함
         this.setState({ wordData: res.data.data });
+      })
+      .then(() => {
+        this.getWordData();
       });
   }
 
@@ -81,8 +84,8 @@ class App extends React.Component {
         console.log(res);
         this.setState({ wordData: res.data.data });
       })
-      .catch((e) => {
-        console.log('updateWordData', e);
+      .then(() => {
+        this.getWordData();
       });
   }
   // res.config.data / res.data.data
@@ -103,8 +106,8 @@ class App extends React.Component {
         console.log(res);
         this.setState({ wordData: res.data.data });
       })
-      .catch((e) => {
-        console.log('updateWordData', e);
+      .then(() => {
+        this.getWordData();
       });
   }
 
@@ -124,6 +127,9 @@ class App extends React.Component {
       })
       .then((res) => {
         this.setState({ wordData: res.data.data });
+      })
+      .then(() => {
+        this.getWordData();
       });
     // wordId 가 배열 index 보다 1 크기 때문에 조정함
   }
