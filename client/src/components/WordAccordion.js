@@ -15,7 +15,6 @@ class WordAccordion extends Component {
     super(props);
 
     this.sentenceArr = _.values(this.props.sentences);
-
     this.state = {
       articles: [],
       showHide: false,
@@ -43,34 +42,31 @@ class WordAccordion extends Component {
       });
   }
 
-  handlesentenceFirst = (e) => {
-    this.setState({
-      sentenceFirst: e.target.value,
-    });
-  };
-  handlesentenceSecond = (e) => {
-    this.setState({
-      sentenceSecond: e.target.value,
-    });
-  };
-  handlesentenceThird = (e) => {
-    this.setState({
-      sentenceThird: e.target.value,
-    });
-  };
-  handleModalWord = (e) => {
-    this.setState({
-      modalWord: e.target.value,
-    });
-  };
-
   handleModalShowHide = () => {
+    // TODO: 모달창 열때 상태변경해줌
+    let sentenceArr = _.values(this.props.sentences);
+    this.setState({
+      modalWord: this.props.word,
+      sentenceFirst: sentenceArr[0],
+      sentenceSecond: sentenceArr[1],
+      sentenceThird: sentenceArr[2],
+    });
+
     this.setState({ showHide: !this.state.showHide });
   };
 
   handleConfirmShowHide = () => {
     this.setState({ confirmShowHide: !this.state.confirmShowHide });
   };
+
+  handleSentences(sentenceArr) {
+    let wordObj = {
+      wordId: this.props.index,
+      word: this.state.modalWord,
+      sentences: _.values(sentenceArr),
+    };
+    this.props.addSentences(wordObj);
+  }
 
   mapSentence = () => {
     let modalSentence = [
@@ -102,34 +98,6 @@ class WordAccordion extends Component {
 
     return WordObject;
   };
-
-  // saveWordData = () => {
-  //   let sentencesLength = Object.keys(this.props.sentences).length;
-
-  //   if (
-  //     this.state.sentenceFirst.length === 0 &&
-  //     this.state.sentenceSecond.length === 0 &&
-  //     this.state.sentenceThird.length === 0
-  //   ) {
-  //     return this.handleModalShowHide();
-  //   } else if (sentencesLength < 1) {
-  //     return this.createSentences();
-  //   } else {
-  //     const mappedWordObj = this.mapSentence();
-  //     this.props.updateWordData(mappedWordObj);
-  //   }
-  //   this.handleModalShowHide();
-  // };
-
-  handleSentences(sentenceArr) {
-    let wordObj = {
-      wordId: this.props.index,
-      word: this.state.modalWord,
-      sentences: _.values(sentenceArr),
-    };
-    console.log('createSentences', wordObj);
-    this.props.addSentences(wordObj);
-  }
 
   saveWordData = () => {
     // let sentencesLength = Object.keys(this.props.sentences).length;
@@ -172,19 +140,16 @@ class WordAccordion extends Component {
       sentenceFirst: e.target.value,
     });
   };
-
   handlesentenceSecond = (e) => {
     this.setState({
       sentenceSecond: e.target.value,
     });
   };
-
   handlesentenceThird = (e) => {
     this.setState({
       sentenceThird: e.target.value,
     });
   };
-
   handleModalWord = (e) => {
     this.setState({
       modalWord: e.target.value,
@@ -223,11 +188,14 @@ class WordAccordion extends Component {
   };
 
   renderSentences = () => {
+    this.setState({});
     function renderLi(sentence, index) {
       return <li key={index}>• {sentence}</li>;
     }
     return _.map(this.props.sentences, renderLi);
   };
+
+  componentDidMount() {}
 
   render() {
     // const { word, sentences, index } = this.props
@@ -239,7 +207,7 @@ class WordAccordion extends Component {
               <div className="toggle_section">
                 <div className="word_btn_section">
                   <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                    <div className="word_btn">{this.state.modalWord}</div>
+                    <div className="word_btn">{this.props.word}</div>
                   </Accordion.Toggle>
                 </div>
                 <div className="modal_btn_section">
