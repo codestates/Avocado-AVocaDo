@@ -1,27 +1,31 @@
-/* eslint-disable */
-const { words } = require('../../models/users');
-const dummy = require('../../models/dummy');
+const { Word, Sentence } = require('../../models');
+const { getAllData } = require('./getAllData');
 
 module.exports = {
   delete: (req, res) => {
-    // const { word } = req.body;
-
-    // if (req.session) {
-    //   if (word in dummy['data']) {
-    //     delete dummy['data'][word];
-    //   }
-    //   res.status(200).json(dummy);
-    // } else {
-    //   res.status(401).send('need user session');
-    // }
-    const { wordId } = req.body;
-
+    const { wordId, sentenceId } = req.body;
     if (req.session.userId) {
-      let obj = {};
-      dummy['data'].splice(wordId, 1);
-      res.status(200).json(dummy);
-    } else {
-      res.status(401).send('invalid user');
+      if (sentenceId) {
+        Promise.all(
+          sentenceId.map((id) => {
+            return Sentence.destroy({
+              where: {
+                id,
+              },
+            });
+          })
+        ).then(() => {
+          getAllData(req.session.userId, res, 200);
+        });
+      } else {
+        Word.destroy({
+          where: {
+            id: wordId,
+          },
+        }).then(() => {
+          getAllData(req.session.userId, res, 200);
+        });
+      }
     }
   },
 };

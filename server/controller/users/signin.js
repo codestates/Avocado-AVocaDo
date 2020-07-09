@@ -1,9 +1,7 @@
 /* eslint-disable */
 // const { users } = require('../../models');
 // const crypto = require('crypto');
-
 const request = require('request');
-
 const { User } = require('../../models');
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../../../.env') });
@@ -27,14 +25,11 @@ module.exports = {
       }).then((data) => {
         if (data) {
           accept(data.id);
-
         } else {
-          loginType = null;
-          res.status(401).send('unvalid user');
+          res.status(401).send('invalid user');
         }
-      }
+      });
     }
-
 
     if (loginType === 'facebook') {
       //facebook verification
@@ -68,7 +63,6 @@ module.exports = {
       );
     }
 
-
     if (loginType === 'google') {
       //google verification
       //if verified- give token
@@ -76,11 +70,9 @@ module.exports = {
         `https://oauth2.googleapis.com/tokeninfo?id_token=${tokenId}`,
         (error, response, body) => {
           if (error) {
-            res.status(401).send('unvalid user');
-            loginType = null;
+            res.status(401).send('invalid user');
           } else {
             if (JSON.parse(body).error) {
-
               res.status(401).send('invalid user');
             } else {
               User.findOrCreate({
@@ -93,7 +85,6 @@ module.exports = {
               }).then((data) => {
                 accept(data[0].id);
               });
-
             }
           }
         }
@@ -103,12 +94,10 @@ module.exports = {
     // if (userId not in database)
     // add a new user to database
 
-    if (loginType && userId) {
-      req.session.userId = userId;
+    function accept(id) {
+      req.session.userId = id;
       req.session.loginType = loginType;
       res.status(200).end();
-    } else {
-      res.status(401).send('unvalid user');
     }
   },
 };
