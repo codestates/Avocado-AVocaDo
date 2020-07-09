@@ -36,9 +36,6 @@ module.exports = {
       request.get(
         `https://graph.facebook.com/debug_token?input_token=${tokenId}&access_token=${access_token}`,
         (error, response, body) => {
-          if (error) {
-            res.status(401).send('invalid user');
-          }
           try {
             if (!JSON.parse(body).data.is_valid) {
               res.status(401).send('invalid user');
