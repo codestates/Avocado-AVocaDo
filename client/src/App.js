@@ -38,19 +38,22 @@ class App extends React.Component {
     console.log('handleLogout', this.state);
   }
   getWordData() {
+    var wordArr;
     const url = 'http://54.180.104.184:8080/words';
-    return axios.get(url).then((res) => {
-      const wordArr = _.map(res.data.data, function (wordObj) {
-        return _.values(wordObj.word)[0];
-      })
-        .then((res) => {
-          this.setState({ wordData: res.data.data });
-        })
-        .then(() => {
-          this.setState({ word: wordArr });
-          console.log('getWordData', res.data.data);
+    return axios
+      .get(url)
+      .then((res) => {
+        wordArr = _.map(res.data.data, function (wordObj) {
+          return _.values(wordObj.word)[0];
         });
-    });
+        return res;
+      })
+      .then((res) => {
+        this.setState({ wordData: res.data.data });
+      })
+      .then(() => {
+        this.setState({ word: wordArr });
+      });
   }
   postInputWord() {
     // post 요청: 유저가 입력한 새로운 단어/예문을 서버에 전송한다.
@@ -143,7 +146,7 @@ class App extends React.Component {
   // 전달인자로 받아서 반영하면 되지 않나??
 
   componentDidMount() {
-    // this.getWordData();
+    this.getWordData();
   }
 
   render() {
