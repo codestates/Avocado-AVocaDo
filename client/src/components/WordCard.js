@@ -4,9 +4,11 @@ import PropTypes, { func } from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Accordion from 'react-bootstrap/Accordion'
+
+import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
 import _ from 'lodash';
+
 // npm install react-modal
 import '../CSS/WordCard.css';
 import '../CSS/Modal_Word.css';
@@ -27,7 +29,6 @@ import '../CSS/Modal_Word.css';
 */
 
 // react-modal hooks 를 사용하기 위해 function component 로 변경
-
 
 function WordCard(props) {
   const {
@@ -111,7 +112,6 @@ function WordCard(props) {
     return WordObject;
   }
   function saveWordData() {
-
     let sentencesLength = Object.keys(sentences).length;
 
     if (
@@ -161,7 +161,6 @@ function WordCard(props) {
 
   // TODO: 처음 문장이 없었을 때만 호출하여야 함
   function createSentences() {
-
     let wordObj = {
       wordId: index,
       word: modalWord,
@@ -191,7 +190,6 @@ function WordCard(props) {
     }
     return _.map(sentences, renderLi);
   }
-
 
   // TODO: 단어는 모달에 출력이 되나 문장이 출력되고 있지 않음
   return (
@@ -243,7 +241,6 @@ function WordCard(props) {
           <Modal.Title>예문추가</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
           <Form>
             <Form.Group controlId="formGroupEmail">
               <Form.Label>Word</Form.Label>
@@ -256,10 +253,16 @@ function WordCard(props) {
             </Form.Group>
 
             <Accordion defaultActiveKey="0">
-
               <Form.Group controlId="formGroupPassword">
-
-                <Accordion.Toggle as={Button} variant="link" eventKey="1" className="modal_sentence" > sentence 1 </Accordion.Toggle>
+                <Accordion.Toggle
+                  as={Button}
+                  variant="link"
+                  eventKey="1"
+                  className="modal_sentence"
+                >
+                  {' '}
+                  sentence 1{' '}
+                </Accordion.Toggle>
 
                 <Accordion.Collapse eventKey="1">
                   <Form.Control
@@ -269,40 +272,31 @@ function WordCard(props) {
                     value={sentenceFirst ? sentenceFirst : ''}
                   />
                 </Accordion.Collapse>
-
               </Form.Group>
-
             </Accordion>
 
             <Accordion defaultActiveKey="0">
               <Form.Group controlId="formGroupPassword">
-
                 <Accordion.Toggle as={Button} variant="link" eventKey="2">
                   sentence 2
-             </Accordion.Toggle>
+                </Accordion.Toggle>
 
                 <Accordion.Collapse eventKey="2">
-
                   <Form.Control
                     type="text"
                     placeholder="문장"
                     onChange={handlesentenceSecond}
                     value={sentenceSecond ? sentenceSecond : ''}
                   />
-
                 </Accordion.Collapse>
-
               </Form.Group>
-
             </Accordion>
 
             <Accordion defaultActiveKey="0">
               <Form.Group controlId="formGroupPassword">
-
-
                 <Accordion.Toggle as={Button} variant="link" eventKey="3">
                   sentence 3
-             </Accordion.Toggle>
+                </Accordion.Toggle>
 
                 <Accordion.Collapse eventKey="3">
                   <Form.Control
@@ -312,14 +306,9 @@ function WordCard(props) {
                     value={sentenceThird ? sentenceThird : ''}
                   />
                 </Accordion.Collapse>
-
-
-
               </Form.Group>
-
             </Accordion>
           </Form>
-
         </Modal.Body>
 
         <Modal.Footer>
