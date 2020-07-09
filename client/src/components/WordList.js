@@ -33,7 +33,7 @@ class WordList extends React.Component {
     const { pageSize, currentPage, wordData: allData } = this.state;
 
     const words = paginate(allData, currentPage, pageSize);
-    console.log('words------', words)
+
     // pagenation 이후에도 모달창을 사용할 수 있도록 index 를 조정하였음
     // const indexCoefficient = (currentPage - 1) * pageSize;
     return (
