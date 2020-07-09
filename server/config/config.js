@@ -8,6 +8,12 @@ module.exports = {
     database: 'dev',
     host: '127.0.0.1',
     dialect: 'mysql',
+    dialectOptions: {
+      useUTC: false,
+      dateStrings: true,
+      typeCast: true,
+    },
+    timezone: '+09:00',
   },
   test: {
     username: 'root',
@@ -22,5 +28,11 @@ module.exports = {
     database: 'avocado',
     host: process.env.DATABASE_PRODUCTION_HOST,
     dialect: 'mysql',
+    dialectOptions: {
+      useUTC: false,
+      dateStrings: true,
+      typeCast: true,
+    },
+    timezone: '+09:00',
   },
 };
