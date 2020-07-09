@@ -40,13 +40,16 @@ class App extends React.Component {
   getWordData() {
     const url = 'http://54.180.104.184:8080/words';
     return axios.get(url).then((res) => {
-      let wordArr = _.map(res.data.data, function (wordObj) {
+      const wordArr = _.map(res.data.data, function (wordObj) {
         return _.values(wordObj.word)[0];
-      });
-      console.log('getWordData', res.data.data);
-      // wordObj.word => {1:'apple',2:'d'} = [apple,d]
-      this.setState({ word: wordArr });
-      this.setState({ wordData: res.data.data });
+      })
+        .then((res) => {
+          this.setState({ wordData: res.data.data });
+        })
+        .then(() => {
+          this.setState({ word: wordArr });
+          console.log('getWordData', res.data.data);
+        });
     });
   }
   postInputWord() {
@@ -153,9 +156,8 @@ class App extends React.Component {
           <Route
             exact
             path="/"
-            render={async () => {
+            render={() => {
               if (isLogin) {
-                await this.getWordData();
                 return <Redirect to="/main" />;
               } else {
                 return (
