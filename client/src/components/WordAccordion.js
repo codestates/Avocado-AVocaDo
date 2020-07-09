@@ -14,15 +14,15 @@ class WordAccordion extends Component {
   constructor(props) {
     super(props)
 
-    const sentenceArr = _.values(this.props.sentences);
+    // const sentenceArr = _.values(this.props.sentences);
 
     this.state = {
       articles: [],
       showHide: false,
       confirmShowHide: false,
-      sentenceFirst: sentenceArr[0],
-      sentenceSecond: sentenceArr[1],
-      sentenceThird: sentenceArr[2],
+      sentenceFirst: this.props.sentences[0],
+      sentenceSecond: this.props.sentences[1],
+      sentenceThird: this.props.sentences[2],
       modalWord: this.props.word
     }
   }
@@ -90,7 +90,7 @@ class WordAccordion extends Component {
       this.state.sentenceThird.length === 0
     ) {
       console.log('입력이없음');
-      return this.closeModal();
+      return this.handleModalShowHide();
     } else if (sentencesLength < 1) {
       console.log('sentenceIsNull', sentencesLength);
 
@@ -168,7 +168,7 @@ class WordAccordion extends Component {
 
   render() {
     console.log('WordAccordion', this.props);
-    console.log('open', this.state.modalIsOpen)
+    console.log('sentences', this.props.sentences)
     // const { word, sentences, index } = this.props
     return (
       < div className="accordion_area" >
@@ -198,10 +198,6 @@ class WordAccordion extends Component {
                   </div>
                 </div>
               </Accordion.Toggle>
-              <div
-                className="edit_btn">
-                🥑
-                </div>
             </Card.Header>
             <Accordion.Collapse eventKey="1">
               <Card.Body>
@@ -234,7 +230,7 @@ class WordAccordion extends Component {
         {/* 아보카도 클릭 시 열리는 모달 */}
         <Modal show={this.state.showHide}>
           <Modal.Header closeButton onClick={this.handleModalShowHide}>
-            <Modal.Title>예문추가</Modal.Title>
+            <Modal.Title>예문 추가</Modal.Title>
           </Modal.Header>
           <Modal.Body>
 
@@ -243,7 +239,7 @@ class WordAccordion extends Component {
                 <Form.Label>Word</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="단어추가"
+                  placeholder="단어 추가"
                   value={this.props.modalWord}
                   onChange={this.props.handleModalWord}
                 />
@@ -257,7 +253,7 @@ class WordAccordion extends Component {
                       type="text"
                       placeholder="문장"
                       onChange={this.props.handlesentenceFirst}
-                      value={this.props.sentenceFirst ? this.props.sentenceFirst : ''}
+                      value={this.state.sentenceFirst ? this.state.sentenceFirst : ''}
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -273,7 +269,7 @@ class WordAccordion extends Component {
                       type="text"
                       placeholder="문장"
                       onChange={this.props.handlesentenceSecond}
-                      value={this.props.sentenceSecond ? this.props.sentenceSecond : ''}
+                      value={this.state.sentenceSecond ? this.state.sentenceSecond : ''}
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -289,7 +285,7 @@ class WordAccordion extends Component {
                       type="text"
                       placeholder="문장"
                       onChange={this.props.handlesentenceThird}
-                      value={this.props.sentenceThird ? this.props.sentenceThird : ''}
+                      value={this.state.sentenceThird ? this.state.sentenceThird : ''}
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -315,7 +311,7 @@ class WordAccordion extends Component {
           <Modal.Header closeButton onClick={this.handleConfirmShowHide}>
             <Modal.Title>단어를 삭제할까요?</Modal.Title>
           </Modal.Header>
-          <Modal.Body>확인버튼을 누르면 단어가 삭제됩니다</Modal.Body>
+          <Modal.Body>확인 버튼을 누르면 단어가 삭제됩니다.</Modal.Body>
           <Modal.Footer>
             <div className="btn_modal_confirm">
               <Button variant="secondary" block onClick={this.closeConfirmModal}>

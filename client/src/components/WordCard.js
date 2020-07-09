@@ -222,7 +222,7 @@ function WordCard(props) {
         <Modal.Header closeButton>
           <Modal.Title>단어를 삭제할까요?</Modal.Title>
         </Modal.Header>
-        <Modal.Body>확인버튼을 누르면 단어가 삭제됩니다</Modal.Body>
+        <Modal.Body>확인 버튼을 누르면 단어가 삭제됩니다.</Modal.Body>
         <Modal.Footer>
 
           <div className="btn_modal_confirm">
@@ -245,7 +245,7 @@ function WordCard(props) {
       {/*  */}
       <Modal show={modalIsOpen} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>예문추가</Modal.Title>
+          <Modal.Title>예문 추가</Modal.Title>
         </Modal.Header>
         <Modal.Body>
 
@@ -254,7 +254,7 @@ function WordCard(props) {
               <Form.Label>Word</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="단어추가"
+                placeholder="단어 추가"
                 value={modalWord}
                 onChange={handleModalWord}
 
