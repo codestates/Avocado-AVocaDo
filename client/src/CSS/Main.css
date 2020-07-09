@@ -95,10 +95,10 @@
 
 .wordcardstack_notice_area {
   display: flex;
-  justify-content: flex-end;
-  width: 800px;
+  justify-content: flex-start;
+  width: 900px;
   margin: 0 auto;
-  height: 10vh;
+  height: 8vh;
 }
 
 .wordcardstack_area {
