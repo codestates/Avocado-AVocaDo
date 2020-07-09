@@ -1,12 +1,20 @@
 /* eslint-disable */
 import React from 'react';
 import PropTypes, { func } from 'prop-types';
+<<<<<<< HEAD
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Accordion  from 'react-bootstrap/Accordion'
 import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
 import _ from 'lodash';
+=======
+import Modal_bootstrap from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-modal';
+
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
 // npm install react-modal
 import '../CSS/WordCard.css';
 import '../CSS/Modal_Word.css';
@@ -41,6 +49,27 @@ const wordModalStyles = {
   },
 };
 
+<<<<<<< HEAD
+=======
+const confirmModalStyles = {
+  content: {
+    width: '300px',
+    height: '300px',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    border: '2px solid #cccccc',
+    borderRadius: '6px',
+    backgroundColor: '#f5f6f7',
+  },
+};
+
+Modal.setAppElement('#root');
+
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
 // react-modal hooks 를 사용하기 위해 function component 로 변경
 
 function WordCard(props) {
@@ -54,6 +83,7 @@ function WordCard(props) {
     handleInput,
     updateWordData,
     handleSentenceData,
+<<<<<<< HEAD
     addSentences,
   } = props;
 
@@ -82,6 +112,22 @@ function WordCard(props) {
     // setsentenceFirst(sentenceArr[0]);
     // setsentenceSecond(sentenceArr[1]);
     // setsentenceThird(sentenceArr[2]);
+=======
+    handleWordCardLength,
+  } = props;
+
+  console.log(`index=${index}, word=${word}`);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [confirmModalIsOpen, setconfirmModalOpen] = React.useState(false);
+  const [modalSentences, setModalSentences] = React.useState(
+    sentences.join('\n')
+  );
+  const [modalWord, setModalWord] = React.useState(word);
+
+  function openModal() {
+    setModalWord(word);
+    setModalSentences(sentences.join('\n'));
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
     setIsOpen(true);
   }
 
@@ -94,6 +140,7 @@ function WordCard(props) {
     setIsOpen(false);
   }
 
+<<<<<<< HEAD
   function mapSentence() {
     let modalSentence = [sentenceFirst, sentenceSecond, sentenceThird];
     let updateSentenceObj = {};
@@ -168,12 +215,32 @@ function WordCard(props) {
 
   function handlesentenceThird(e) {
     setsentenceThird(e.target.value);
+=======
+  function saveWordData(e) {
+    e.preventDefault();
+    // textarea 에 들어있는 문장을 enter 단위로 분해하여 배열에 저장
+
+    const splitSentences = modalSentences.split('\n');
+    // 저장한 배열로 전체 단어 data 상태 변화
+    handleSentenceData(modalWord, splitSentences, index);
+    // put??
+    // 서버로 뭘 보내줘야 하나?
+    // 단어와 바뀐 문장전체
+    updateWordData(modalWord, splitSentences);
+
+    closeModal();
+  }
+
+  function handleModalSentences(e) {
+    setModalSentences(e.target.value);
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
   }
 
   function handleModalWord(e) {
     setModalWord(e.target.value);
   }
 
+<<<<<<< HEAD
   // TODO: 처음 문장이 없었을 때만 호출하여야 함
   function createSentences() {
 
@@ -190,6 +257,11 @@ function WordCard(props) {
   function deleteWordCard() {
     const mappedWordObj = mapSentence();
     deleteWordData(mappedWordObj);
+=======
+  function deleteWordCard() {
+    deleteWordData(index);
+    handleWordCardLength();
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
     closeConfirmModal();
   }
 
@@ -198,6 +270,7 @@ function WordCard(props) {
   }
   function closeConfirmModal() {
     setconfirmModalOpen(false);
+<<<<<<< HEAD
   }
 
   function renderSentences() {
@@ -234,6 +307,10 @@ function WordCard(props) {
   }
   
   // TODO: 단어는 모달에 출력이 되나 문장이 출력되고 있지 않음
+=======
+  }
+
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
   return (
     <div>
       {/* 클릭했을 때의 단어를 반영 */}
@@ -249,18 +326,42 @@ function WordCard(props) {
         ></button>
         <div className="wordcard-content" onClick={openModal}>
           <div className="word">{word}</div>
+<<<<<<< HEAD
           <ul className="sentences">{renderSentences()}</ul>
+=======
+          <ul className="sentences">
+            {sentences.map((sentence, index) => {
+              // 카드 내에 출력되는 예문이 일정 길이를 넘어가면 줄임말로 생략합니다. 
+              if (sentence.length > 20) {
+                return <li key={index}>{sentence.slice(0, 20)}...</li>;
+              } else {
+                return <li key={index}>{sentence}</li>;
+              }
+            })}
+          </ul>
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
         </div>
       </div>
 
       {/* 부트스트랩 modal */}
 
+<<<<<<< HEAD
       <Modal show={confirmModalIsOpen} onHide={closeConfirmModal}>
         <Modal.Header closeButton>
           <Modal.Title>단어를 삭제할까요?</Modal.Title>
         </Modal.Header>
         <Modal.Body>확인버튼을 누르면 단어가 삭제됩니다</Modal.Body>
         <Modal.Footer>
+=======
+      <Modal_bootstrap show={confirmModalIsOpen} onHide={closeConfirmModal}>
+        <Modal_bootstrap.Header closeButton>
+          <Modal_bootstrap.Title>단어를 삭제할까요?</Modal_bootstrap.Title>
+        </Modal_bootstrap.Header>
+        <Modal_bootstrap.Body>
+          확인버튼을 누르면 단어가 삭제됩니다
+        </Modal_bootstrap.Body>
+        <Modal_bootstrap.Footer>
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
           <div className="btn_modal_confirm">
             <Button variant="secondary" block onClick={closeConfirmModal}>
               취소
@@ -271,17 +372,31 @@ function WordCard(props) {
               확인
             </Button>
           </div>
+<<<<<<< HEAD
         </Modal.Footer>
       </Modal>
+=======
+        </Modal_bootstrap.Footer>
+      </Modal_bootstrap>
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
       {/*부트스트랩 모달  */}
 
       {/* 필요한 것 form, button */}
 
       {/*  */}
+<<<<<<< HEAD
       <Modal show={modalIsOpen} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>예문추가</Modal.Title>
         </Modal.Header>
+=======
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={wordModalStyles}
+        contentLabel="A! VOCADO"
+      >
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
         {/* HTML <dl> 요소는 설명 목록을 나타냅니다. 
         <dl>은 <dt>로 표기한 용어와 
         <dd> 요소로 표기한 설명 그룹의 목록을 감싸서 설명 목록을 생성합니다. */}
@@ -289,6 +404,7 @@ function WordCard(props) {
         {/* dl -> ul  */}
         {/* dt -> title  */}
         {/* dd -> content */}
+<<<<<<< HEAD
         <Modal.Body>
 
           <Form>
@@ -375,6 +491,69 @@ function WordCard(props) {
             </Button>
           </div>
         </Modal.Footer>
+=======
+
+        <div className="modal_container">
+          <Form>
+            <Form.Group controlId="formGroupEmail">
+              <Form.Label>Word</Form.Label>
+              <Form.Control type="text" placeholder="Enter email" />
+            </Form.Group>
+            <Form.Group controlId="formGroupPassword">
+              <Form.Label>Sentence</Form.Label>
+              <Form.Control type="text" placeholder="Password" />
+            </Form.Group>
+          </Form>
+          <form className="modal_word_form" onSubmit={saveWordData}>
+            <h1 className="modal_heading">Create Sentences</h1>
+
+            <dl className="modal_form_group">
+              <dt>
+                <label>{'Word'}</label>
+              </dt>
+
+              <dd>
+                <input
+                  className="modal_input"
+                  value={modalWord}
+                  onChange={handleModalWord}
+                ></input>
+              </dd>
+            </dl>
+
+            <dl className="modal_form_group">
+              <dt>
+                <label>{'Sentences'}</label>
+              </dt>
+
+              <dd>
+                <textarea
+                  className="modal_textarea"
+                  value={modalSentences}
+                  onChange={handleModalSentences}
+                ></textarea>
+              </dd>
+            </dl>
+
+            <div className="modal_btn_area">
+              <input
+                type="submit"
+                title="저장"
+                alt="저장"
+                value="저장"
+                className="btn_modal btn_modal_save"
+              />
+              <button
+                className="btn_modal btn_modal_cancel"
+                value="취소"
+                onClick={closeModal}
+              >
+                취소
+              </button>
+            </div>
+          </form>
+        </div>
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
       </Modal>
     </div>
   );

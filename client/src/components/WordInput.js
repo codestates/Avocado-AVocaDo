@@ -1,9 +1,8 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import PropTypes, { func } from 'prop-types';
+import PropTypes from 'prop-types';
 import '../CSS/Main.css';
 import kmp from 'kmp-matcher';
-import _ from 'lodash';
 class WordInput extends Component {
   constructor(props) {
     super(props);
@@ -13,19 +12,18 @@ class WordInput extends Component {
   }
   submitWord(e) {
     e.preventDefault();
+    const findingWord = `"word":"${this.props.currentWord}"`;
 
-    const findingWord = this.props.currentWord;
+    const searchResult =
+      kmp.kmp(JSON.stringify(this.props.wordData), findingWord).length > 0;
 
-    let findResult = _.find(this.props.word, function (word) {
-      return word === findingWord;
-    });
-
-    if (findResult) {
+    const wordDataLength = this.props.wordData.length;
+    if (searchResult) {
       alert('이미 단어장에 있는 단어입니다!');
-      document.querySelector('.word_input').value = '';
     } else {
-      // TODO: 무조건 서버에 보내고 get 으로 받아서 data 를 초기화 시켜야 함
-      this.props.postInputWord();
+      this.props.addWordData();
+      this.props.postInputWord(wordDataLength);
+      this.props.handleWordCardLength();
     }
 
     document.querySelector('.word_input').value = '';

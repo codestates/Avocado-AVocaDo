@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -22,16 +21,13 @@ function Pagination(props) {
           {pages.map((page) => (
             <li
               key={page}
-              className={
-                page === currentPage ? 'page-item active' : 'page-item'
-              }
+              className={page === currentPage ? 'page-item active' : 'page-item'}
               style={{ cursor: 'pointer' }}
             >
               <a
                 href="#"
                 className="page-link"
-                onClick={() => onPageChange(page)}
-              >
+                onClick={() => onPageChange(page)}>
                 {page}
               </a>
             </li>
@@ -42,11 +38,11 @@ function Pagination(props) {
   );
 }
 
-// Pagination.propTypes = {
-//   itemsCount: PropTypes.string.isRequired,
-//   pageSize: PropTypes.string.isRequired,
-//   currentPage: PropTypes.string.isRequired,
-//   onPageChange: PropTypes.func.isRequired,
-// };
+Pagination.propTypes = {
+  itemsCount: PropTypes.string.isRequired,
+  pageSize: PropTypes.string.isRequired,
+  currentPage: PropTypes.string.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};
 
 export default Pagination;

@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 /* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import WordAccordion from './WordAccordion';
 import WordCard from './WordCard';
+=======
+import React from 'react';
+import PropTypes from 'prop-types';
+import WordAccordion from './WordAccordion';
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
 import Pagination from './Pagination';
 import { paginate } from '../utils/paginate';
 import '../CSS/Wordbook.css';
@@ -12,6 +18,10 @@ class WordList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
+=======
+      wordData: this.props.wordData,
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
       pageSize: 5,
       currentPage: 1,
     };
@@ -23,13 +33,19 @@ class WordList extends React.Component {
 
   render() {
     const {
+<<<<<<< HEAD
       userInfo,
       handleLogout,
       wordData,
+=======
+      wordData,
+      postInputWord,
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
       updateWordData,
       deleteWordData,
       handleSentenceData,
       handleWordCardLength,
+<<<<<<< HEAD
       word,
       isLogin,
       currentWord,
@@ -40,12 +56,21 @@ class WordList extends React.Component {
     const { pageSize, currentPage } = this.state;
 
     const words = paginate(wordData, currentPage, pageSize);
+=======
+    } = this.props;
+    const { length: count } = wordData;
+    const { pageSize, currentPage, wordData: allData } = this.state;
+
+    const words = paginate(allData, currentPage, pageSize);
+
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
     // pagenation 이후에도 모달창을 사용할 수 있도록 index 를 조정하였음
     // const indexCoefficient = (currentPage - 1) * pageSize;
     return (
       <React.Fragment>
         <div className="wordlist_wrap">
           <div className="wordlist_stack">
+<<<<<<< HEAD
             {
               /*     words
                     ? words.map((word, index) => {
@@ -87,6 +112,20 @@ class WordList extends React.Component {
                 })
                 : 'noWord!'
             }
+=======
+            {words
+              ? words.map((word, index) => {
+                return (
+                  <WordAccordion
+                    defaultActiveKey="0"
+                    key={index}
+                    word={word.word}
+                    sentences={word.sentences}>
+                  </WordAccordion>
+                );
+              })
+              : 'noWord!'}
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
           </div>
         </div>
         <Pagination
@@ -100,6 +139,7 @@ class WordList extends React.Component {
   }
 }
 
+<<<<<<< HEAD
 // WordList.propTypes = {
 //   addWordData: PropTypes.func.isRequired,
 //   handleInput: PropTypes.func.isRequired,
@@ -110,5 +150,17 @@ class WordList extends React.Component {
 //   deleteWordData: PropTypes.func.isRequired,
 //   handleWordCardLength: PropTypes.func.isRequired,
 // };
+=======
+WordList.propTypes = {
+  addWordData: PropTypes.func.isRequired,
+  handleInput: PropTypes.func.isRequired,
+  handleSentenceData: PropTypes.func.isRequired,
+  wordData: PropTypes.object.isRequired,
+  postInputWord: PropTypes.func.isRequired,
+  updateWordData: PropTypes.func.isRequired,
+  deleteWordData: PropTypes.func.isRequired,
+  handleWordCardLength: PropTypes.func.isRequired,
+};
+>>>>>>> 7f60deb94142da22f4d6718c500ecdbca7aa331d
 
 export default WordList;

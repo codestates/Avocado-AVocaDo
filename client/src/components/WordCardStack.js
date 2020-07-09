@@ -17,17 +17,14 @@ class WordCardStack extends React.Component {
       deleteWordData,
       handleInput,
       handleSentenceData,
-      addSentences,
+      handleWordCardLength,
     } = this.props;
-    console.log('WordCardStack', this.props);
+    console.log('확인!2', this.props);
+    console.log('handleSentenseData', handleSentenceData);
 
     // option 1) 최신순 6개 렌더링 
-    var recenteData;
-    if (wordData) {
-     recenteData = wordData.slice(-6, wordData.length);
-    }
+    const recenteData = wordData.slice(-6, wordData.length);
 
-    console.log('recenteData', recenteData);
     // option 2) 10일 이내 전부 렌더링
     // function filterByDate() {
     //   const now = new Date();
@@ -46,25 +43,21 @@ class WordCardStack extends React.Component {
           최근 등록된 단어만 표시됩니다.
         </div>
         <div className="wordcardstack_area">
-          {recenteData
+          {wordData
             ? recenteData.map((word, index) => {
-              let wordValue;
-              let wordKey = Object.keys(word.word)[0];
-              for (let i in word.word) {
-                wordValue = word.word[i];
-              }
-
               return (
                 <WordCard
-                key={wordKey}
-                word={wordValue}
-                sentences={word.sentences}
-                index={wordKey}
-                updateWordData={updateWordData}
-                deleteWordData={deleteWordData}
-                handleSentenceData={handleSentenceData}
-                addSentences={addSentences}
-              />
+                  key={index}
+                  word={word.word}
+                  sentences={word.sentences}
+                  index={index}
+                  postInputWord={postInputWord}
+                  updateWordData={updateWordData}
+                  deleteWordData={deleteWordData}
+                  addWordData={addWordData}
+                  handleInput={handleInput}
+                  handleSentenceData={handleSentenceData}
+                />
               );
             })
             : 'noWord!'}
