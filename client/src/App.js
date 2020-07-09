@@ -18,10 +18,55 @@ class App extends React.Component {
       currentWord: null,
       wordData: [
         {
-          wordId: 1,
-          word: 'apple',
-          sentences: ['I like apple', 'I hate apple'],
-        }
+          word: { 1: 'apple' },
+          updatedAt: String(new Date().toUTCString()),
+          sentences: {},
+        },
+        {
+          word: { 2: 'banana' },
+          updatedAt: String(new Date().toUTCString()),
+          sentences: { 1: '1', 2: '2', 11: '11' },
+        },
+        {
+          word: { 3: '3' },
+          updatedAt: String(new Date().toUTCString()),
+          sentences: { 3: '3', 4: '4', 13: '11' },
+        },
+        {
+          word: { 4: '4' },
+          updatedAt: String(new Date().toUTCString()),
+          sentences: { 5: '5', 6: '6', 15: '11' },
+        },
+        {
+          word: { 5: '5' },
+          updatedAt: String(new Date().toUTCString()),
+          sentences: { 7: '7', 8: '8', 17: '11' },
+        },
+        {
+          word: { 6: '6' },
+          updatedAt: String(new Date().toUTCString()),
+          sentences: { 9: '9', 10: '10', 19: '11' },
+        },
+        {
+          word: { 7: '7' },
+          updatedAt: String(new Date().toUTCString()),
+          sentences: { 11: '11', 12: '12', 21: '11' },
+        },
+        {
+          word: { 8: '8' },
+          updatedAt: String(new Date().toUTCString()),
+          sentences: { 13: '13', 14: '14', 23: '11' },
+        },
+        {
+          word: { 9: '9' },
+          updatedAt: String(new Date().toUTCString()),
+          sentences: { 15: '15', 16: '16', 25: '11' },
+        },
+        {
+          word: { 10: '10' },
+          updatedAt: String(new Date().toUTCString()),
+          sentences: { 17: '17', 18: '18', 27: '11' },
+        },
       ],
       // TODO: 서버로 부터 데이터 받은 후 받은 데이터로 초기화 시켜줘야 함
       // DB 처럼 추가, 삭제되면 wordID 다시 설정해야 함
