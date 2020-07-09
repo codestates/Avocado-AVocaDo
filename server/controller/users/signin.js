@@ -51,7 +51,6 @@ module.exports = {
                   email,
                 },
               }).then((data) => {
-                console.log(data.id);
                 accept(data[0].id);
               });
             }
