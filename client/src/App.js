@@ -37,19 +37,68 @@ class App extends React.Component {
 
     console.log('handleLogout', this.state);
   }
+
+  // getWordData = async () => {
+
+  //   const url = 'http://54.180.104.184:8080/words';
+
+  //   const getData = async () => {
+  //     var wordArr;
+
+  //     const getWord = async () => {
+
+  //       return axios.get(url).then((res) => {
+
+  //         wordArr = _.map(res.data.data, function (wordObj) {
+  //           return _.values(wordObj.word)[0];
+  //         })
+  //         return res;
+  //       })
+
+  //     }
+
+  //     let wordData = await getWord();
+
+  //     const mapWordData = async () => {
+
+  //       this.setState({ wordData: wordData.data.data });
+  //     }
+
+  //     return axios.get(url).then((res) => {
+
+  //       wordArr = _.map(res.data.data, function (wordObj) {
+  //         return _.values(wordObj.word)[0];
+  //       })
+  //       return res;
+  //     })
+  //       .then((res) => {
+  //         this.setState({ wordData: res.data.data });
+  //       })
+  //       .then(() => {
+  //         this.setState({ word: wordArr });
+  //       });
+  //   }
+
+  // }
+
+  // 기존코드
   getWordData() {
+    var wordArr;
     const url = 'http://54.180.104.184:8080/words';
-    return axios.get(url).then((res) => {
-      const wordArr = _.map(res.data.data, function (wordObj) {
-        return _.values(wordObj.word)[0];
-      })
-        .then((res) => {
-          this.setState({ wordData: res.data.data });
-        })
-        .then(() => {
-          this.setState({ word: wordArr });
+    return axios
+      .get(url)
+      .then((res) => {
+        wordArr = _.map(res.data.data, function (wordObj) {
+          return _.values(wordObj.word)[0];
         });
-    });
+        return res;
+      })
+      .then((res) => {
+        this.setState({ wordData: res.data.data });
+      })
+      .then(() => {
+        this.setState({ word: wordArr });
+      });
   }
   postInputWord() {
     // post 요청: 유저가 입력한 새로운 단어/예문을 서버에 전송한다.
@@ -173,21 +222,27 @@ class App extends React.Component {
           <Route
             exact
             path="/main"
-            render={() => (
-              <Main
-                word={word}
-                isLogin={isLogin}
-                userInfo={userInfo}
-                wordData={wordData ? wordData : null}
-                currentWord={currentWord}
-                handleLogout={this.handleLogout.bind(this)}
-                postInputWord={this.postInputWord.bind(this)}
-                updateWordData={this.updateWordData.bind(this)}
-                deleteWordData={this.deleteWordData.bind(this)}
-                handleInput={this.handleInput.bind(this)}
-                addSentences={this.addSentences.bind(this)}
-              />
-            )}
+            render={() => {
+              if (isLogin) {
+                return (
+                  <Main
+                    word={word}
+                    isLogin={isLogin}
+                    userInfo={userInfo}
+                    wordData={this.state.wordData ? this.state.wordData : null}
+                    currentWord={currentWord}
+                    handleLogout={this.handleLogout.bind(this)}
+                    postInputWord={this.postInputWord.bind(this)}
+                    updateWordData={this.updateWordData.bind(this)}
+                    deleteWordData={this.deleteWordData.bind(this)}
+                    handleInput={this.handleInput.bind(this)}
+                    addSentences={this.addSentences.bind(this)}
+                  />
+                );
+              } else {
+                <Redirect to="/" />;
+              }
+            }}
           />
           <Route
             exact
