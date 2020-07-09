@@ -176,28 +176,31 @@ class WordAccordion extends Component {
           defaultActiveKey="0">
           <Card className="accordion_card">
             <Card.Header>
-              <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                <div className="accordion_btns">
-                  <div className="word_btn_section">
+              <div className="toggle_section">
+                <div className="word_btn_section">
+                  <Accordion.Toggle as={Button} variant="link" eventKey="1">
                     <div className="word_btn">
                       {this.props.word}
                     </div>
-                  </div>
-                  <div className="modal_btn_section">
-                    <div
-                      className="edit_btn"
+                  </Accordion.Toggle>
+                </div>
+                <div className="modal_btn_section">
+                  <div className="edit_btn">
+                    <button
+                      className="edit_word_btn"
                       onClick={this.handleModalShowHide}>
                       🥑
-                    </div>
-                    <div className='delete_btn'>
-                      <button
-                        className="delete_word_btn"
-                        onClick={this.handleConfirmShowHide}
-                      >X</button>
-                    </div>
+                    </button>
+                  </div>
+                  <div className='delete_btn'>
+                    <button
+                      className="delete_word_btn"
+                      onClick={this.handleConfirmShowHide}>
+                      ✕
+                    </button>
                   </div>
                 </div>
-              </Accordion.Toggle>
+              </div>
             </Card.Header>
             <Accordion.Collapse eventKey="1">
               <Card.Body>

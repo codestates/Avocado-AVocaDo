@@ -46,13 +46,10 @@
   justify-content: center;
 }
 
-.btn-link {
-  width: 100%;
-}
-
-.accordion_btns {
+.toggle_section {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .accordion_items {
@@ -66,9 +63,23 @@
   justify-content: flex-end;
 }
 
+.word_btn {
+  border: 0;
+  outline: 0;
+  text-decoration: none;
+}
+
+.edit_word_btn {
+  background-color: #11ffee00;
+}
+
 .delete_word_btn {
   margin-left: 20px;
   cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: #11ffee00;
+  text-decoration: none;
 }
 
 .pagination_wrap {
