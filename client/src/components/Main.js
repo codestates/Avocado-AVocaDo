@@ -26,7 +26,6 @@ class Main extends React.Component {
       postInputWord,
       updateWordData,
       deleteWordData,
-      handleSentenceData,
       addSentences,
     } = this.props;
     return (
@@ -55,7 +54,6 @@ class Main extends React.Component {
             postInputWord={postInputWord}
             updateWordData={updateWordData}
             deleteWordData={deleteWordData}
-            handleSentenceData={handleSentenceData}
             handleInput={handleInput}
             addSentences={addSentences}
           />
