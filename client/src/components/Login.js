@@ -24,6 +24,7 @@ class Login extends React.Component {
     this.postLoginData = this.postLoginData.bind(this);
     this.handleCustomLogin = this.handleCustomLogin.bind(this);
     this.responseGoogle = this.responseGoogle.bind(this);
+    this.responseFacebook = this.responseFacebook.bind(this);
     console.log(this.props);
   }
 
@@ -35,6 +36,7 @@ class Login extends React.Component {
       password : customId일때만 입력
 } */
     // 구글에서 로그인 하고 나서의 응답 처리
+    // this.setState({});
     const { tokenId, googleId } = response;
     const { name, email } = response.profileObj;
     const googleLoginData = {
@@ -46,6 +48,7 @@ class Login extends React.Component {
     };
 
     axios
+      // .post('http://localhost:8080/users/signin', googleLoginData)
       .post('http://54.180.104.184:8080/users/signin', googleLoginData)
       .then((response) => {
         if (response.status >= 200 && response.status <= 204) {
@@ -68,8 +71,7 @@ class Login extends React.Component {
     and you don't have access to it. 
     Switch to a registered test user or ask an app admin for permissions. */
     // => facebook 계정문제로 보임
-    console.log('Facebook res', response);
-
+    // this.setState({});
     const { accessToken, id, name, email } = response;
     const facebookLoginData = {
       loginType: 'facebook',
@@ -78,11 +80,12 @@ class Login extends React.Component {
       userName: name,
       email,
     };
-    console.log(facebookLoginData);
 
     axios
+      // .post('http://localhost:8080/users/signin', facebookLoginData)
       .post('http://54.180.104.184:8080/users/signin', facebookLoginData)
       .then((response) => {
+        console.log(response);
         if (response.status >= 200 && response.status <= 204) {
           this.props.handleLogin();
         } else {
@@ -92,13 +95,14 @@ class Login extends React.Component {
       .then(() => {
         this.props.history.push('/');
       })
-      .catch(() => {
+      .catch((error) => {
         alert('페이스북 로그인 인증에 실패했습니다.');
-        // console.error('responseFacebook', error);
+        console.error('responseFacebook', error);
       });
   }
 
   responseLogout() {
+    // fetch('http://localhost:8080/users/signin', {
     fetch('http://54.180.104.184:8080/users/signout', {
       method: 'POST',
       headers: {
@@ -136,28 +140,31 @@ class Login extends React.Component {
       password: this.state.password,
     };
     // url 은 test 를 위해 임의로 지정하였음 => 변경가능
-    return axios
-      .post('http://54.180.104.184:8080/users/signin', loginData)
-      .then((response) => {
-        if (response.status >= 200 && response.status <= 204) {
-          this.props.handleLogin();
-        } else {
-          // App component 로 부터 메서드 받아서 로그인 상태 변경
-          // this.props.handleLogin(); isLogin -> true
-          // 로그인 성공시 초기 page 로 이동
-          // console.log('상태확인', response.status);
+    return (
+      axios
+        // .post('http://localhost:8080/users/signin', loginData)
+        .post('http://54.180.104.184:8080/users/signin', loginData)
+        .then((response) => {
+          if (response.status >= 200 && response.status <= 204) {
+            this.props.handleLogin();
+          } else {
+            // App component 로 부터 메서드 받아서 로그인 상태 변경
+            // this.props.handleLogin(); isLogin -> true
+            // 로그인 성공시 초기 page 로 이동
+            // console.log('상태확인', response.status);
 
-          // console.log('axios', this.props);
-          console.log('fail to fetch post');
-        }
-      })
-      .then(() => {
-        this.props.history.push('/');
-      })
-      .catch(() => {
-        alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
-        // console.error('postLoginData ERROR', error);
-      });
+            // console.log('axios', this.props);
+            console.log('fail to fetch post');
+          }
+        })
+        .then(() => {
+          this.props.history.push('/');
+        })
+        .catch(() => {
+          alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
+          // console.error('postLoginData ERROR', error);
+        })
+    );
   }
 
   handleCustomLogin(e) {

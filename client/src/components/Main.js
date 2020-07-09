@@ -11,6 +11,11 @@ class Main extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    console.log('Main', this.props);
+    // this.props.handleLogout();
+    this.props.getWordData();
+  }
   render() {
     const {
       isLogin,
@@ -44,12 +49,12 @@ class Main extends React.Component {
             handleInput={handleInput}
             addWordData={addWordData}
             currentWord={currentWord}
-            wordData={wordData ? wordData : 'noWorld'}
+            wordData={wordData ? wordData : null}
           />
         </div>
         <div>
           <WordCardStack
-            wordData={wordData ? wordData : 'noWorld'}
+            wordData={wordData ? wordData : null}
             addWordData={addWordData}
             postInputWord={postInputWord}
             updateWordData={updateWordData}

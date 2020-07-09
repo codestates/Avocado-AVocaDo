@@ -23,7 +23,7 @@ class WordCardStack extends React.Component {
     if (wordData) {
       recenteData = wordData.slice(-6, wordData.length);
     }
-
+    console.log(recenteData);
     // option 2) 10일 이내 전부 렌더링
     // function filterByDate() {
     //   const now = new Date();
