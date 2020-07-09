@@ -161,7 +161,7 @@ class WordAccordion extends Component {
 
   renderSentences = () => {
     function renderLi(sentence, index) {
-      return <li key={index}>{sentence}</li>;
+      return <li key={index}>• {sentence}</li>;
     }
     return _.map(this.props.sentences, renderLi);
   };
@@ -205,13 +205,14 @@ class WordAccordion extends Component {
             <Accordion.Collapse eventKey="1">
               <Card.Body>
                 <div className="sentences-section">
-                  <div>
-                    <h5>Sentences</h5>
+                  <div className="my-sentences">
+                    <ul className="sentences">
+                      {this.renderSentences()}
+                    </ul>
                   </div>
-                  <ul className="sentences">
-                    {this.renderSentences()}
-                  </ul>
                 </div>
+                <p></p>
+                <p></p>
                 <div className="articles-section">
                   <div>
                     <h6>관련 기사를 읽고 단어를 익혀보세요.</h6>
@@ -220,9 +221,12 @@ class WordAccordion extends Component {
                     {/* {this.getArticles(this.props.word)} */}
                     {this.state.articles.map((article, index) => {
                       return <li>
-                        <a key={index} href={article.url}>{article.title} | {article.source.name}</a>
+                        <a key={index} href={article.url}>
+                          ▸ {article.title} | <b>{article.source.name}</b>
+                        </a>
                       </li>
-                    })}
+                    }).slice(0, 9)
+                    }
                   </ul>
                 </div>
               </Card.Body>

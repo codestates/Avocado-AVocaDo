@@ -46,6 +46,14 @@
   justify-content: center;
 }
 
+.card-body {
+  padding: 40px !important;
+}
+
+.my-sentences {
+  margin-left: 10px;
+}
+
 .toggle_section {
   display: flex;
   justify-content: space-between;
@@ -80,6 +88,11 @@
   outline: none;
   background-color: #11ffee00;
   text-decoration: none;
+}
+
+.sentences-section {
+  border-bottom: 1px solid gainsboro;
+  color: #222222;
 }
 
 .pagination_wrap {

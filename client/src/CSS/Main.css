@@ -84,6 +84,7 @@
 .wordinput_btn {
   border: none;
   outline: none;
+  background-color: #11ffee00;
 }
 
 .wordcardstack_wrap {
@@ -162,7 +163,6 @@ li {
   text-decoration: none;
   color: inherit;
 }
-
 
 .btn_submit {
     position: absolute;

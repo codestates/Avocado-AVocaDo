@@ -27,7 +27,7 @@ function Wordbook_Header(props) {
   return (
     <nav className="wordbook_nav">
       <Link to="/main">
-        <h3>이전 페이지로</h3>
+        <h5>❮</h5>
       </Link>
 
       <div className="form_search_box">
@@ -41,14 +41,14 @@ function Wordbook_Header(props) {
           />
         </Form>
         <button type="submit" title="검색" className="btn_submit"
-        onClick={querySearchText}
+          onClick={querySearchText}
         >
           <span className="ico_search_submit">
           </span>
         </button>
       </div>
       <Link to="/">
-        <h3>LOGOUT</h3>
+        <h5>LOGOUT</h5>
       </Link>
     </nav>
   );
