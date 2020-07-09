@@ -52,9 +52,6 @@ class WordList extends React.Component {
       return object !== undefined;
     });
 
-    console.log(result);
-    console.log('searchResult', isSearch, searchResult);
-
     if (searchResult) {
       var searchArr = [searchResult];
     }
@@ -74,6 +71,7 @@ class WordList extends React.Component {
             word={wordValue}
             index={wordKey}
             sentences={word.sentences}
+            addSentences={this.props.addSentences}
             updateWordData={this.props.updateWordData}
           ></WordAccordion>
         );
@@ -94,6 +92,7 @@ class WordList extends React.Component {
                 word={wordValue}
                 index={wordKey}
                 sentences={word.sentences}
+                addSentences={this.props.addSentences}
                 updateWordData={this.props.updateWordData}
                 deleteWordData={this.props.deleteWordData}
               >
@@ -117,6 +116,7 @@ class WordList extends React.Component {
                 word={wordValue}
                 index={wordKey}
                 sentences={word.sentences}
+                addSentences={this.props.addSentences}
                 updateWordData={this.props.updateWordData}
                 deleteWordData={this.props.deleteWordData}
               ></WordAccordion>
@@ -141,7 +141,6 @@ class WordList extends React.Component {
       addSentences,
       isSearch,
     } = this.props;
-    console.log('WordList', wordData);
     let count = 0;
     if (wordData) {
       count = Object.keys(wordData).length;

@@ -34,12 +34,17 @@ function WordCard(props) {
     updateWordData,
     addSentences,
   } = props;
-
+  var sentenceArr;
+  if (sentences) {
+    sentenceArr = _.values(sentences);
+  } else {
+    sentenceArr = ['', '', ''];
+  }
   /* TODO: 
   너무 빨라서 open 할 때 data 를 반영하지 못한다. 
   */
 
-  const sentenceArr = _.values(sentences);
+  // const sentenceArr = _.values(sentences);
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [confirmModalIsOpen, setconfirmModalOpen] = React.useState(false);
@@ -90,12 +95,10 @@ function WordCard(props) {
     //   sentenceKey = Object.keys(sentences);
     // }
     sentenceKey = Object.keys(sentences);
-    console.log('sentenceKeyTest!!!!!!!!!!!', sentenceKey);
 
     for (let i = 0; i < sentenceKey.length; i++) {
       updateSentenceObj[sentenceKey[i]] = modalSentence[i];
     }
-    console.log('updateSentenceObjTest-------------', updateSentenceObj);
 
     let WordObject = {
       wordId: index,
@@ -112,27 +115,27 @@ function WordCard(props) {
     } else {
       sentencesLength = 0;
     }
-    console.log(
-      'saveWordDataTest!!!!!',
-      sentenceFirst,
-      '------',
-      sentenceSecond,
-      '------',
-      sentenceThird
-    );
     if (
-      sentenceFirst.length === 0 &&
-      sentenceSecond.length === 0 &&
-      sentenceThird.length === 0
+      !sentenceFirst &&
+      !sentenceSecond &&
+      !sentenceThird
+      // sentenceFirst.length === 0 &&
+      // sentenceSecond.length === 0 &&
+      // sentenceThird.length === 0
     ) {
-      console.log('입력이없음');
       return closeModal();
     } else if (sentencesLength < 1) {
-      console.log('sentenceIsNull', sentencesLength);
-
-      return createSentences();
+      createSentences();
+      return closeModal();
     } else {
-      console.log('update');
+      let sentenceKey = Object.keys(sentences);
+      if (sentenceKey.length === 1) {
+        // 2,3 을 새로보내기
+        handleSentences([sentenceSecond, sentenceThird]);
+      } else if (sentenceKey.length === 2) {
+        // 3을 새로보내기
+        handleSentences([sentenceThird]);
+      }
       // textarea 에 들어있는 문장을 enter 단위로 분해하여 배열에 저장
 
       // 저장한 배열로 전체 단어 data 상태 변화
@@ -144,10 +147,19 @@ function WordCard(props) {
       // 모달에서의 문장배열을 보내려는 문장배열에 mapping 시키고 싶다.
 
       const mappedWordObj = mapSentence();
-      console.log('mappedWordObjTest-------------', mappedWordObj);
       updateWordData(mappedWordObj);
+      closeModal();
     }
     closeModal();
+  }
+
+  function handleSentences(sentenceArr) {
+    let wordObj = {
+      wordId: index,
+      word: modalWord,
+      sentences: _.values(sentenceArr),
+    };
+    addSentences(wordObj);
   }
 
   function handlesentenceFirst(e) {
@@ -174,7 +186,6 @@ function WordCard(props) {
       sentences: [sentenceFirst, sentenceSecond, sentenceThird],
     };
 
-    console.log('createSentences', wordObj);
     addSentences(wordObj);
   }
 

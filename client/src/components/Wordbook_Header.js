@@ -11,8 +11,6 @@ function Wordbook_Header(props) {
 
   function handleInputSearch(e) {
     setSearchText(e.target.value);
-
-    console.log('searchText', searchInput);
   }
 
   function querySearchText(e) {

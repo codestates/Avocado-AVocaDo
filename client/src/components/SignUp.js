@@ -33,13 +33,12 @@ class SignUp extends React.Component {
         // .post('http://localhost:8080/users/signup', SignUpData)
         .post('http://54.180.104.184:8080/users/signup', SignUpData)
         .then((response) => {
-          console.log(response, response.ok);
           if (response.status >= 200 && response.status <= 204) {
+            alert('가입에 성공하셨습니다!');
             this.props.history.push('/');
           }
         })
         .catch(() => {
-          // console.error('postSignUpData ERROR', error);
           alert('이미 가입된 아이디입니다.');
         })
     );
