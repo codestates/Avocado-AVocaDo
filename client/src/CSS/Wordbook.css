@@ -68,6 +68,7 @@
 
 .delete_word_btn {
   margin-left: 20px;
+  cursor: pointer;
 }
 
 .pagination_wrap {

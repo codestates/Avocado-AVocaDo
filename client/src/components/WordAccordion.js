@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Accordion from 'react-bootstrap/Accordion'
+import Accordion from 'react-bootstrap/Accordion';
 
 import _ from 'lodash';
 
@@ -17,31 +17,14 @@ class WordAccordion extends Component {
 
     this.state = {
       articles: [],
-      modalIsOpen: false,
-      confirmModalIsOpen: false,
+      showHide: false,
+      confirmShowHide: false,
       sentenceFirst: sentenceArr[0],
       sentenceSecond: sentenceArr[1],
       sentenceThird: sentenceArr[2],
       modalWord: this.props.word
     }
-
-    // this.getArticles = this.getArticles.bind(this);
-    // this.openModal = this.openModal.bind(this);
-    // this.closeModal = this.closeModal.bind(this);
-    // this.mapSentence = this.mapSentence.bind(this);
-    // this.saveWordData = this.saveWordData.bind(this);
-    // this.handlesentenceFirst = this.handlesentenceFirst.bind(this);
-    // this.handlesentenceSecond = this.handlesentenceSecond.bind(this);
-    // this.handlesentenceThird = this.handlesentenceThird.bind(this);
-    // this.handleModalWord = this.handleModalWord.bind(this);
-    // this.createSentences = this.createSentences.bind(this);
-    // this.deleteWordCard = this.deleteWordCard.bind(this);
-    // this.openConfirmModal = this.openConfirmModal.bind(this);
-    // this.closeConfirmModal = this.closeConfirmModal.bind(this);
-    // this.renderSentences = this.renderSentences.bind(this);
   }
-
-
 
   // 헤드라인에 word를 포함하는 기사를 배열로 리턴합니다. 
   getArticles(word) {
@@ -59,18 +42,13 @@ class WordAccordion extends Component {
       })
   };
 
-  openModal = () => {
-    this.setState({
-      modalWord: this.props.word,
-      modalIsOpen: true
-    })
-  };
+  handleModalShowHide = () => {
+    this.setState({ showHide: !this.state.showHide })
+  }
 
-  closeModal = () => {
-    this.setState({
-      modalIsOpen: false
-    });
-  };
+  handleConfirmShowHide = () => {
+    this.setState({ confirmShowHide: !this.state.confirmShowHide })
+  }
 
   mapSentence = () => {
     let modalSentence =
@@ -122,7 +100,7 @@ class WordAccordion extends Component {
       const mappedWordObj = this.mapSentence();
       this.props.updateWordData(mappedWordObj);
     }
-    this.closeModal();
+    this.handleModalShowHide();
   };
 
   handlesentenceFirst = (e) => {
@@ -207,13 +185,13 @@ class WordAccordion extends Component {
                   <div className="modal_btn_section">
                     <div
                       className="edit_btn"
-                      onClick={this.openModal}>
+                      onClick={this.handleModalShowHide}>
                       🥑
                     </div>
                     <div className='delete_btn'>
                       <button
                         className="delete_word_btn"
-                        onClick={this.openConfirmModal}
+                        onClick={this.handleConfirmShowHide}
                       >X</button>
                     </div>
                   </div>
@@ -235,7 +213,7 @@ class WordAccordion extends Component {
                     <h6>관련 기사를 읽고 단어를 익혀보세요.</h6>
                   </div>
                   <ul className="articles">
-                    {/* {this.getArticles(word)} */}
+                    {/* {this.getArticles(this.props.word)} */}
                     {this.state.articles.map((article, index) => {
                       return <li>
                         <a key={index} href={article.url}>{article.title} | {article.source.name}</a>
@@ -248,29 +226,9 @@ class WordAccordion extends Component {
           </Card>
         </Accordion>
 
-        {/* X 버튼 클릭 시 열리는 모달 */}
-        <Modal show={this.openConfirmModal} onHide={this.closeConfirmModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>단어를 삭제할까요?</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>확인버튼을 누르면 단어가 삭제됩니다</Modal.Body>
-          <Modal.Footer>
-            <div className="btn_modal_confirm">
-              <Button variant="secondary" block onClick={this.closeConfirmModal}>
-                취소
-            </Button>
-            </div>
-            <div className="btn_modal_confirm">
-              <Button variant="secondary" block onClick={this.deleteWordCard}>
-                확인
-            </Button>
-            </div>
-          </Modal.Footer>
-        </Modal>
-
         {/* 아보카도 클릭 시 열리는 모달 */}
-        <Modal show={this.openModal} onHide={this.closeModal}>
-          <Modal.Header closeButton>
+        <Modal show={this.state.showHide}>
+          <Modal.Header closeButton onClick={this.handleModalShowHide}>
             <Modal.Title>예문추가</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -281,8 +239,8 @@ class WordAccordion extends Component {
                 <Form.Control
                   type="text"
                   placeholder="단어추가"
-                  value={this.state.modalWord}
-                  onChange={this.handleModalWord}
+                  value={this.props.modalWord}
+                  onChange={this.props.handleModalWord}
                 />
               </Form.Group>
 
@@ -293,8 +251,8 @@ class WordAccordion extends Component {
                     <Form.Control
                       type="text"
                       placeholder="문장"
-                      onChange={this.handlesentenceFirst}
-                      value={this.state.sentenceFirst ? this.state.sentenceFirst : ''}
+                      onChange={this.props.handlesentenceFirst}
+                      value={this.props.sentenceFirst ? this.props.sentenceFirst : ''}
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -309,8 +267,8 @@ class WordAccordion extends Component {
                     <Form.Control
                       type="text"
                       placeholder="문장"
-                      onChange={this.handlesentenceSecond}
-                      value={this.state.sentenceSecond ? this.state.sentenceSecond : ''}
+                      onChange={this.props.handlesentenceSecond}
+                      value={this.props.sentenceSecond ? this.props.sentenceSecond : ''}
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -325,8 +283,8 @@ class WordAccordion extends Component {
                     <Form.Control
                       type="text"
                       placeholder="문장"
-                      onChange={this.handlesentenceThird}
-                      value={this.state.sentenceThird ? this.state.sentenceThird : ''}
+                      onChange={this.props.handlesentenceThird}
+                      value={this.props.sentenceThird ? this.props.sentenceThird : ''}
                     />
                   </Accordion.Collapse>
                 </Form.Group>
@@ -335,12 +293,32 @@ class WordAccordion extends Component {
           </Modal.Body>
           <Modal.Footer>
             <div className="btn_modal_confirm">
-              <Button variant="secondary" block onClick={this.closeModal}>
+              <Button variant="secondary" block onClick={this.handleModalShowHide}>
                 취소
             </Button>
             </div>
             <div className="btn_modal_confirm">
               <Button variant="secondary" block onClick={this.saveWordData}>
+                확인
+            </Button>
+            </div>
+          </Modal.Footer>
+        </Modal>
+
+        {/* X 버튼 클릭 시 열리는 모달 */}
+        <Modal show={this.state.confirmShowHide}>
+          <Modal.Header closeButton onClick={this.handleConfirmShowHide}>
+            <Modal.Title>단어를 삭제할까요?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>확인버튼을 누르면 단어가 삭제됩니다</Modal.Body>
+          <Modal.Footer>
+            <div className="btn_modal_confirm">
+              <Button variant="secondary" block onClick={this.closeConfirmModal}>
+                취소
+            </Button>
+            </div>
+            <div className="btn_modal_confirm">
+              <Button variant="secondary" block onClick={this.deleteWordCard}>
                 확인
             </Button>
             </div>
