@@ -37,10 +37,13 @@ class Login extends React.Component {
     // 구글에서 로그인 하고 나서의 응답 처리
     console.log('google res', response);
     const { tokenId, googleId } = response;
+    const { name, email } = response.profileObj;
     const googleLoginData = {
       loginType: 'google',
       userId: googleId,
       tokenId: tokenId,
+      userName: name,
+      email,
     };
     this.setState({ id: googleId });
 
@@ -78,27 +81,38 @@ class Login extends React.Component {
     // });
   }
 
-  /* {
-  "Id": "Policy1594019842056",
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "Stmt1594019832384",
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::avocado-client-react/*",
-      "Principal": "*"
-    }
-  ]
-} */
   responseFacebook(response) {
     /* App Not Setup: This app is still in development mode, 
     and you don't have access to it. 
     Switch to a registered test user or ask an app admin for permissions. */
     // => facebook 계정문제로 보임
     console.log('Facebook res', response);
+
+    const { accessToken, id, name, email } = response;
+    const facebookLoginData = {
+      loginType: 'facebook',
+      userId: id,
+      tokenId: accessToken,
+      userName: name,
+      email,
+    };
+    this.setState({ id });
+
+    axios
+      .post('http://localhost:8080/users/signin', facebookLoginData)
+      .then((response) => {
+        if (response.status === 401) {
+          alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
+        } else {
+          this.props.handleLogin();
+        }
+      })
+      .then(() => {
+        this.props.history.push('/');
+      })
+      .catch((error) => {
+        console.error('responseFacebook', error);
+      });
     /*  서버에 보낼 data 설정  */
     // ========================================================
     // const { accessToken, userID } = response
@@ -177,38 +191,13 @@ class Login extends React.Component {
       if (res.ok) {
         this.props.handleLogout();
         this.props.history.push('/');
-        return res.json();
+        //여기에서 메인페이지로 리다이렉션 필요?
       } else {
         console.log('fail to fetch post');
       }
     });
   }
 
-  click() {
-    // fetch("http://127.0.0.1:8080")
-    //   // .then((response) => {
-    //   //   console.log(response);
-    //   //   return response.json();
-    //   // })
-    //   .then((data) => console.log(data));
-
-    fetch('http://localhost:8080/users/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain',
-      },
-      withCredentials: true,
-      credentials: 'include',
-      body: '117466691779104476701',
-    }).then((res) => {
-      // console.log(res);
-      if (res.ok) {
-        return res.json();
-      } else {
-        console.log('fail to fetch post');
-      }
-    });
-  }
   handleLoginInput = (key) => (e) => {
     this.setState({ [key]: e.target.value });
   };
@@ -363,6 +352,7 @@ class Login extends React.Component {
 Login.propTypes = {
   history: PropTypes.object.isRequired,
   handleLogin: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func.isRequired,
 };
 
 export default withRouter(Login);
