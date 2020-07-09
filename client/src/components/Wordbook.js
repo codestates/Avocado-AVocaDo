@@ -20,11 +20,11 @@ class Wordbook extends React.Component {
   handleSearch(queryText) {
 
     this.setState({ isSearch: true, searchText: queryText });
-   
+
   }
 
   render() {
-    console.log('Wordbook state',this.state)
+    console.log('Wordbook state', this.state)
     const {
 
       userInfo,
@@ -45,11 +45,11 @@ class Wordbook extends React.Component {
     return (
       <div>
         <div className="wordbook_header_wrap">
-          <Wordbook_Header 
-          
-          userInfo={userInfo} handleLogout={handleLogout} 
-          isSearch={isSearch} searchText={searchText}
-          handleSearch={this.handleSearch.bind(this)}
+          <Wordbook_Header
+
+            userInfo={userInfo} handleLogout={handleLogout}
+            isSearch={isSearch} searchText={searchText}
+            handleSearch={this.handleSearch.bind(this)}
           />
         </div>
         <div>

@@ -1,10 +1,10 @@
+/* eslint-disable */
 const { words } = require('../../models/users');
 const dummy = require('../../models/dummy');
 
 module.exports = {
   post: (req, res) => {
     // const { word } = req.body;
-
 
     // if (req.session) {
     //   if (word in dummy['data']) {
@@ -19,7 +19,6 @@ module.exports = {
     const { word, sentences } = req.body;
 
     if (req.session.userId) {
-
       let obj = {};
       obj['word'] = word;
       obj['sentences'] = sentences;
@@ -30,5 +29,3 @@ module.exports = {
     }
   },
 };
-
-// words.create({ word }).then(res.status(201).send('등록되었습니다'));

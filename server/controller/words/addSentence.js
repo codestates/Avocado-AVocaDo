@@ -1,3 +1,4 @@
+/* eslint-disable */
 const dummy = require('../../models/dummy');
 
 module.exports = {

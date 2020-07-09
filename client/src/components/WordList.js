@@ -84,7 +84,8 @@ class WordList extends React.Component {
             key={index}
             word={wordValue}
             index={wordKey}
-            sentences={word.sentences}>
+            sentences={word.sentences}
+            updateWordData={this.props.updateWordData}>
           </WordAccordion>
         );
       });
@@ -107,7 +108,10 @@ class WordList extends React.Component {
               key={index}
               word={wordValue}
               index={wordKey}
-              sentences={word.sentences}>
+              sentences={word.sentences}
+              updateWordData={this.props.updateWordData}
+              deleteWordData={this.props.deleteWordData}>
+              addSentences={this.props.addSentences}
             </WordAccordion>
           );
         })
@@ -129,7 +133,9 @@ class WordList extends React.Component {
               key={index}
               word={wordValue}
               index={wordKey}
-              sentences={word.sentences}>
+              sentences={word.sentences}
+              updateWordData={this.props.updateWordData}
+              deleteWordData={this.props.deleteWordData}>
             </WordAccordion>
           );
         })

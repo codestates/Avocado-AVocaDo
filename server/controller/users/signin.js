@@ -1,3 +1,4 @@
+/* eslint-disable */
 // const { users } = require('../../models');
 // const crypto = require('crypto');
 
@@ -8,7 +9,6 @@ const access_token = '1217568225253856|FoxJJZdueieUJtKvnDsVbQw6rYY';
 
 module.exports = {
   post: (req, res) => {
-
     console.log(req.body);
     // 밑에는 데이터베이스를 이용하기 전에 먼저 서버 테스트를 하기 위한 코드입니다
     const { loginType, userId, password, tokenId } = req.body;
@@ -30,49 +30,52 @@ module.exports = {
       }
     }
 
-    if (tokenId !== undefined) {
-      if (loginType === 'facebook') {
-        //facebook verification
-        request.get(
-          `https://graph.facebook.com/debug_token?input_token=${tokenId}&access_token=${access_token}`,
-          (error, response, body) => {
-            if (error) {
-              loginType = null;
-              res.status(401).send('unvalid user');
-            }
-            try {
-              if (!JSON.parse(body).data.is_valid) {
-                loginType = null;
-                res.status(401).send('unvalid user');
-              }
-            } catch (err) {
-              loginType = null;
-              res.status(401).send('unvalid user');
-              console.log(err);
-            }
-          }
-        );
-      }
+    // if (tokenId !== undefined) {
+    //   if (loginType === 'facebook') {
+    //     //facebook verification
+    //     request.get(
+    //       `https://graph.facebook.com/debug_token?input_token=${tokenId}&access_token=${access_token}`,
+    //       (error, response, body) => {
+    //         if (error) {
+    //           loginType = null;
+    //           res.status(401).send('unvalid user');
+    //         }
+    //         try {
+    //           if (!JSON.parse(body).data.is_valid) {
+    //             loginType = null;
+    //             res.status(401).send('unvalid user');
+    //           }
+    //         } catch (err) {
+    //           loginType = null;
+    //           res.status(401).send('unvalid user');
+    //           console.log(err);
+    //         }
+    //       }.catch(err) {
+    //       res.status(401).send('invalid user');
+    //       // console.log(err);
+    //     }
+    //   }
+    // }
 
-      if (loginType === 'google') {
-        //google verification
-        //if verified- give token
-        request.get(
-          `https://oauth2.googleapis.com/tokeninfo?id_token=${tokenId}`,
-          (error, response, body) => {
-            if (error) {
-              res.status(401).send('unvalid user');
+    if (loginType === 'google') {
+      //google verification
+      //if verified- give token
+      request.get(
+        `https://oauth2.googleapis.com/tokeninfo?id_token=${tokenId}`,
+        (error, response, body) => {
+          if (error) {
+            res.status(401).send('unvalid user');
+            loginType = null;
+          } else {
+            if (JSON.parse(body).error) {
               loginType = null;
-            } else {
-              if (JSON.parse(body).error) {
-                loginType = null;
-                res.status(401).send('unvalid user');
-              }
+              res.status(401).send('unvalid user');
             }
           }
-        );
-      }
+        }
+      );
     }
+
     // if (userId not in database)
     // add a new user to database
 
