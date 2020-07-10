@@ -188,7 +188,6 @@ class WordAccordion extends Component {
   };
 
   renderSentences = () => {
-    this.setState({});
     function renderLi(sentence, index) {
       return <li key={index}>• {sentence}</li>;
     }
@@ -244,7 +243,7 @@ class WordAccordion extends Component {
                     <h6>관련 기사를 읽고 단어를 익혀보세요.</h6>
                   </div>
                   <ul className="articles">
-                    {/* {this.getArticles(this.props.word)} */}
+                    {this.getArticles(this.props.word)}
                     {this.state.articles
                       .map((article, index) => {
                         return (
