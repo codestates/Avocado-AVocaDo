@@ -205,7 +205,14 @@ class WordAccordion extends Component {
             <Card.Header>
               <div className="toggle_section">
                 <div className="word_btn_section">
-                  <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                  <Accordion.Toggle
+                    as={Button}
+                    variant="link"
+                    eventKey="1"
+                    onClick={() => {
+                      this.getArticles(this.props.word);
+                    }}
+                  >
                     <div className="word_btn">{this.props.word}</div>
                   </Accordion.Toggle>
                 </div>
@@ -243,7 +250,7 @@ class WordAccordion extends Component {
                     <h6>관련 기사를 읽고 단어를 익혀보세요.</h6>
                   </div>
                   <ul className="articles">
-                    {this.getArticles(this.props.word)}
+                    {/* {this.getArticles(this.props.word)} */}
                     {this.state.articles
                       .map((article, index) => {
                         return (
