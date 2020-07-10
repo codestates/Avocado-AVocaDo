@@ -66,23 +66,30 @@ module.exports = {
         `https://oauth2.googleapis.com/tokeninfo?id_token=${tokenId}`,
         (error, response, body) => {
           try {
-            if (!JSON.parse(body).data.is_valid) {
+            if (error) {
               res.status(401).send('invalid user');
             } else {
-              User.findOrCreate({
-                where: {
-                  socialId: userId,
-                  loginType,
-                  userName,
-                  email,
-                },
-              }).then((data) => {
-                accept(data[0].id);
-              });
+              if (JSON.parse(body).error) {
+                res.status(401).send('invalid user');
+              } else {
+                if (JSON.parse(body).error) {
+                  res.status(401).send('invalid user');
+                } else {
+                  User.findOrCreate({
+                    where: {
+                      socialId: userId,
+                      loginType,
+                      userName,
+                      email,
+                    },
+                  }).then((data) => {
+                    accept(data[0].id);
+                  });
+                }
+              }
             }
           } catch (err) {
             res.status(401).send('invalid user');
-            // console.log(err);
           }
         }
       );
