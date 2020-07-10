@@ -1,4 +1,4 @@
-const { Word, Sentence } = require('../../models');
+const { Word, Sentence, UserWord } = require('../../models');
 const { getAllData } = require('./getAllData');
 
 module.exports = {
@@ -18,12 +18,27 @@ module.exports = {
           getAllData(req.session.userId, res, 200);
         });
       } else {
-        Word.destroy({
+        UserWord.findAll({
           where: {
-            id: wordId,
+            wordId: wordId,
           },
-        }).then(() => {
-          getAllData(req.session.userId, res, 200);
+        }).then((results) => {
+          if(results.length > 1) {
+            UserWord.destroy({
+              where: {
+                userId: req.session.userId,
+                wordId
+              }
+            })
+            getAllData(req.session.userId, res, 200);
+          } else {
+            Word.destroy({
+              where: {
+                id: wordId
+              }
+            })
+            getAllData(req.session.userId, res, 200);
+          }
         });
       }
     }
