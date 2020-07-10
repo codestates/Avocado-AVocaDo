@@ -5,7 +5,8 @@ const request = require('request');
 const { User } = require('../../models');
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../../../.env') });
-const access_token = process.env.FACEBOOK_ACCESS_TOKEN;
+// const access_token = process.env.FACEBOOK_ACCESS_TOKEN;
+const access_token = '1217568225253856|FoxJJZdueieUJtKvnDsVbQw6rYY';
 const crypto = require('crypto');
 
 module.exports = {
@@ -66,23 +67,30 @@ module.exports = {
         `https://oauth2.googleapis.com/tokeninfo?id_token=${tokenId}`,
         (error, response, body) => {
           try {
-            if (!JSON.parse(body).data.is_valid) {
+            if (error) {
               res.status(401).send('invalid user');
             } else {
-              User.findOrCreate({
-                where: {
-                  socialId: userId,
-                  loginType,
-                  userName,
-                  email,
-                },
-              }).then((data) => {
-                accept(data[0].id);
-              });
+              if (JSON.parse(body).error) {
+                res.status(401).send('invalid user');
+              } else {
+                if (JSON.parse(body).error) {
+                  res.status(401).send('invalid user');
+                } else {
+                  User.findOrCreate({
+                    where: {
+                      socialId: userId,
+                      loginType,
+                      userName,
+                      email,
+                    },
+                  }).then((data) => {
+                    accept(data[0].id);
+                  });
+                }
+              }
             }
           } catch (err) {
             res.status(401).send('invalid user');
-            // console.log(err);
           }
         }
       );
