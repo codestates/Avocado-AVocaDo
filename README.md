@@ -2,14 +2,14 @@
   - 기존 단어와 단어 뜻으로 연결되어있던 단어장과 달리 단어와 예문을 연결하여 외울 수 있는 단어장입니다.
 <br />
 - 스크린샷 or 데모 : 여러분이 작성한 프로젝트의 시연 스크린샷 혹은 gif 파일을 첨부해서 어떤 결과물을 구현했는지 한 눈에 볼 수 있도록 해 주세요.
-<br />
+<br /><br /><br />
 
 
-![](https://media.giphy.com/media/ZY8RZv9bnG8xL1ENQa/giphy.gif) <br />
-![](https://media.giphy.com/media/XBcJN7P2gHCPrnwDpj/giphy.gif) <br />
-![](https://media.giphy.com/media/duzqyWHIFTbXCei0wE/giphy.gif) <br />
-![](https://media.giphy.com/media/QtpYZLQ1kJQDfqDkKw/giphy.gif) <br />
-![](https://media.giphy.com/media/YMSk7jURrCNFSUeE0L/giphy.gif) <br />
+![](https://media.giphy.com/media/ZY8RZv9bnG8xL1ENQa/giphy.gif) <br /> <br />
+![](https://media.giphy.com/media/XBcJN7P2gHCPrnwDpj/giphy.gif) <br /> <br />
+![](https://media.giphy.com/media/duzqyWHIFTbXCei0wE/giphy.gif) <br /> <br />
+![](https://media.giphy.com/media/QtpYZLQ1kJQDfqDkKw/giphy.gif) <br /> <br />
+![](https://media.giphy.com/media/YMSk7jURrCNFSUeE0L/giphy.gif) <br /> <br />
 
 - 주요 기능에 대한 안내
   1. 회원가입 및 로그인
