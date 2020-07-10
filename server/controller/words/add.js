@@ -8,21 +8,40 @@ module.exports = {
 
     if (req.session.userId) {
       if (Array.isArray(sentences)) {
-        sentences.forEach((sentence) => {
-          Sentence.findOrCreate({
-            where: {
-              sentence,
-            },
-            defaults: {
-              WordId: Number(Object.keys(word)[0]),
-            },
-          }).then((data) => {
-            UserSentence.create({
-              SentenceId: data[0].id,
-              UserId: req.session.userId,
+        Promise.all(
+          sentences.map((sentence) => {
+            return Sentence.findOrCreate({
+              where: {
+                sentence,
+              },
+              defaults: {
+                WordId: Number(Object.keys(word)[0]),
+              },
+            }).then((data) => {
+              UserSentence.create({
+                SentenceId: data[0].id,
+                UserId: req.session.userId,
+              });
             });
-          });
+          })
+        ).then((data) => {
+          getAllData(req.session.userId, res, 201);
         });
+        // sentences.forEach((sentence) => {
+        //   Sentence.findOrCreate({
+        //     where: {
+        //       sentence,
+        //     },
+        //     defaults: {
+        //       WordId: Number(Object.keys(word)[0]),
+        //     },
+        //   }).then((data) => {
+        //     UserSentence.create({
+        //       SentenceId: data[0].id,
+        //       UserId: req.session.userId,
+        //     });
+        //   });
+        // });
       } else if (sentences) {
         Word.update(
           { word: Object.values(word)[0] },
@@ -31,20 +50,38 @@ module.exports = {
               id: Object.keys(word)[0],
             },
           }
-        );
-        Object.keys(sentences).forEach((key) => {
-          let value = sentences[key];
-          Sentence.update(
-            {
-              sentence: value,
-            },
-            {
-              where: {
-                id: key,
-              },
-            }
-          );
+        ).then(() => {
+          Promise.all(
+            Object.keys(sentences).map((key) => {
+              let value = sentences[key];
+              return Sentence.update(
+                {
+                  sentence: value,
+                },
+                {
+                  where: {
+                    id: key,
+                  },
+                }
+              );
+            })
+          ).then(() => {
+            getAllData(req.session.userId, res, 201);
+          });
         });
+        // Object.keys(sentences).forEach((key) => {
+        //   let value = sentences[key];
+        //   Sentence.update(
+        //     {
+        //       sentence: value,
+        //     },
+        //     {
+        //       where: {
+        //         id: key,
+        //       },
+        //     }
+        //   );
+        // });
       } else {
         Word.findOrCreate({
           where: {
@@ -60,6 +97,8 @@ module.exports = {
                 WordId: data.id,
                 UserId: req.session.userId,
               },
+            }).then(() => {
+              getAllData(req.session.userId, res, 201);
             });
             // .then((data) => {
             //   UserSentence.findAll({
@@ -85,7 +124,7 @@ module.exports = {
             // });
           });
       }
-      getAllData(req.session.userId, res, 201);
+      // getAllData(req.session.userId, res, 201);
     } else {
       res.status(401).send('invalid user');
     }
