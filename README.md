@@ -5,7 +5,11 @@
 <br />
 
 
-![](https://media.giphy.com/media/ZY8RZv9bnG8xL1ENQa/giphy.gif){: .center}
+![](https://media.giphy.com/media/ZY8RZv9bnG8xL1ENQa/giphy.gif)
+![](https://media.giphy.com/media/XBcJN7P2gHCPrnwDpj/giphy.gif)
+![](https://media.giphy.com/media/duzqyWHIFTbXCei0wE/giphy.gif)
+![](https://media.giphy.com/media/QtpYZLQ1kJQDfqDkKw/giphy.gif)
+![](https://media.giphy.com/media/YMSk7jURrCNFSUeE0L/giphy.gif)
 
 - 주요 기능에 대한 안내
   1. 회원가입 및 로그인
@@ -24,4 +28,5 @@
 
 <br/>
 <br/>
+
 
