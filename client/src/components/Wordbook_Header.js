@@ -17,7 +17,9 @@ function Wordbook_Header(props) {
     e.preventDefault();
     const queryText = document.querySelector('.form-control').value;
     handleSearch(queryText);
+    document.querySelector('.form-control').value = '';
   }
+
   return (
     <nav className="wordbook_nav">
       <Link to="/main">
