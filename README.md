@@ -15,7 +15,6 @@
   4. workbook 페이지에서 단어카드를 클릭해서 관련된 기사 보기
 <br /> <br />
 ## 시연 스크린샷
-<br /> <br />
 ![](https://media.giphy.com/media/ZY8RZv9bnG8xL1ENQa/giphy.gif) <br /> <br />
 ![](https://media.giphy.com/media/XBcJN7P2gHCPrnwDpj/giphy.gif) <br /> <br />
 ![](https://media.giphy.com/media/duzqyWHIFTbXCei0wE/giphy.gif) <br /> <br />
