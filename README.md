@@ -6,7 +6,8 @@
   - 기존 단어와 단어 뜻으로 연결되어있던 단어장과 달리 단어와 예문을 연결하여 외울 수 있는 단어장입니다.
 <br />
 - 스크린샷 or 데모 : 여러분이 작성한 프로젝트의 시연 스크린샷 혹은 gif 파일을 첨부해서 어떤 결과물을 구현했는지 한 눈에 볼 수 있도록 해 주세요.
-![signup-signin](https://user-images.githubusercontent.com/40812915/87116031-d06b9c00-c2af-11ea-9ccb-8053f40cd7b1.gif)
+
+(https://user-images.githubusercontent.com/40812915/87116031-d06b9c00-c2af-11ea-9ccb-8053f40cd7b1.gif)
 
 <br/>
 - 주요 기능에 대한 안내
