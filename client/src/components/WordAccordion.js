@@ -29,7 +29,7 @@ class WordAccordion extends Component {
 
   // 헤드라인에 word를 포함하는 기사를 배열로 리턴합니다.
   getArticles(word) {
-    const apiKey = 'd23a9f96f669464aac9d22621c8bd7d9';
+    const apiKey = '3ad2644b610c4673979e45d6c17303dd';
     const url = `https://newsapi.org/v2/everything?q=${word}&apiKey=${apiKey}`;
     fetch(url)
       .then((res) => {

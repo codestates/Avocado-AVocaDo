@@ -67,7 +67,7 @@ class SignUp extends React.Component {
             <fieldset className="signup_fieldset">
               <h1>A! VOCADO</h1>
               <div className="id_area">
-                <h3>이메일</h3>
+                <h5>이메일</h5>
 
                 <div className="input_row">
                   <span className="input_box">
@@ -75,14 +75,14 @@ class SignUp extends React.Component {
                       className="signup_input"
                       type="email"
                       placeholder="이메일을 입력 해주세요"
-                      maxLength="20"
+                      maxLength="30"
                       onChange={this.handleSignUpInput('email')}
                     ></input>
                   </span>
                 </div>
               </div>
               <div className="password_area">
-                <h3>비밀번호</h3>
+                <h5>비밀번호</h5>
                 <div className="input_row">
                   <span className="input_box">
                     <input
@@ -97,7 +97,7 @@ class SignUp extends React.Component {
               </div>
 
               <div className="username_area">
-                <h3>이름</h3>
+                <h5>이름</h5>
                 <div className="input_row">
                   <span className="input_box">
                     <input
