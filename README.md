@@ -8,12 +8,10 @@
   - 기존 단어와 단어 뜻으로 연결되어있던 단어장과 달리 단어와 예문을 연결하여 외울 수 있는 단어장입니다.
 <br /><br />
 ## 주요 기능 안내
-<br />
   1. 회원가입 및 로그인
   2. 메인 페이지에서 단어 카드 보기 및 관리
   3. wordbook 페이지에서 모든 단어 관리 및 검색
   4. workbook 페이지에서 단어카드를 클릭해서 관련된 기사 보기
-<br /> <br />
 ## 시연 스크린샷
 ![](https://media.giphy.com/media/ZY8RZv9bnG8xL1ENQa/giphy.gif) <br /> <br />
 ![](https://media.giphy.com/media/XBcJN7P2gHCPrnwDpj/giphy.gif) <br /> <br />
